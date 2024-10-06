@@ -8,6 +8,7 @@ import AboutChurchHome from "./components/AboutChurchHome";
 
 function App() {
 	const videoUrl = './assets/bg_video.mp4';
+
 	return (
 		<div className="App">
 			<Header/>
