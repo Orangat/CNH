@@ -47,7 +47,7 @@ const NavContainer = styled.nav<{ isOpen: boolean }>`
 		position: absolute;
 		top: 100%;
 		left: 0;
-		background-color: #333;
+		background-color: #000;
 		padding: 1rem;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		z-index: 10;  // Ensure the nav is above other elements
