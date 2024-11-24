@@ -1,4 +1,3 @@
-// VideoBackground.tsx
 import React from 'react';
 import styled from 'styled-components';
 
@@ -46,6 +45,7 @@ const ContentOverlay = styled.div`
   color: #fff;
   z-index: 2;
   font-family: "Anton", sans-serif;
+	width: 100%;
 
   & h1 {
     font-size: 180px;
@@ -73,8 +73,9 @@ const ContentOverlay = styled.div`
 const UpcomingServices: React.FC<UpcomingServicesProps> = ({videoUrl, children}) => {
 	return (
 		<StyledVideoBackground videoUrl={videoUrl}>
-			<Video autoPlay loop muted>
-				<source src={"videos/bg_video.mov"} type="video/mp4"/>
+			<Video autoPlay loop muted playsInline>
+				<source media="(max-width: 768px)" src="videos/bg_video.mov" type="video/mp4" />
+				<source media="(min-width: 769px)" src="videos/bg_video_desctop.mov" type="video/mp4" />
 			</Video>
 			<ContentOverlay>
 				{children}
@@ -83,4 +84,4 @@ const UpcomingServices: React.FC<UpcomingServicesProps> = ({videoUrl, children})
 	);
 };
 
-export {UpcomingServices};
+export default UpcomingServices;

@@ -2,8 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from "./components/Header";
-import {UpcomingServices} from './components/UpcompingServices';
+import UpcomingServices from './components/UpcompingServices';
 import AboutChurchHome from "./components/AboutChurchHome";
+import SmallGroups from './components/SmallGroups';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 				<p>Join us for services at<br/> 9:30AM (Ukrainian) <br/> 12:00PM (English)</p>
 			</UpcomingServices>
 			<AboutChurchHome/>
+			<SmallGroups/>
 		</div>
 	);
 }

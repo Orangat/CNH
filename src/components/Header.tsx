@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const HeaderContainer = styled.header`
   background-color: #000;
   color: #fff;
-  padding: 10px;
 `;
 
 const HeaderContent = styled.div`
@@ -23,6 +22,11 @@ const HeaderContent = styled.div`
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+		position: relative;
+    left: -60px
+  }
 `;
 
 const Logo = styled.img`
@@ -51,10 +55,11 @@ const NavContainer = styled.nav<{ isOpen: boolean }>`
     pointer-events: ${({isOpen}) => (isOpen ? 'auto' : 'none')}; /* Disable pointer events when closed */
     position: absolute;
     top: 100%;
-    left: 0;
+    left: -12px;
     background-color: #333;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		z-index: 1;
   }
 `;
 
@@ -84,7 +89,7 @@ const BurgerMenu = styled.button`
     display: block;
     position: absolute;
     top: 50%;
-    right: 1rem;
+    right: -1rem;
     transform: translateY(-50%);
   }
 `;
@@ -106,7 +111,7 @@ const Header: React.FC = () => {
 							<Logo src="/logo.png" alt="Logo"/>
 							<LogoText className="logo-header">Church Of New Hope</LogoText>
 						</LogoContainer>
-						<NavContainer isOpen={isNavOpen}>
+						<NavContainer w-full isOpen={isNavOpen}>
 							<NavLink href="#">Home</NavLink>
 							<NavLink href="#">We Believe</NavLink>
 							<NavLink href="#">Groups</NavLink>
