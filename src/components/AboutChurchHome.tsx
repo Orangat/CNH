@@ -3,11 +3,10 @@ import styled from 'styled-components';
 
 const StyledComponentWrapper = styled.div`
   background-color: black;
-  padding: 50px 0px;
+  padding: 50px 0;
 `;
 
 const StyledText = styled.p`
-  color: white;
   font-size: 25px;
 `;
 

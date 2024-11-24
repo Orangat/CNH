@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import WeBelieve from './pages/WeBelieve';
 import './App.css';
-import Header from "./components/Header";
-import UpcomingServices from './components/UpcompingServices';
-import AboutChurchHome from "./components/AboutChurchHome";
-import SmallGroups from './components/SmallGroups';
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
-	const videoUrl = './assets/bg_video.mp4';
-
 	return (
 		<div className="App">
-			<Header/>
-			<UpcomingServices videoUrl={videoUrl}>
-				<h1 className="overlay-title">SUNDAYS</h1>
-				<p>Join us for services at<br/> 9:30AM (Ukrainian) <br/> 12:00PM (English)</p>
-			</UpcomingServices>
-			<AboutChurchHome/>
-			<SmallGroups/>
+			<Header />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/we-believe" element={<WeBelieve />} />
+			</Routes>
+			<Footer />
 		</div>
 	);
 }
