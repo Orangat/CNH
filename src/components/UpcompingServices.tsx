@@ -10,6 +10,9 @@ const StyledVideoBackground = styled.div<{ videoUrl: string }>`
   position: relative;
   overflow: hidden;
   height: calc(100vh - 80px);
+  background-image: url('/videopreview.png');
+  background-size: cover;
+  background-position: center;
 
   @media (max-width: 768px) {
     height: 600px;
@@ -34,6 +37,7 @@ const Video = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  preload: auto;
 `;
 
 const ContentOverlay = styled.div`
@@ -73,7 +77,7 @@ const ContentOverlay = styled.div`
 const UpcomingServices: React.FC<UpcomingServicesProps> = ({videoUrl, children}) => {
 	return (
 		<StyledVideoBackground videoUrl={videoUrl}>
-			<Video autoPlay loop muted playsInline>
+			<Video autoPlay loop muted playsInline preload="auto">
 				<source media="(max-width: 768px)" src="videos/bg_video.mp4" type="video/mp4" />
 				<source media="(min-width: 769px)" src="videos/bg_video_desctop.mp4" type="video/mp4" />
 			</Video>

@@ -103,10 +103,11 @@ const Header: React.FC = () => {
 					<LogoText>Church Of New Hope</LogoText>
 				</LogoContainer>
 				<NavContainer isOpen={isNavOpen}>
-					<NavLink to="/">Home</NavLink>
-					<NavLink to="/we-believe">We Believe</NavLink>
-					<NavLink to="#">Groups</NavLink>
-					<NavLink target="_blank" to="https://checkout.square.site/merchant/MLKFAN55FJ2K9/checkout/ENG7TDWLEESOXJ5G5NKC5TTF?src=sheet">Give</NavLink>
+					<NavLink onClick={() => setIsNavOpen(!isNavOpen)} to="/">Home</NavLink>
+					<NavLink onClick={() => setIsNavOpen(!isNavOpen)} to="/we-believe">We Believe</NavLink>
+					<NavLink onClick={() => setIsNavOpen(!isNavOpen)} to="https://churchofnewhope.churchcenter.com/groups" rel="noopener noreferrer">Groups</NavLink>
+					<NavLink target="_blank"
+									 onClick={() => setIsNavOpen(!isNavOpen)} to="https://checkout.square.site/merchant/MLKFAN55FJ2K9/checkout/ENG7TDWLEESOXJ5G5NKC5TTF?src=sheet">Give</NavLink>
 				</NavContainer>
 				<BurgerMenu onClick={toggleNavigation}>&#9776;</BurgerMenu>
 			</HeaderContent>

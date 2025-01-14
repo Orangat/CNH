@@ -16,6 +16,18 @@ const Image = styled.img`
   object-position: center center; /* Centers the image */
 `;
 
+const IconRow = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin: 0;
+
+  i {
+    font-size: 1.25rem;
+  }
+`;
+
 const Overlay = styled.div`
   position: absolute;
   top: 0;
@@ -41,7 +53,7 @@ const Container = styled.div`
 const Title = styled.h1`
   text-align: center;
   font-size: 2.5rem;
-  color: #2c3e50;
+  color: #555;
   margin-bottom: 30px;
 
   @media (max-width: 768px) {
@@ -51,7 +63,7 @@ const Title = styled.h1`
 
 const SubTitle = styled.h2`
   font-size: 1.75rem;
-  color: #2980b9;
+  color: #555;
   margin-top: 30px;
 
   @media (max-width: 768px) {
@@ -160,6 +172,25 @@ const WeBelieve = () => {
             We believe in the personal return of Jesus Christ, and in the bodily resurrection of the dead. We believe
             that God will judge all mankind by Jesus Christ; that He will reward the righteous with eternal life in
             heaven, and that He will banish the unrighteous to everlasting punishment in hell.
+          </Paragraph>
+        </Section>
+
+        <Section>
+          <Paragraph>
+            You can find us at:
+          </Paragraph>
+          <IconRow>
+            <i className="fas fa-map-marker-alt"></i>
+            <a
+              href="https://www.google.com/maps/place/Church+of+New+Hope/@35.1386539,-80.6753961,17z/data=!4m15!1m8!3m7!1s0x8854237512253b49:0xd6feb6ee5600c036!2s13601+Idlewild+Rd,+Matthews,+NC+28105!3b1!8m2!3d35.1386539!4d-80.6753961!16s%2Fg%2F11c2bgk14q!3m5!1s0x8854233f1c141bad:0x52bdf54b20d5ecbd!8m2!3d35.1386659!4d-80.6753908!16s%2Fg%2F11r6_nkvqv?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              13601 Idlewild Rd, Matthews, NC 28105
+            </a>
+          </IconRow>
+          <Paragraph>
+            Come as you are – we can’t wait to meet you and share in a meaningful experience together.
           </Paragraph>
         </Section>
       </Container>
