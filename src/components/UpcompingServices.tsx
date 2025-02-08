@@ -78,8 +78,8 @@ const UpcomingServices: React.FC<UpcomingServicesProps> = ({videoUrl, children})
 	return (
 		<StyledVideoBackground videoUrl={videoUrl}>
 			<Video autoPlay loop muted playsInline preload="auto">
-				<source media="(max-width: 768px)" src="videos/bg_video.mp4" type="video/mp4" />
-				<source media="(min-width: 769px)" src="videos/bg_video_desctop.mp4" type="video/mp4" />
+				<source media="(max-width: 768px)" src="/videos/bg_video.mp4" type="video/mp4" />
+				<source media="(min-width: 769px)" src="/videos/bg_video_desctop.mp4" type="video/mp4" />
 			</Video>
 			<ContentOverlay>
 				{children}

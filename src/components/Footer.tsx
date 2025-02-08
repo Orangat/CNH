@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';  // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
+import { ChurchInformation } from "../utils/enums";  // Import Link from react-router-dom
 
 // Styled components for the footer layout and styling
 const FooterSection = styled.footer`
@@ -100,18 +101,18 @@ const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                13601 Idlewild Rd, Matthews, NC 28105
+                {ChurchInformation.CHURCH_ADDRESS}
               </a>
             </IconRow>
             <IconRow>
               <i className="fas fa-phone"></i>
               <a href="tel:+17044539365" style={{ color: 'inherit', textDecoration: 'none' }}>
-                (704) 453-9365
+                {ChurchInformation.CHURCH_PHONE}
               </a>
             </IconRow>
             <IconRow>
               <i className="fas fa-clock"></i>
-              9:30 AM (Ukrainian), 12:00 PM (English)
+              {ChurchInformation.ENGLISH_SERVICE_TIME} (English), {ChurchInformation.UKRAINIAN_SERVICE_TIME} (Ukrainian)
             </IconRow>
           </Column>
 

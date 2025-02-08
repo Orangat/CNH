@@ -1,6 +1,7 @@
 // src/components/WeBelieve.tsx
 import React from 'react';
 import styled from 'styled-components';
+import { ChurchInformation } from "../utils/enums";
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -186,7 +187,7 @@ const WeBelieve = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              13601 Idlewild Rd, Matthews, NC 28105
+              {ChurchInformation.CHURCH_ADDRESS}
             </a>
           </IconRow>
           <Paragraph>

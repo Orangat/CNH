@@ -48,3 +48,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Deploy 
 https://app.netlify.com/teams/orangat/sites Login with Github (Serhii Nazarov)
+Auto publishing is on. Deploys from main are published automatically.
