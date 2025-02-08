@@ -13,7 +13,7 @@ const Home: React.FC = () => {
     <div className="Home">
       <UpcomingServices key={location.pathname} videoUrl={videoUrl}>
         <h1 className="overlay-title">SUNDAYS</h1>
-        <p>Join us for services at<br /> 9:30AM (Ukrainian) <br /> 12:00PM (English)</p>
+        <p>Join us for services at<br /> 10:00AM (English) <br /> 12:00PM (Ukrainian)</p>
       </UpcomingServices>
       <AboutChurchHome />
       <SmallGroups />
