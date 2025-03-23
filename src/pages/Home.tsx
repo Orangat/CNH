@@ -11,6 +11,7 @@ const Home: React.FC = () => {
   const location = useLocation();
 
   return (
+
     <div className="Home">
       <UpcomingServices key={location.pathname} videoUrl={videoUrl}>
         <h1 className="overlay-title">SUNDAYS</h1>
