@@ -111,7 +111,7 @@ const Leadership = () => {
 			name: 'Yevgenni Prannik',
 			title: 'Hospitality Pastor',
 			emails: ['Info@cnhcharlotte.com'],
-			photo: '/images/kolesnikov.jpg',
+			photo: '/images/pranik.jpg',
 		},
 		{
 			name: 'Andrii Kyslianka',
@@ -153,7 +153,7 @@ const Leadership = () => {
 			name: 'Katie Topchi',
 			title: 'Worship Ministry Leader',
 			emails: ['Worship@cnhcharlotte.com'],
-			photo: '',
+			photo: 'images/katetopchii.jpg',
 		},
 		{
 			name: 'Vlad Ferkaliak',
@@ -165,7 +165,7 @@ const Leadership = () => {
 			name: 'Angelina Prokopchuk',
 			title: 'Women’s Ministry Director',
 			emails: ['women@cnhcharlotte.com'],
-			photo: '/images/kushko.jpg',
+			photo: '/images/prokopchuk.jpg',
 		},
 		{
 			name: 'David Pavlyuk',
