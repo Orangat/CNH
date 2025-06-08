@@ -76,13 +76,13 @@ const Leadership = () => {
     {
       name: 'Vasily & Lucy Rudnitsky',
       title: 'Senior Pastor & Church Accountant',
-      emails: ['Vasily@cnhcharlotte.com', 'Accounting@cncharlotte.com'],
+      emails: ['vasily@cnhcharlotte.com', 'accounting@cncharlotte.com'],
       photo: '/images/rudn.jpg',
     },
     {
       name: 'Yuriy Rudnitsky',
       title: 'English Service Pastor',
-      emails: ['Yuriy@cnhcharlotte.com'],
+      emails: ['yuriy@cnhcharlotte.com'],
       photo: '/images/yurrudn.jpg',
     },
     {
@@ -94,67 +94,67 @@ const Leadership = () => {
     {
       name: 'Dima Grinchak',
       title: 'Pastor',
-      emails: ['Info@cnhcharlotte.com'],
+      emails: ['info@cnhcharlotte.com'],
       photo: '',
     },
     {
       name: 'Alexander Grinchak',
       title: 'Visitation Pastor',
-      emails: ['Info@cnhcharlotte.com'],
+      emails: ['info@cnhcharlotte.com'],
       photo: '/images/grinchak.jpg',
     },
     {
       name: 'Yevgenni Prannik',
       title: 'Hospitality Pastor',
-      emails: ['Info@cnhcharlotte.com'],
+      emails: ['info@cnhcharlotte.com'],
       photo: '/images/pranik.jpg',
     },
     {
       name: 'Andrii Kyslianka',
       title: 'Family Pastor',
-      emails: ['Info@cnhcharlotte.com'],
+      emails: ['info@cnhcharlotte.com'],
       photo: '/images/kuslanka.jpg',
     },
     {
       name: 'Andriy Omeliash',
       title: 'Church Administrator',
-      emails: ['Administrator@cnhcharlotte.com'],
+      emails: ['administrator@cnhcharlotte.com'],
       photo: '/images/omelash.jpg',
     },
     {
       name: 'Artem Topchi',
       title: 'Head Deacon',
-      emails: ['Artem@cnhcharlotte.com'],
+      emails: ['artem@cnhcharlotte.com'],
       photo: '/images/topchiiArtem.jpg',
     },
     {
       name: 'Maksym & Victoria Sak',
       title: 'Ministry Operations Director & Creative Media Manager',
-      emails: ['Maksym@cnhcharlotte.com', 'Creative@cnhcharlotte.com'],
+      emails: ['maksym@cnhcharlotte.com', 'creative@cnhcharlotte.com'],
       photo: '/images/sak.jpg',
     },
     {
       name: 'Vitaliy Kuprovskiy',
       title: 'Media Ministry Director',
-      emails: ['Info@cnhcharlotte.com'],
+      emails: ['info@cnhcharlotte.com'],
       photo: '/images/kuprovskii.jpg',
     },
     {
       name: 'Alexander Berezovsky',
       title: 'Missions Director',
-      emails: ['Missions@cnhcharlotte.com'],
+      emails: ['missions@cnhcharlotte.com'],
       photo: '',
     },
     {
       name: 'Katie Topchi',
       title: 'Worship Ministry Leader',
-      emails: ['Worship@cnhcharlotte.com'],
+      emails: ['worship@cnhcharlotte.com'],
       photo: '/images/katetopchii.jpg',
     },
     {
       name: 'Vlad Ferkaliak',
       title: 'Men’s Ministry Director',
-      emails: ['Men@cnhcharlotte.com'],
+      emails: ['men@cnhcharlotte.com'],
       photo: '/images/ferkal.jpg',
     },
     {
@@ -166,13 +166,13 @@ const Leadership = () => {
     {
       name: 'David Pavlyuk',
       title: 'Youth Ministry Leader',
-      emails: ['Youth@cnhcharlotte.com'],
+      emails: ['youth@cnhcharlotte.com'],
       photo: '/images/david.jpg',
     },
     {
       name: 'Maks Mitin',
       title: 'Sunday School Director',
-      emails: ['Kids@cnhcharlotte.com'],
+      emails: ['kids@cnhcharlotte.com'],
       photo: '/images/metin.jpg',
     },
     {
@@ -184,7 +184,7 @@ const Leadership = () => {
     {
       name: 'Victoria Kyshko',
       title: 'Kitchen Ministry Director',
-      emails: ['Info@cnhcharlotte.com'],
+      emails: ['info@cnhcharlotte.com'],
       photo: '/images/kushko.jpg',
     },
   ];
