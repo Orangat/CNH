@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import WeBelieve from './pages/WeBelieve';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Leadership from "./pages/Leadership";
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/we-believe" element={<WeBelieve />} />
+				<Route path="/leadership" element={<Leadership />} />
 			</Routes>
 			<Footer />
 		</div>
