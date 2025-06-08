@@ -53,20 +53,20 @@ const LeaderInfo = styled.div`
 
 const LeaderName = styled.h3`
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.75rem;
   color: black;
 `;
 
 const LeaderTitle = styled.p`
   margin: 0.5rem 0 0;
-  font-size: 0.9rem;
+  font-size: 1.25rem;
   color: #157a6e;
   font-weight: 500;
 `;
 
 const LeaderEmail = styled.p`
   margin: 0.25rem 0;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #555;
 `;
 
