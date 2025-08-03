@@ -107,8 +107,7 @@ const Header: React.FC = () => {
 					<NavLink onClick={() => setIsNavOpen(!isNavOpen)} to="/we-believe">We Believe</NavLink>
 					<NavLink onClick={() => setIsNavOpen(!isNavOpen)} to="/leadership">Our Leadership</NavLink>
 					<NavLink onClick={() => setIsNavOpen(!isNavOpen)} to="https://churchofnewhope.churchcenter.com/groups" rel="noopener noreferrer">Groups</NavLink>
-					<NavLink target="_blank"
-									 onClick={() => setIsNavOpen(!isNavOpen)} to="https://checkout.square.site/merchant/MLKFAN55FJ2K9/checkout/ENG7TDWLEESOXJ5G5NKC5TTF?src=sheet">Give</NavLink>
+					<NavLink onClick={() => setIsNavOpen(!isNavOpen)} to="/give">Give</NavLink>
 				</NavContainer>
 				<BurgerMenu onClick={toggleNavigation}>&#9776;</BurgerMenu>
 			</HeaderContent>

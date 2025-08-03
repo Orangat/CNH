@@ -133,7 +133,7 @@ const Footer: React.FC = () => {
               <li><Link to="/">Home</Link></li> {/* Home link using Link */}
               <li><Link to="/we-believe">We Believe</Link></li> {/* We Believe link using Link */}
               <li><a href="https://churchofnewhope.churchcenter.com/groups" target="_blank" rel="noopener noreferrer">Groups</a></li>
-              <li><a target="_blank" rel="noopener noreferrer" href="https://checkout.square.site/merchant/MLKFAN55FJ2K9/checkout/ENG7TDWLEESOXJ5G5NKC5TTF?src=sheet">Give</a></li>
+              <li><Link to="/give">Give</Link></li>
             </ul>
             <Copyright>&copy; 2025 Church of New Hope. All rights reserved.</Copyright>
           </Column>
