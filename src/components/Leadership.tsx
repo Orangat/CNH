@@ -134,6 +134,12 @@ const Leadership = () => {
       photo: '/images/sak.jpg',
     },
     {
+      name: 'Iurii & Angelina Prokopchuk',
+      title: 'Service Director & Women’s Ministry Director',
+      emails: ['iurii@cnhcharlotte.com', 'women@cnhcharlotte.com'],
+      photo: '/images/prokopchuk.jpg',
+    },
+    {
       name: 'Vitaliy Kuprovskiy',
       title: 'Media Ministry Director',
       emails: ['info@cnhcharlotte.com'],
@@ -158,12 +164,6 @@ const Leadership = () => {
       photo: '/images/ferkal.jpg',
     },
     {
-      name: 'Angelina Prokopchuk',
-      title: 'Women’s Ministry Director',
-      emails: ['women@cnhcharlotte.com'],
-      photo: '/images/prokopchuk.jpg',
-    },
-    {
       name: 'David Pavlyuk',
       title: 'Youth Ministry Leader',
       emails: ['youth@cnhcharlotte.com'],
@@ -180,6 +180,12 @@ const Leadership = () => {
       title: 'Social Media Manager',
       emails: ['creative@cnhcharlotte.com'],
       photo: '/images/yulia.jpg',
+    },
+    {
+      name: 'Nelia Olos',
+      title: 'Hospitality Director',
+      emails: ['hospitality@cnhcharlotte.com'],
+      photo: '/images/olos.jpg',
     },
     {
       name: 'Victoria Kyshko',
