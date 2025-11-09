@@ -48,14 +48,15 @@ const ContentOverlay = styled.div`
   text-align: center;
   color: #fff;
   z-index: 2;
-  font-family: "Anton", sans-serif;
-	width: 100%;
+  width: 100%;
 
   & h1 {
+    font-family: 'FRHND', sans-serif;
     font-size: 180px;
     margin: 0;
-    font-weight: 700;
+    font-weight: normal;
     font-style: normal;
+    text-transform: uppercase;
 
     @media (max-width: 768px) {
       font-size: 60px;
@@ -63,8 +64,9 @@ const ContentOverlay = styled.div`
   }
 
   & p {
+    font-family: 'Creo', sans-serif;
     font-size: 50px;
-    font-weight: 400;
+    font-weight: 700;
     text-transform: uppercase;
     margin: 0;
 

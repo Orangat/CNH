@@ -18,6 +18,8 @@ const Image = styled.img`
 `;
 
 const IconRow = styled.p`
+  font-family: 'Creo', sans-serif;
+  font-weight: 300;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -52,10 +54,13 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
+  font-family: 'Creo', sans-serif;
   text-align: center;
   font-size: 2.5rem;
+  font-weight: 700;
   color: #555;
   margin-bottom: 30px;
+  text-transform: uppercase;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -63,7 +68,9 @@ const Title = styled.h1`
 `;
 
 const SubTitle = styled.h2`
+  font-family: 'Creo', sans-serif;
   font-size: 1.75rem;
+  font-weight: 700;
   color: #555;
   margin-top: 30px;
 
@@ -77,7 +84,9 @@ const Section = styled.div`
 `;
 
 const Paragraph = styled.p`
+  font-family: 'Creo', sans-serif;
   font-size: 1.1rem;
+  font-weight: 300;
   line-height: 1.6;
   color: #555;
   text-align: justify;

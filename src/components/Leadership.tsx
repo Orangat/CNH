@@ -7,12 +7,13 @@ const PageWrapper = styled.div`
 `;
 
 const Header = styled.div`
+  font-family: 'Creo', sans-serif;
   background-color: #000;
   color: white;
   text-align: center;
   padding: 8rem 1rem;
   font-size: 3rem;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
 `;
 
@@ -52,6 +53,7 @@ const LeaderInfo = styled.div`
 `;
 
 const LeaderName = styled.h3`
+  font-family: 'Creo', sans-serif;
   margin: 0;
   font-size: 18px;
   color: black;
@@ -59,15 +61,18 @@ const LeaderName = styled.h3`
 `;
 
 const LeaderTitle = styled.p`
+  font-family: 'Creo', sans-serif;
   margin: 0.5rem 0 0;
   font-size: 16px;
   color: #157a6e;
-  font-weight: 500;
+  font-weight: 700;
 `;
 
 const LeaderEmail = styled.p`
+  font-family: 'Creo', sans-serif;
   margin: 0.25rem 0;
   font-size: 14px;
+  font-weight: 300;
   color: #555;
 `;
 
@@ -135,13 +140,13 @@ const Leadership = () => {
     },
     {
       name: 'Iurii & Angelina Prokopchuk',
-      title: 'Service Director & Women’s Ministry Director',
+      title: "Service Director & Women's Ministry Director",
       emails: ['iurii@cnhcharlotte.com', 'women@cnhcharlotte.com'],
       photo: '/images/prokopchuk.jpg',
     },
     {
-      name: 'Vitaliy Kuprovskiy',
-      title: 'Media Ministry Director',
+      name: 'Vitaliy Kuprovsky',
+      title: 'Creative & Production Director',
       emails: ['info@cnhcharlotte.com'],
       photo: '/images/kuprovskii.jpg',
     },
@@ -153,21 +158,45 @@ const Leadership = () => {
     },
     {
       name: 'Katie Topchi',
-      title: 'Worship Ministry Leader',
+      title: 'Worship Ministry Director',
       emails: ['worship@cnhcharlotte.com'],
       photo: '/images/katetopchii.jpg',
     },
     {
+      name: 'Irina Zigalenko',
+      title: 'Choir Director',
+      emails: ['worship@churchofnewhope.org'],
+      photo: '',
+    },
+    {
       name: 'Vlad Ferkaliak',
-      title: 'Men’s Ministry Director',
+      title: "Men's Ministry Director",
       emails: ['men@cnhcharlotte.com'],
       photo: '/images/ferkal.jpg',
+    },
+    {
+      name: 'Vitalii Arshulik',
+      title: 'Youth Ministry Director',
+      emails: ['youth@churchofnewhope.org'],
+      photo: '',
     },
     {
       name: 'David Pavlyuk',
       title: 'Youth Ministry Leader',
       emails: ['youth@cnhcharlotte.com'],
       photo: '/images/david.jpg',
+    },
+    {
+      name: 'Vasily and Olena Manilenko',
+      title: "Children's Ministry Directors",
+      emails: ['kids@churchofnewhope.org'],
+      photo: '',
+    },
+    {
+      name: 'Natalia Bohodenko',
+      title: 'Kids Choir Director',
+      emails: [],
+      photo: '',
     },
     {
       name: 'Maks Mitin',
@@ -188,6 +217,12 @@ const Leadership = () => {
       photo: '/images/olos.jpg',
     },
     {
+      name: 'Olena Soloninko',
+      title: 'Décor Director',
+      emails: ['info@churchofnewhope.org'],
+      photo: '',
+    },
+    {
       name: 'Victoria Kyshko',
       title: 'Kitchen Ministry Director',
       emails: ['info@cnhcharlotte.com'],
@@ -205,7 +240,7 @@ const Leadership = () => {
             <LeaderInfo>
               <LeaderName>{leader.name}</LeaderName>
               <LeaderTitle>{leader.title}</LeaderTitle>
-              {leader.emails.map((email, idx) => (
+              {leader.emails && leader.emails.length > 0 && leader.emails.map((email, idx) => (
                 <LeaderEmail key={idx}><a href={`mailto:${email}`}>{email}</a></LeaderEmail>
               ))}
             </LeaderInfo>

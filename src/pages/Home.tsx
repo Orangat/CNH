@@ -2,6 +2,7 @@ import React from 'react';
 import UpcomingServices from '../components/UpcompingServices';
 import AboutChurchHome from '../components/AboutChurchHome';
 import SmallGroups from '../components/SmallGroups';
+import GetConnected from '../components/GetConnected';
 import { useLocation } from 'react-router-dom';
 import { ChurchInformation } from "../utils/enums";
 
@@ -19,6 +20,7 @@ const Home: React.FC = () => {
       </UpcomingServices>
       <AboutChurchHome />
       <SmallGroups />
+      <GetConnected />
     </div>
   );
 };

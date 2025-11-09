@@ -8,6 +8,7 @@ import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Leadership from "./pages/Leadership";
 import Give from "./pages/Give";
+import Events from "./pages/Events";
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 				<Route path="/we-believe" element={<WeBelieve />} />
 				<Route path="/leadership" element={<Leadership />} />
 				<Route path="/give" element={<Give />} />
+				<Route path="/events" element={<Events />} />
 			</Routes>
 			<Footer />
 		</div>

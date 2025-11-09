@@ -29,21 +29,23 @@ const Header = styled.div`
 `;
 
 const Title = styled.h1`
+  font-family: 'Creo', sans-serif;
   font-size: 3rem;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
   color: white;
   margin: 0;
 `;
 
 const Subtitle = styled.p`
+  font-family: 'Creo', sans-serif;
   font-size: 1.2rem;
+  font-weight: 300;
   color: rgba(255, 255, 255, 0.8);
   max-width: 600px;
   margin: 1rem auto 0;
   line-height: 1.6;
   text-transform: none;
-  font-weight: normal;
 `;
 
 const OptionsGrid = styled.div`
@@ -98,7 +100,9 @@ const ClickableOptionCard = styled.a`
 `;
 
 const OptionTitle = styled.h3`
+  font-family: 'Creo', sans-serif;
   font-size: 1.5rem;
+  font-weight: 700;
   margin-bottom: 1rem;
   color: black;
   display: flex;
@@ -107,6 +111,8 @@ const OptionTitle = styled.h3`
 `;
 
 const OptionDescription = styled.p`
+  font-family: 'Creo', sans-serif;
+  font-weight: 300;
   color: #555;
   margin-bottom: 1.5rem;
   line-height: 1.6;
@@ -131,7 +137,8 @@ const InfoRow = styled.div`
 `;
 
 const InfoLabel = styled.span`
-  font-weight: 500;
+  font-family: 'Creo', sans-serif;
+  font-weight: 700;
   color: #555;
 `;
 
@@ -167,13 +174,14 @@ const QRCodeWrapper = styled.div`
 `;
 
 const Button = styled.a`
+  font-family: 'Creo', sans-serif;
   display: inline-block;
   background-color: #000;
   color: white;
   padding: 1rem 2rem;
   text-decoration: none;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 700;
   transition: all 0.3s ease;
   text-align: center;
   width: 100%;
@@ -245,7 +253,7 @@ const Give: React.FC = () => {
                                     includeMargin={true}
                                 />
                             </QRCodeWrapper>
-                            <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#666' }}>
+                            <p style={{ fontFamily: "'Creo', sans-serif", fontWeight: 300, marginTop: '0.5rem', fontSize: '0.9rem', color: '#666' }}>
                                 Scan with your banking app
                             </p>
                         </QRCodeContainer>
@@ -267,7 +275,7 @@ const Give: React.FC = () => {
                             <ExternalLinkIcon className="fas fa-external-link-alt"></ExternalLinkIcon>
                         </PayPalButton>
 
-                        <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '1rem' }}>
+                        <p style={{ fontFamily: "'Creo', sans-serif", fontWeight: 300, fontSize: '0.9rem', color: '#666', marginTop: '1rem' }}>
                             <i className="fas fa-info-circle"></i>
                             &nbsp;Secure donations processed by PayPal
                         </p>
@@ -305,11 +313,11 @@ const Give: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}>
-                    <p style={{ margin: '0', maxWidth: '600px' }}>
+                    <p style={{ fontFamily: "'Creo', sans-serif", fontWeight: 300, margin: '0', maxWidth: '600px' }}>
                         <i className="fas fa-heart"></i>
                         &nbsp;Thank you for your generous support of our ministry!
                     </p>
-                    <p style={{ fontSize: '0.9rem', marginTop: '1rem', color: 'rgba(255, 255, 255, 0.8)', margin: '0', maxWidth: '600px' }}>
+                    <p style={{ fontFamily: "'Creo', sans-serif", fontWeight: 300, fontSize: '0.9rem', marginTop: '1rem', color: 'rgba(255, 255, 255, 0.8)', margin: '0', maxWidth: '600px' }}>
                         All donations are tax-deductible. You will receive a receipt for your records.
                     </p>
                 </div>

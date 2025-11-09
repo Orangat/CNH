@@ -25,6 +25,8 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  font-family: 'Creo', sans-serif;
+  font-weight: 300;
 
   &.left {
     align-items: flex-start;
@@ -37,6 +39,8 @@ const Column = styled.div`
   }
 
   a {
+    font-family: 'Creo', sans-serif;
+    font-weight: 300;
     text-decoration: none;
     font-size: 1rem;
     transition: all 0.2s ease-in-out;
@@ -48,8 +52,9 @@ const Column = styled.div`
 `;
 
 const Title = styled.h3`
+  font-family: 'Creo', sans-serif;
   font-size: 1.25rem;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 1rem;
   text-transform: uppercase;
 `;
@@ -82,6 +87,8 @@ const SocialIcons = styled.div`
 `;
 
 const Copyright = styled.p`
+  font-family: 'Creo', sans-serif;
+  font-weight: 300;
   font-size: 0.875rem;
   margin-top: 1rem;
 `;
@@ -130,8 +137,9 @@ const Footer: React.FC = () => {
               </a>
             </SocialIcons>
             <ul>
-              <li><Link to="/">Home</Link></li> {/* Home link using Link */}
-              <li><Link to="/we-believe">We Believe</Link></li> {/* We Believe link using Link */}
+              <li><Link to="/we-believe">We Believe</Link></li>
+              <li><Link to="/leadership">Our Leadership</Link></li>
+              <li><Link to="/events">Events</Link></li>
               <li><a href="https://churchofnewhope.churchcenter.com/groups" target="_blank" rel="noopener noreferrer">Groups</a></li>
               <li><Link to="/give">Give</Link></li>
             </ul>

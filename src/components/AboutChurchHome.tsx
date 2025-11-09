@@ -7,7 +7,11 @@ const StyledComponentWrapper = styled.div`
 `;
 
 const StyledText = styled.p`
+  font-family: 'Creo', sans-serif;
   font-size: 25px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
 `;
 
 const AboutChurchHome: React.FC = (props) => {
