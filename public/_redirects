@@ -1,1 +1,6 @@
+# Redirect cnhcharlotte.com to churchofnewhope.org
+https://cnhcharlotte.com/*    https://churchofnewhope.org/:splat    301!
+https://www.cnhcharlotte.com/*    https://churchofnewhope.org/:splat    301!
+
+# SPA redirect for churchofnewhope.org
 /*    /index.html   200

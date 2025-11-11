@@ -292,8 +292,8 @@ const Give: React.FC = () => {
                         </p>
                     </ClickableOptionCard>
 
-                    {/* Square Checkout Option */}
-                    <ClickableOptionCard href="https://checkout.square.site/merchant/MLKFAN55FJ2K9/checkout/ENG7TDWLEESOXJ5G5NKC5TTF?src=sheet" target="_blank" rel="noopener noreferrer">
+                    {/* ChurchCenter Online Giving Option */}
+                    <ClickableOptionCard href="https://churchofnewhope.churchcenter.com/giving?open-in-church-center-modal=true" target="_blank" rel="noopener noreferrer">
                         <OptionTitle>
                             <i className="fas fa-credit-card"></i>
                             {t('give.onlineGiving.title')}
@@ -302,7 +302,7 @@ const Give: React.FC = () => {
                             {t('give.onlineGiving.description')}
                         </OptionDescription>
 
-                        <Button href="https://checkout.square.site/merchant/MLKFAN55FJ2K9/checkout/ENG7TDWLEESOXJ5G5NKC5TTF?src=sheet" target="_blank" rel="noopener noreferrer">
+                        <Button href="https://churchofnewhope.churchcenter.com/giving?open-in-church-center-modal=true" target="_blank" rel="noopener noreferrer">
                             {t('give.onlineGiving.button')}
                             <ExternalLinkIcon className="fas fa-external-link-alt"></ExternalLinkIcon>
                         </Button>
