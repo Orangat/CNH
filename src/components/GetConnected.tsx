@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components for the layout and styling
@@ -66,21 +67,39 @@ const ActionButton = styled.a`
 
 const GetConnected = () => {
 	const { t } = useLanguage();
+	const ref = useRef(null);
+	const isInView = useInView(ref, { once: true, amount: 0.3 });
+
 	return (
 		<Section>
-			<Content className="container">
-				<Heading>{t('getConnected.title')}</Heading>
-				<SubHeading>{t('getConnected.subtitle')}</SubHeading>
-				<Description>
-					{t('getConnected.description')}
-				</Description>
-				<ActionButton 
-					href="https://churchofnewhope.churchcenter.com/people/forms/922690" 
-					target="_blank"
-					rel="noopener noreferrer"
+			<Content ref={ref} className="container">
+				<motion.div
+					initial={{ opacity: 0, y: 50 }}
+					animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+					transition={{ duration: 0.6, ease: 'easeOut' }}
 				>
-					{t('getConnected.button')}
-				</ActionButton>
+					<Heading>{t('getConnected.title')}</Heading>
+					<SubHeading>{t('getConnected.subtitle')}</SubHeading>
+					<Description>
+						{t('getConnected.description')}
+					</Description>
+				</motion.div>
+				<motion.div
+					initial={{ opacity: 0, scale: 0.9 }}
+					animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+					transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					style={{ display: 'inline-block' }}
+				>
+					<ActionButton 
+						href="https://churchofnewhope.churchcenter.com/people/forms/922690" 
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						{t('getConnected.button')}
+					</ActionButton>
+				</motion.div>
 			</Content>
 		</Section>
 	);

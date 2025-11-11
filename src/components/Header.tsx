@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components
@@ -183,27 +184,6 @@ const MobileMenuHeader = styled.div`
 
 const MobileMenuLogo = styled.img`
 	height: 75px;
-`;
-
-const CloseButton = styled.button`
-	background: none;
-	border: none;
-	font-size: 2rem;
-	cursor: pointer;
-	color: #000;
-	font-weight: normal;
-	width: 40px;
-	height: 40px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0;
-	line-height: 1;
-	transition: opacity 0.2s ease;
-
-	&:hover {
-		opacity: 0.6;
-	}
 `;
 
 const MobileMenuContent = styled.div`
@@ -456,12 +436,23 @@ const Header: React.FC = () => {
 		<>
 			<HeaderContainer>
 				<HeaderContent className="container">
-					<LogoContainer>
-						<LogoLink to={getLocalizedPath('')}>
-							<Logo src="/logo.png" alt="Logo" />
-						</LogoLink>
-					</LogoContainer>
-					<NavContainer>
+					<motion.div
+						initial={{ opacity: 0, y: -20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5, ease: 'easeOut' }}
+					>
+						<LogoContainer>
+							<LogoLink to={getLocalizedPath('')}>
+								<Logo src="/logo.png" alt="Logo" />
+							</LogoLink>
+						</LogoContainer>
+					</motion.div>
+					<motion.div
+						initial={{ opacity: 0, y: -20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+					>
+						<NavContainer>
 						<DropdownContainer
 							onMouseEnter={handleDropdownMouseEnter}
 							onMouseLeave={handleDropdownMouseLeave}
@@ -518,80 +509,149 @@ const Header: React.FC = () => {
 								UA
 							</LanguageButton>
 						</LanguageSwitcher>
-					</NavContainer>
-					<BurgerMenu onClick={toggleMobileMenu}>&#9776;</BurgerMenu>
+						</NavContainer>
+					</motion.div>
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ duration: 0.5, delay: 0.2 }}
+					>
+						<BurgerMenu onClick={toggleMobileMenu}>&#9776;</BurgerMenu>
+					</motion.div>
 				</HeaderContent>
 			</HeaderContainer>
 
 			{/* Mobile Menu Overlay */}
 			<MobileMenuOverlay isOpen={isMobileMenuOpen}>
 				<MobileMenuHeader>
-					<LogoLink to={getLocalizedPath('')} onClick={handleLinkClick}>
-						<MobileMenuLogo src="/logo.png" alt="Logo" />
-					</LogoLink>
-					<CloseButton onClick={closeMobileMenu}>×</CloseButton>
+					<motion.div
+						initial={{ opacity: 0, x: -20 }}
+						animate={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.3 }}
+					>
+						<LogoLink to={getLocalizedPath('')} onClick={handleLinkClick}>
+							<MobileMenuLogo src="/logo.png" alt="Logo" />
+						</LogoLink>
+					</motion.div>
+					<motion.button
+						initial={{ opacity: 0, rotate: -90 }}
+						animate={{ opacity: 1, rotate: 0 }}
+						transition={{ duration: 0.3 }}
+						onClick={closeMobileMenu}
+						style={{
+							background: 'none',
+							border: 'none',
+							fontSize: '2rem',
+							cursor: 'pointer',
+							color: '#000',
+							fontWeight: 'normal',
+							width: '40px',
+							height: '40px',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							padding: 0,
+							lineHeight: 1
+						}}
+					>
+						×
+					</motion.button>
 				</MobileMenuHeader>
 				<MobileMenuContent>
-					<MobileNavItem>
-						<MobileDropdownButton onClick={handleMobileDropdownToggle}>
-							<span>{t('nav.aboutUs').toUpperCase()}</span>
-							<MobileDropdownIndicator>
-								{isMobileDropdownOpen ? '−' : '+'}
-							</MobileDropdownIndicator>
-						</MobileDropdownButton>
-						<MobileDropdownDivider isOpen={isMobileDropdownOpen} />
-						<MobileDropdownMenu isOpen={isMobileDropdownOpen}>
-							<MobileDropdownLink to={getLocalizedPath('/we-believe')} onClick={handleLinkClick}>
-								{t('nav.weBelieve').toUpperCase()}
-							</MobileDropdownLink>
-							<MobileDropdownLink to={getLocalizedPath('/leadership')} onClick={handleLinkClick}>
-								{t('nav.ourLeadership').toUpperCase()}
-							</MobileDropdownLink>
-						</MobileDropdownMenu>
-					</MobileNavItem>
-					<MobileNavItem>
-						<MobileNavLink to={getLocalizedPath('/events')} onClick={handleLinkClick}>
-							{t('nav.events').toUpperCase()}
-						</MobileNavLink>
-					</MobileNavItem>
-					<MobileNavItem>
-						<MobileNavExternalLink 
-							href="https://churchofnewhope.churchcenter.com/groups" 
-							target="_blank" 
-							rel="noopener noreferrer"
-							onClick={handleLinkClick}
-						>
-							{t('nav.groups').toUpperCase()}
-						</MobileNavExternalLink>
-					</MobileNavItem>
-					<MobileNavItem>
-						<MobileNavLink to={getLocalizedPath('/give')} onClick={handleLinkClick}>
-							{t('nav.give').toUpperCase()}
-						</MobileNavLink>
-					</MobileNavItem>
-					<MobileNavItem>
-						<MobileLanguageSwitcher>
-							<MobileLanguageButton 
-								active={language === 'en'} 
-								onClick={() => {
-									setLanguage('en');
-									handleLinkClick();
-								}}
+					{isMobileMenuOpen && (
+						<>
+							<motion.div
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.3, delay: 0.1 }}
 							>
-								EN
-							</MobileLanguageButton>
-							<span style={{ color: 'rgba(0, 0, 0, 0.3)' }}>|</span>
-							<MobileLanguageButton 
-								active={language === 'uk'} 
-								onClick={() => {
-									setLanguage('uk');
-									handleLinkClick();
-								}}
+								<MobileNavItem>
+									<MobileDropdownButton onClick={handleMobileDropdownToggle}>
+										<span>{t('nav.aboutUs').toUpperCase()}</span>
+										<MobileDropdownIndicator>
+											{isMobileDropdownOpen ? '−' : '+'}
+										</MobileDropdownIndicator>
+									</MobileDropdownButton>
+									<MobileDropdownDivider isOpen={isMobileDropdownOpen} />
+									<MobileDropdownMenu isOpen={isMobileDropdownOpen}>
+										<MobileDropdownLink to={getLocalizedPath('/we-believe')} onClick={handleLinkClick}>
+											{t('nav.weBelieve').toUpperCase()}
+										</MobileDropdownLink>
+										<MobileDropdownLink to={getLocalizedPath('/leadership')} onClick={handleLinkClick}>
+											{t('nav.ourLeadership').toUpperCase()}
+										</MobileDropdownLink>
+									</MobileDropdownMenu>
+								</MobileNavItem>
+							</motion.div>
+							<motion.div
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.3, delay: 0.15 }}
 							>
-								UA
-							</MobileLanguageButton>
-						</MobileLanguageSwitcher>
-					</MobileNavItem>
+								<MobileNavItem>
+									<MobileNavLink to={getLocalizedPath('/events')} onClick={handleLinkClick}>
+										{t('nav.events').toUpperCase()}
+									</MobileNavLink>
+								</MobileNavItem>
+							</motion.div>
+							<motion.div
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.3, delay: 0.2 }}
+							>
+								<MobileNavItem>
+									<MobileNavExternalLink 
+										href="https://churchofnewhope.churchcenter.com/groups" 
+										target="_blank" 
+										rel="noopener noreferrer"
+										onClick={handleLinkClick}
+									>
+										{t('nav.groups').toUpperCase()}
+									</MobileNavExternalLink>
+								</MobileNavItem>
+							</motion.div>
+							<motion.div
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.3, delay: 0.25 }}
+							>
+								<MobileNavItem>
+									<MobileNavLink to={getLocalizedPath('/give')} onClick={handleLinkClick}>
+										{t('nav.give').toUpperCase()}
+									</MobileNavLink>
+								</MobileNavItem>
+							</motion.div>
+							<motion.div
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.3, delay: 0.3 }}
+							>
+								<MobileNavItem>
+									<MobileLanguageSwitcher>
+										<MobileLanguageButton 
+											active={language === 'en'} 
+											onClick={() => {
+												setLanguage('en');
+												handleLinkClick();
+											}}
+										>
+											EN
+										</MobileLanguageButton>
+										<span style={{ color: 'rgba(0, 0, 0, 0.3)' }}>|</span>
+										<MobileLanguageButton 
+											active={language === 'uk'} 
+											onClick={() => {
+												setLanguage('uk');
+												handleLinkClick();
+											}}
+										>
+											UA
+										</MobileLanguageButton>
+									</MobileLanguageSwitcher>
+								</MobileNavItem>
+							</motion.div>
+						</>
+					)}
 				</MobileMenuContent>
 			</MobileMenuOverlay>
 		</>

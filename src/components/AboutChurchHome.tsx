@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const StyledComponentWrapper = styled.div`
@@ -17,11 +18,22 @@ const StyledText = styled.p`
 
 const AboutChurchHome: React.FC = (props) => {
 	const { t } = useLanguage();
+	const ref = useRef(null);
+	const isInView = useInView(ref, { once: true, amount: 0.3 });
+
 	return (
 		<StyledComponentWrapper>
-			<StyledText className="container">
-				{t('aboutChurch.description')}
-			</StyledText>
+			<motion.div
+				ref={ref}
+				initial={{ opacity: 0, y: 50 }}
+				animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+				transition={{ duration: 0.6, ease: 'easeOut' }}
+				className="container"
+			>
+				<StyledText>
+					{t('aboutChurch.description')}
+				</StyledText>
+			</motion.div>
 		</StyledComponentWrapper>
 	);
 };

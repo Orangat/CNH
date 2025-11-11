@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -11,13 +11,6 @@ import Give from "./pages/Give";
 import Events from "./pages/Events";
 
 function App() {
-	const location = useLocation();
-	
-	// Redirect root to /en if no language prefix
-	if (location.pathname === '/') {
-		return <Navigate to="/en" replace />;
-	}
-
 	return (
 		<div className="App">
 			<Header />

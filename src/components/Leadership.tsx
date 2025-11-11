@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const PageWrapper = styled.div`
@@ -39,7 +40,7 @@ const LeadersGrid = styled.div`
   }
 `;
 
-const LeaderCard = styled.div`
+const LeaderCard = styled(motion.div)`
   background: white;
   border-radius: 0.75rem;
   overflow: hidden;
@@ -239,21 +240,65 @@ const Leadership = () => {
   ];
 
   const { t } = useLanguage();
+  
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94] as const
+      }
+    }
+  };
+
+  // Individual card component with its own scroll trigger
+  const LeaderCardWithAnimation: React.FC<{ leader: typeof leaders[0], index: number }> = ({ leader, index }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    // First 3 cards should appear immediately (visible on desktop in 3-column grid)
+    const shouldShowImmediately = index < 3;
+    const isInView = useInView(cardRef, { 
+      once: true, 
+      amount: 0.2, 
+      margin: '-150px 0px'
+    });
+    
+    // For first 3 cards, show immediately; others wait for scroll into view
+    const shouldAnimate = shouldShowImmediately || isInView;
+
+    return (
+      <LeaderCard
+        ref={cardRef}
+        variants={cardVariants}
+        initial="hidden"
+        animate={shouldAnimate ? 'visible' : 'hidden'}
+      >
+        <LeaderImage src={leader.photo || '/images/placeholder.png'} alt={leader.name} />
+        <LeaderInfo>
+          <LeaderName>{leader.name}</LeaderName>
+          <LeaderTitle>{leader.title}</LeaderTitle>
+          {leader.emails && leader.emails.length > 0 && leader.emails.map((email, idx) => (
+            <LeaderEmail key={idx}><a href={`mailto:${email}`}>{email}</a></LeaderEmail>
+          ))}
+        </LeaderInfo>
+      </LeaderCard>
+    );
+  };
+
   return (
     <PageWrapper>
-      <Header>{t('leadership.title')}</Header>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        <Header>{t('leadership.title')}</Header>
+      </motion.div>
       <LeadersGrid>
         {leaders.map((leader, index) => (
-          <LeaderCard key={index}>
-            <LeaderImage src={leader.photo || '/images/placeholder.png'} alt={leader.name} />
-            <LeaderInfo>
-              <LeaderName>{leader.name}</LeaderName>
-              <LeaderTitle>{leader.title}</LeaderTitle>
-              {leader.emails && leader.emails.length > 0 && leader.emails.map((email, idx) => (
-                <LeaderEmail key={idx}><a href={`mailto:${email}`}>{email}</a></LeaderEmail>
-              ))}
-            </LeaderInfo>
-          </LeaderCard>
+          <LeaderCardWithAnimation key={index} leader={leader} index={index} />
         ))}
       </LeadersGrid>
     </PageWrapper>

@@ -1,6 +1,7 @@
 // src/components/WeBelieve.tsx
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const PageWrapper = styled.div`
@@ -57,7 +58,7 @@ const CardsGrid = styled.div`
   }
 `;
 
-const Card = styled.div<{ fullWidth?: boolean }>`
+const Card = styled(motion.div)<{ fullWidth?: boolean }>`
   background-color: white;
   border-radius: 12px;
   padding: 2rem;
@@ -210,6 +211,10 @@ const LastThingsIcon = () => (
 
 const WeBelieve = () => {
   const { t } = useLanguage();
+  const headerRef = useRef(null);
+  const gridRef = useRef(null);
+  const headerInView = useInView(headerRef, { once: true });
+  const gridInView = useInView(gridRef, { once: true, amount: 0, margin: '-100px' });
 
   const beliefs = [
     {
@@ -253,17 +258,55 @@ const WeBelieve = () => {
   // Check if last card should be full width (odd number of cards)
   const isLastCardFullWidth = beliefs.length % 2 === 1;
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94] as const
+      }
+    }
+  };
+
   return (
     <PageWrapper>
-      <Header>
-        <Title>{t('weBelieve.title')}</Title>
-      </Header>
+      <motion.div
+        ref={headerRef}
+        initial={{ opacity: 0, y: -20 }}
+        animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        <Header>
+          <Title>{t('weBelieve.title')}</Title>
+        </Header>
+      </motion.div>
       <Content>
-        <CardsGrid>
+        <CardsGrid
+          ref={gridRef}
+          as={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          animate={gridInView ? 'visible' : 'hidden'}
+        >
           {beliefs.map((belief, index) => (
-            <Card 
+            <Card
               key={belief.key}
               fullWidth={isLastCardFullWidth && index === beliefs.length - 1}
+              variants={cardVariants}
             >
               {belief.icon}
               <CardContent>

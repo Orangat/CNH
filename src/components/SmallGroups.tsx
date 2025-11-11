@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components for the layout and styling
@@ -75,15 +76,38 @@ const ActionLink = styled.a`
 
 const SmallGroups = () => {
 	const { t } = useLanguage();
+	const ref = useRef(null);
+	const isInView = useInView(ref, { once: true, amount: 0.3 });
+
 	return (
 		<Section>
-			<Content className="container">
-				<Heading>{t('smallGroups.title')}</Heading>
-				<SubHeading>{t('smallGroups.subtitle')}</SubHeading>
-				<Description>
-					{t('smallGroups.description')}
-				</Description>
-				<ActionLink href="https://churchofnewhope.churchcenter.com/groups" target="_blank">{t('smallGroups.joinButton')}</ActionLink>
+			<Content ref={ref} className="container">
+				<motion.div
+					initial={{ opacity: 0, y: 50 }}
+					animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+					transition={{ duration: 0.6, ease: 'easeOut' }}
+				>
+					<Heading>{t('smallGroups.title')}</Heading>
+					<SubHeading>{t('smallGroups.subtitle')}</SubHeading>
+					<Description>
+						{t('smallGroups.description')}
+					</Description>
+				</motion.div>
+				<motion.div
+					initial={{ opacity: 0, scale: 0.9 }}
+					animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+					transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					style={{ display: 'inline-block' }}
+				>
+					<ActionLink 
+						href="https://churchofnewhope.churchcenter.com/groups" 
+						target="_blank"
+					>
+						{t('smallGroups.joinButton')}
+					</ActionLink>
+				</motion.div>
 			</Content>
 		</Section>
 	);

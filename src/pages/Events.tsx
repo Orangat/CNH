@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components
@@ -140,6 +141,10 @@ const Spinner = styled.div<{ isLoading: boolean }>`
 const Events: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useLanguage();
+  const headerRef = useRef(null);
+  const contentRef = useRef(null);
+  const headerInView = useInView(headerRef, { once: true });
+  const contentInView = useInView(contentRef, { once: true, amount: 0.3 });
 
   const handleIframeLoad = () => {
     setIsLoading(false);
@@ -147,15 +152,28 @@ const Events: React.FC = () => {
 
   return (
     <EventsContainer>
-      <Header>
-        <Title>{t('events.title')}</Title>
-        <Subtitle>
-          {t('events.subtitle')}
-        </Subtitle>
-      </Header>
+      <motion.div
+        ref={headerRef}
+        initial={{ opacity: 0, y: -20 }}
+        animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        <Header>
+          <Title>{t('events.title')}</Title>
+          <Subtitle>
+            {t('events.subtitle')}
+          </Subtitle>
+        </Header>
+      </motion.div>
 
       <Content>
-        <CalendarSection>
+        <motion.div
+          ref={contentRef}
+          initial={{ opacity: 0, y: 30 }}
+          animate={contentInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+        >
+          <CalendarSection>
           <IframeWrapper isLoading={isLoading}>
             <Spinner isLoading={isLoading} />
             <iframe 
@@ -168,7 +186,8 @@ const Events: React.FC = () => {
               style={{ backgroundColor: 'white' }}
             />
           </IframeWrapper>
-        </CalendarSection>
+          </CalendarSection>
+        </motion.div>
       </Content>
     </EventsContainer>
   );

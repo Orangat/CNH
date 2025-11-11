@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { motion, useInView } from 'framer-motion';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -75,22 +76,16 @@ const OptionsGrid = styled.div`
   }
 `;
 
-const OptionCard = styled.div`
+const OptionCard = styled(motion.div)`
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   padding: 2rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.95);
-    border-color: rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-  }
 `;
 
-const ClickableOptionCard = styled.a`
+const ClickableOptionCard = styled(motion.a)`
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
@@ -101,14 +96,6 @@ const ClickableOptionCard = styled.a`
   color: inherit;
   display: block;
   cursor: pointer;
-  
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.95);
-    border-color: rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-    text-decoration: none;
-    color: inherit;
-  }
 `;
 
 const OptionTitle = styled.h3`
@@ -185,7 +172,7 @@ const QRCodeWrapper = styled.div`
   justify-content: center;
 `;
 
-const Button = styled.a`
+const Button = styled(motion.a)`
   font-family: 'Creo', sans-serif;
   display: inline-block;
   background-color: #000;
@@ -197,20 +184,20 @@ const Button = styled.a`
   transition: all 0.3s ease;
   text-align: center;
   width: 100%;
-  
-  &:hover {
-    background-color: #333;
-    transform: translateY(-1px);
-  }
 `;
 
-const PayPalButton = styled(Button)`
+const PayPalButton = styled(motion.a)`
+  font-family: 'Creo', sans-serif;
+  display: inline-block;
   background-color: #0070ba;
   color: white;
-  
-  &:hover {
-    background-color: #005ea6;
-  }
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 100%;
 `;
 
 const ExternalLinkIcon = styled.i`
@@ -222,20 +209,63 @@ const Give: React.FC = () => {
     // Generate QR code for Zelle phone number
     const zellePhoneNumber = "(704) 453-9365";
     const { t } = useLanguage();
+    const headerRef = useRef(null);
+    const gridRef = useRef(null);
+    const headerInView = useInView(headerRef, { once: true });
+    const gridInView = useInView(gridRef, { once: true, amount: 0.2 });
+
+    const cardVariants = {
+        hidden: { opacity: 0, y: 30, scale: 0.95 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+                duration: 0.5,
+                ease: [0.25, 0.46, 0.45, 0.94] as const
+            }
+        }
+    };
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.15,
+                delayChildren: 0.2
+            }
+        }
+    };
 
     return (
         <GiveContainer>
-            <Header>
-                <Title>{t('give.title')}</Title>
-                <Subtitle>
-                    {t('give.subtitle')}
-                </Subtitle>
-            </Header>
+            <motion.div
+                ref={headerRef}
+                initial={{ opacity: 0, y: -20 }}
+                animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+            >
+                <Header>
+                    <Title>{t('give.title')}</Title>
+                    <Subtitle>
+                        {t('give.subtitle')}
+                    </Subtitle>
+                </Header>
+            </motion.div>
 
             <Content>
-                <OptionsGrid>
+                <OptionsGrid
+                    ref={gridRef}
+                    as={motion.div}
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate={gridInView ? 'visible' : 'hidden'}
+                >
                     {/* Zelle Option */}
-                    <OptionCard>
+                    <OptionCard
+                        variants={cardVariants}
+                    >
                         <OptionTitle>
                             <i className="fas fa-mobile-alt"></i>
                             {t('give.zelle.title')}
@@ -272,7 +302,14 @@ const Give: React.FC = () => {
                     </OptionCard>
 
                     {/* PayPal Option */}
-                    <ClickableOptionCard href="https://www.paypal.com/donate/?hosted_button_id=WN6DWH9H8KTB4" target="_blank" rel="noopener noreferrer">
+                    <ClickableOptionCard
+                        href="https://www.paypal.com/donate/?hosted_button_id=WN6DWH9H8KTB4"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variants={cardVariants}
+                        whileHover={{ y: -5, scale: 1.02, boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)' }}
+                        transition={{ type: 'spring', stiffness: 300 }}
+                    >
                         <OptionTitle>
                             <i className="fab fa-paypal"></i>
                             {t('give.paypal.title')}
@@ -281,7 +318,13 @@ const Give: React.FC = () => {
                             {t('give.paypal.description')}
                         </OptionDescription>
 
-                        <PayPalButton href="https://www.paypal.com/donate/?hosted_button_id=WN6DWH9H8KTB4" target="_blank" rel="noopener noreferrer">
+                        <PayPalButton
+                            href="https://www.paypal.com/donate/?hosted_button_id=WN6DWH9H8KTB4"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
                             {t('give.paypal.button')}
                             <ExternalLinkIcon className="fas fa-external-link-alt"></ExternalLinkIcon>
                         </PayPalButton>
@@ -293,7 +336,14 @@ const Give: React.FC = () => {
                     </ClickableOptionCard>
 
                     {/* ChurchCenter Online Giving Option */}
-                    <ClickableOptionCard href="https://churchofnewhope.churchcenter.com/giving?open-in-church-center-modal=true" target="_blank" rel="noopener noreferrer">
+                    <ClickableOptionCard
+                        href="https://churchofnewhope.churchcenter.com/giving?open-in-church-center-modal=true"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variants={cardVariants}
+                        whileHover={{ y: -5, scale: 1.02, boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)' }}
+                        transition={{ type: 'spring', stiffness: 300 }}
+                    >
                         <OptionTitle>
                             <i className="fas fa-credit-card"></i>
                             {t('give.onlineGiving.title')}
@@ -302,7 +352,13 @@ const Give: React.FC = () => {
                             {t('give.onlineGiving.description')}
                         </OptionDescription>
 
-                        <Button href="https://churchofnewhope.churchcenter.com/giving?open-in-church-center-modal=true" target="_blank" rel="noopener noreferrer">
+                        <Button
+                            href="https://churchofnewhope.churchcenter.com/giving?open-in-church-center-modal=true"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.05, backgroundColor: '#333' }}
+                            whileTap={{ scale: 0.95 }}
+                        >
                             {t('give.onlineGiving.button')}
                             <ExternalLinkIcon className="fas fa-external-link-alt"></ExternalLinkIcon>
                         </Button>
