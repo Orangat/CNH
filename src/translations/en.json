@@ -1,0 +1,110 @@
+{
+  "nav": {
+    "aboutUs": "About Us",
+    "weBelieve": "We Believe",
+    "ourLeadership": "Our Leadership",
+    "events": "Events",
+    "groups": "Groups",
+    "give": "Give"
+  },
+  "home": {
+    "sundays": "SUNDAYS",
+    "joinUs": "Join us for services at",
+    "english": "English",
+    "ukrainian": "Ukrainian"
+  },
+  "aboutChurch": {
+    "description": "Gospel-centered teaching enriches understanding of faith, while powerful worship inspires and uplifts the spirit. An active community encourages connection and support among individuals, creating a vibrant atmosphere for growth and fellowship in both Ukrainian and English."
+  },
+  "smallGroups": {
+    "title": "Small Groups",
+    "subtitle": "Get involved in our vibrant community!",
+    "description": "Small groups are where deep growth and connection happens in our church. We have groups that meet all over Charlotte for families, men, women, and young adults in both languages.",
+    "joinButton": "JOIN A SMALL GROUP"
+  },
+  "getConnected": {
+    "title": "Get Connected",
+    "subtitle": "Join Our Community",
+    "description": "We'd love to get to know you better! Fill out our connection form to let us know you're interested in becoming part of our church family. We'll reach out and help you take the next steps in your journey with us.",
+    "button": "Get Connected"
+  },
+  "weBelieve": {
+    "title": "STATEMENT OF FAITH",
+    "god": {
+      "title": "GOD",
+      "text": "We believe that there is only one true, living, and eternal God and that the Godhead is revealed as Father, Son, and Holy Spirit."
+    },
+    "bible": {
+      "title": "THE BIBLE",
+      "text": "We believe that the Holy Scriptures are the Old and New Testaments; the inspired and infallible Word of God and therein is found the only reliable guide of Christian faith and conduct."
+    },
+    "man": {
+      "title": "MAN",
+      "text": "We believe that God created man in His own image to bring Him honor through obedience, and that when man disobeyed, he became a fallen and sinful creature, unable to save himself. We believe that infants are in the covenant of God's grace and that all persons become accountable to God when they reach a state of moral responsibility."
+    },
+    "salvation": {
+      "title": "SALVATION",
+      "text": "We believe that salvation (regeneration, sanctification, justification, and redemption) has been provided for all mankind through the redemptive work (life, death, resurrection, ascension, and intercession) of Jesus Christ, and that this salvation can be received only through repentance toward God and faith toward our Lord Jesus Christ."
+    },
+    "assurance": {
+      "title": "ASSURANCE AND ENDURANCE",
+      "text": "We believe that those who abide in Christ have the assurance of salvation. However, we believe that the Christian retains his freedom of choice; therefore, it is possible for him to turn away from God and be finally lost."
+    },
+    "duties": {
+      "title": "CHRISTIAN DUTIES",
+      "text": "We believe that Christians should live faithfully by serving in and through the local church, praying diligently, witnessing earnestly, practicing tolerance, showing loving kindness, giving as God prospers, and conducting themselves in such a way as to bring glory to God."
+    },
+    "church": {
+      "title": "THE CHURCH",
+      "text": "We believe that the Church Universal is the Body of Christ, the fellowship of all believers, and that its members have been called out from the world to come under the dominion and authority of Christ, its Head. We believe that a local church is a fellowship of Christians, a part of the Body of Christ, voluntarily banded together for worship, nurture, and service."
+    },
+    "ordinances": {
+      "title": "ORDINANCES",
+      "text": "We believe that baptism and the Lord's Supper are ordinances instituted by Christ to be observed by Christians only. We also believe that the biblical mode of baptism is immersion and that participation in the Lord's Supper should be open to all Christians."
+    },
+    "lastThings": {
+      "title": "RESURRECTION",
+      "text": "We believe in the personal return of Jesus Christ, and in the bodily resurrection of the dead. We believe that God will judge all mankind by Jesus Christ; that He will reward the righteous with eternal life in heaven, and that He will banish the unrighteous to everlasting punishment in hell."
+    },
+    "findUs": "You can find us at:",
+    "comeAsYouAre": "Come as you are – we can't wait to meet you and share in a meaningful experience together."
+  },
+  "leadership": {
+    "title": "Our Leadership"
+  },
+  "events": {
+    "title": "Events",
+    "subtitle": "Join us for our upcoming events, services, and gatherings. Check out our calendar to see what's happening at Church of New Hope."
+  },
+  "give": {
+    "title": "Give",
+    "subtitle": "Support the ministry of Church of New Hope through your generous giving. Choose from the options below to make your donation.",
+    "zelle": {
+      "title": "Zelle",
+      "description": "Send your donation directly to our Zelle account. Fast, secure, and no fees. Please include a note with your donation.",
+      "phone": "Phone:",
+      "note": "Note:",
+      "noteValue": "Tithe + Last Name",
+      "scanQR": "Scan with your banking app"
+    },
+    "paypal": {
+      "title": "PayPal",
+      "description": "Donate securely through PayPal. You can use your PayPal balance or link a bank account or card.",
+      "button": "Donate with PayPal",
+      "secure": "Secure donations processed by PayPal"
+    },
+    "onlineGiving": {
+      "title": "Online Giving",
+      "description": "Use our secure online giving platform powered by Square. Accepts all major credit cards and bank transfers.",
+      "button": "Give Online"
+    },
+    "thankYou": "Thank you for your generous support of our ministry!",
+    "taxDeductible": "All donations are tax-deductible. You will receive a receipt for your records."
+  },
+  "footer": {
+    "churchName": "Church of New Hope",
+    "services": "Services",
+    "copyright": "© 2025 Church of New Hope. All rights reserved."
+  }
+}
+

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components
 const EventsContainer = styled.div`
@@ -24,7 +25,8 @@ const Header = styled.div`
   width: 100%;
 
   @media (max-width: 768px) {
-    padding: 4rem 1rem 3rem;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -137,6 +139,7 @@ const Spinner = styled.div<{ isLoading: boolean }>`
 
 const Events: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useLanguage();
 
   const handleIframeLoad = () => {
     setIsLoading(false);
@@ -145,10 +148,9 @@ const Events: React.FC = () => {
   return (
     <EventsContainer>
       <Header>
-        <Title>Events</Title>
+        <Title>{t('events.title')}</Title>
         <Subtitle>
-          Join us for our upcoming events, services, and gatherings. 
-          Check out our calendar to see what's happening at Church of New Hope.
+          {t('events.subtitle')}
         </Subtitle>
       </Header>
 

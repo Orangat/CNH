@@ -5,6 +5,7 @@ import './tailwind.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <LanguageProvider>
+        <App />
+      </LanguageProvider>
     </Router>
   </React.StrictMode>
 );

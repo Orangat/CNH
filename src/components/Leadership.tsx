@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const PageWrapper = styled.div`
   background-color: #f4f4f4;
@@ -11,10 +12,17 @@ const Header = styled.div`
   background-color: #000;
   color: white;
   text-align: center;
-  padding: 8rem 1rem;
+  padding: 6rem 1rem 4rem;
   font-size: 3rem;
   font-weight: 700;
   text-transform: uppercase;
+  margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const LeadersGrid = styled.div`
@@ -230,9 +238,10 @@ const Leadership = () => {
     },
   ];
 
+  const { t } = useLanguage();
   return (
     <PageWrapper>
-      <Header>Our Leadership</Header>
+      <Header>{t('leadership.title')}</Header>
       <LeadersGrid>
         {leaders.map((leader, index) => (
           <LeaderCard key={index}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const StyledComponentWrapper = styled.div`
   background-color: black;
@@ -15,10 +16,11 @@ const StyledText = styled.p`
 `;
 
 const AboutChurchHome: React.FC = (props) => {
+	const { t } = useLanguage();
 	return (
 		<StyledComponentWrapper>
 			<StyledText className="container">
-				Gospel-centered teaching enriches understanding of faith, while powerful worship inspires and uplifts the spirit. An active community encourages connection and support among individuals, creating a vibrant atmosphere for growth and fellowship in both Ukrainian and English.
+				{t('aboutChurch.description')}
 			</StyledText>
 		</StyledComponentWrapper>
 	);

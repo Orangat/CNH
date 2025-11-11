@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { QRCodeCanvas } from 'qrcode.react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components
 const GiveContainer = styled.div`
@@ -20,12 +21,14 @@ const Header = styled.div`
   background-color: #000;
   color: white;
   text-align: center;
-  padding: 8rem 1rem;
-  font-size: 3rem;
-  font-weight: bold;
-  text-transform: uppercase;
+  padding: 6rem 1rem 4rem;
   margin-bottom: 3rem;
   width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const Title = styled.h1`
@@ -35,6 +38,10 @@ const Title = styled.h1`
   text-transform: uppercase;
   color: white;
   margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 const Subtitle = styled.p`
@@ -46,6 +53,11 @@ const Subtitle = styled.p`
   margin: 1rem auto 0;
   line-height: 1.6;
   text-transform: none;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin: 0.75rem auto 0;
+  }
 `;
 
 const OptionsGrid = styled.div`
@@ -209,15 +221,14 @@ const ExternalLinkIcon = styled.i`
 const Give: React.FC = () => {
     // Generate QR code for Zelle phone number
     const zellePhoneNumber = "(704) 453-9365";
-
+    const { t } = useLanguage();
 
     return (
         <GiveContainer>
             <Header>
-                <Title>Give</Title>
+                <Title>{t('give.title')}</Title>
                 <Subtitle>
-                    Support the ministry of Church of New Hope through your generous giving.
-                    Choose from the options below to make your donation.
+                    {t('give.subtitle')}
                 </Subtitle>
             </Header>
 
@@ -227,20 +238,20 @@ const Give: React.FC = () => {
                     <OptionCard>
                         <OptionTitle>
                             <i className="fas fa-mobile-alt"></i>
-                            Zelle
+                            {t('give.zelle.title')}
                         </OptionTitle>
                         <OptionDescription>
-                            Send your donation directly to our Zelle account. Fast, secure, and no fees. Please include a note with your donation.
+                            {t('give.zelle.description')}
                         </OptionDescription>
 
                         <ZelleInfo>
                             <InfoRow>
-                                <InfoLabel>Phone:</InfoLabel>
+                                <InfoLabel>{t('give.zelle.phone')}</InfoLabel>
                                 <InfoValue>{zellePhoneNumber}</InfoValue>
                             </InfoRow>
                             <InfoRow>
-                                <InfoLabel>Note:</InfoLabel>
-                                <InfoValue>Tithe + Last Name</InfoValue>
+                                <InfoLabel>{t('give.zelle.note')}</InfoLabel>
+                                <InfoValue>{t('give.zelle.noteValue')}</InfoValue>
                             </InfoRow>
                         </ZelleInfo>
 
@@ -254,7 +265,7 @@ const Give: React.FC = () => {
                                 />
                             </QRCodeWrapper>
                             <p style={{ fontFamily: "'Creo', sans-serif", fontWeight: 300, marginTop: '0.5rem', fontSize: '0.9rem', color: '#666' }}>
-                                Scan with your banking app
+                                {t('give.zelle.scanQR')}
                             </p>
                         </QRCodeContainer>
 
@@ -264,20 +275,20 @@ const Give: React.FC = () => {
                     <ClickableOptionCard href="https://www.paypal.com/donate/?hosted_button_id=WN6DWH9H8KTB4" target="_blank" rel="noopener noreferrer">
                         <OptionTitle>
                             <i className="fab fa-paypal"></i>
-                            PayPal
+                            {t('give.paypal.title')}
                         </OptionTitle>
                         <OptionDescription>
-                            Donate securely through PayPal. You can use your PayPal balance or link a bank account or card.
+                            {t('give.paypal.description')}
                         </OptionDescription>
 
                         <PayPalButton href="https://www.paypal.com/donate/?hosted_button_id=WN6DWH9H8KTB4" target="_blank" rel="noopener noreferrer">
-                            Donate with PayPal
+                            {t('give.paypal.button')}
                             <ExternalLinkIcon className="fas fa-external-link-alt"></ExternalLinkIcon>
                         </PayPalButton>
 
                         <p style={{ fontFamily: "'Creo', sans-serif", fontWeight: 300, fontSize: '0.9rem', color: '#666', marginTop: '1rem' }}>
                             <i className="fas fa-info-circle"></i>
-                            &nbsp;Secure donations processed by PayPal
+                            &nbsp;{t('give.paypal.secure')}
                         </p>
                     </ClickableOptionCard>
 
@@ -285,14 +296,14 @@ const Give: React.FC = () => {
                     <ClickableOptionCard href="https://checkout.square.site/merchant/MLKFAN55FJ2K9/checkout/ENG7TDWLEESOXJ5G5NKC5TTF?src=sheet" target="_blank" rel="noopener noreferrer">
                         <OptionTitle>
                             <i className="fas fa-credit-card"></i>
-                            Online Giving
+                            {t('give.onlineGiving.title')}
                         </OptionTitle>
                         <OptionDescription>
-                            Use our secure online giving platform powered by Square. Accepts all major credit cards and bank transfers.
+                            {t('give.onlineGiving.description')}
                         </OptionDescription>
 
                         <Button href="https://checkout.square.site/merchant/MLKFAN55FJ2K9/checkout/ENG7TDWLEESOXJ5G5NKC5TTF?src=sheet" target="_blank" rel="noopener noreferrer">
-                            Give Online
+                            {t('give.onlineGiving.button')}
                             <ExternalLinkIcon className="fas fa-external-link-alt"></ExternalLinkIcon>
                         </Button>
                     </ClickableOptionCard>
@@ -315,10 +326,10 @@ const Give: React.FC = () => {
                 }}>
                     <p style={{ fontFamily: "'Creo', sans-serif", fontWeight: 300, margin: '0', maxWidth: '600px' }}>
                         <i className="fas fa-heart"></i>
-                        &nbsp;Thank you for your generous support of our ministry!
+                        &nbsp;{t('give.thankYou')}
                     </p>
                     <p style={{ fontFamily: "'Creo', sans-serif", fontWeight: 300, fontSize: '0.9rem', marginTop: '1rem', color: 'rgba(255, 255, 255, 0.8)', margin: '0', maxWidth: '600px' }}>
-                        All donations are tax-deductible. You will receive a receipt for your records.
+                        {t('give.taxDeductible')}
                     </p>
                 </div>
             </Content>

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { ChurchInformation } from "../utils/enums";  // Import Link from react-router-dom
+import { Link, useParams } from 'react-router-dom';
+import { ChurchInformation } from "../utils/enums";
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components for the footer layout and styling
 const FooterSection = styled.footer`
@@ -94,13 +95,21 @@ const Copyright = styled.p`
 `;
 
 const Footer: React.FC = () => {
+  const { t, language } = useLanguage();
+  const { lang } = useParams<{ lang: string }>();
+  const currentLang = lang || language;
+
+  const getLocalizedPath = (path: string) => {
+    return `/${currentLang}${path}`;
+  };
+
   return (
     <FooterSection>
       <div className="container">
         <FooterContainer>
           {/* Left Column */}
           <Column className="left">
-            <Title>Church of New Hope</Title>
+            <Title>{t('footer.churchName')}</Title>
             <IconRow>
               <i className="fas fa-map-marker-alt"></i>
               <a
@@ -119,7 +128,7 @@ const Footer: React.FC = () => {
             </IconRow>
             <IconRow>
               <i className="fas fa-clock"></i>
-              {ChurchInformation.ENGLISH_SERVICE_TIME} (English), {ChurchInformation.UKRAINIAN_SERVICE_TIME} (Ukrainian)
+              {ChurchInformation.ENGLISH_SERVICE_TIME} ({t('home.english')}), {ChurchInformation.UKRAINIAN_SERVICE_TIME} ({t('home.ukrainian')})
             </IconRow>
           </Column>
 
@@ -137,13 +146,13 @@ const Footer: React.FC = () => {
               </a>
             </SocialIcons>
             <ul>
-              <li><Link to="/we-believe">We Believe</Link></li>
-              <li><Link to="/leadership">Our Leadership</Link></li>
-              <li><Link to="/events">Events</Link></li>
-              <li><a href="https://churchofnewhope.churchcenter.com/groups" target="_blank" rel="noopener noreferrer">Groups</a></li>
-              <li><Link to="/give">Give</Link></li>
+              <li><Link to={getLocalizedPath('/we-believe')}>{t('nav.weBelieve')}</Link></li>
+              <li><Link to={getLocalizedPath('/leadership')}>{t('nav.ourLeadership')}</Link></li>
+              <li><Link to={getLocalizedPath('/events')}>{t('nav.events')}</Link></li>
+              <li><a href="https://churchofnewhope.churchcenter.com/groups" target="_blank" rel="noopener noreferrer">{t('nav.groups')}</a></li>
+              <li><Link to={getLocalizedPath('/give')}>{t('nav.give')}</Link></li>
             </ul>
-            <Copyright>&copy; 2025 Church of New Hope. All rights reserved.</Copyright>
+            <Copyright>{t('footer.copyright')}</Copyright>
           </Column>
         </FooterContainer>
       </div>

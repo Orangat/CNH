@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components
 const HeaderContainer = styled.header`
@@ -46,7 +47,7 @@ const NavLink = styled(Link)`
 	font-family: 'Creo', sans-serif;
 	font-weight: 700;
 	text-decoration: none;
-	margin-left: 1rem;
+	margin-left: 2rem;
 	color: white;
 	transition: all 0.2s ease-in-out;
 
@@ -59,7 +60,7 @@ const NavExternalLink = styled.a`
 	font-family: 'Creo', sans-serif;
 	font-weight: 700;
 	text-decoration: none;
-	margin-left: 1rem;
+	margin-left: 2rem;
 	color: white;
 	transition: all 0.2s ease-in-out;
 
@@ -70,7 +71,7 @@ const NavExternalLink = styled.a`
 
 const DropdownContainer = styled.div`
 	position: relative;
-	margin-left: 1rem;
+	margin-left: 2rem;
 `;
 
 const DropdownButton = styled.button`
@@ -349,10 +350,69 @@ const MobileDropdownLink = styled(Link)`
 	}
 `;
 
+const LanguageSwitcher = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-left: 2rem;
+`;
+
+const LanguageButton = styled.button<{ active: boolean }>`
+	font-family: 'Creo', sans-serif;
+	font-weight: ${({ active }) => (active ? '700' : '300')};
+	background: none;
+	border: none;
+	color: white;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	padding: 0.25rem 0.5rem;
+	opacity: ${({ active }) => (active ? '1' : '0.6')};
+
+	&:hover {
+		opacity: 1;
+	}
+`;
+
+const MobileLanguageSwitcher = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0;
+	margin-top: 0;
+	border-top: none;
+`;
+
+const MobileLanguageButton = styled.button<{ active: boolean }>`
+	font-family: 'Creo', sans-serif;
+	font-weight: ${({ active }) => (active ? '700' : '300')};
+	background: none;
+	border: none;
+	color: #000;
+	font-size: 1.75rem;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+	padding: 1.25rem 0;
+	opacity: ${({ active }) => (active ? '1' : '0.6')};
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+
+	&:hover {
+		opacity: 1;
+	}
+`;
+
 const Header: React.FC = () => {
+	const { language, setLanguage, t } = useLanguage();
+	const { lang } = useParams<{ lang: string }>();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+
+	const getLocalizedPath = (path: string) => {
+		const currentLang = lang || language;
+		return `/${currentLang}${path}`;
+	};
 
 	const toggleMobileMenu = () => {
 		setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -397,7 +457,7 @@ const Header: React.FC = () => {
 			<HeaderContainer>
 				<HeaderContent className="container">
 					<LogoContainer>
-						<LogoLink to="/">
+						<LogoLink to={getLocalizedPath('')}>
 							<Logo src="/logo.png" alt="Logo" />
 						</LogoLink>
 					</LogoContainer>
@@ -407,7 +467,7 @@ const Header: React.FC = () => {
 							onMouseLeave={handleDropdownMouseLeave}
 						>
 							<DropdownButton>
-								About Us
+								{t('nav.aboutUs')}
 								<DropdownArrow 
 									isOpen={isDropdownOpen} 
 									xmlns="http://www.w3.org/2000/svg" 
@@ -426,23 +486,38 @@ const Header: React.FC = () => {
 								</DropdownArrow>
 							</DropdownButton>
 							<DropdownMenu isOpen={isDropdownOpen}>
-								<DropdownLink to="/we-believe">
-									We Believe
+								<DropdownLink to={getLocalizedPath('/we-believe')}>
+									{t('nav.weBelieve')}
 								</DropdownLink>
-								<DropdownLink to="/leadership">
-									Our Leadership
+								<DropdownLink to={getLocalizedPath('/leadership')}>
+									{t('nav.ourLeadership')}
 								</DropdownLink>
 							</DropdownMenu>
 						</DropdownContainer>
-						<NavLink to="/events">Events</NavLink>
+						<NavLink to={getLocalizedPath('/events')}>{t('nav.events')}</NavLink>
 						<NavExternalLink 
 							href="https://churchofnewhope.churchcenter.com/groups" 
 							target="_blank" 
 							rel="noopener noreferrer"
 						>
-							Groups
+							{t('nav.groups')}
 						</NavExternalLink>
-						<NavLink to="/give">Give</NavLink>
+						<NavLink to={getLocalizedPath('/give')}>{t('nav.give')}</NavLink>
+						<LanguageSwitcher>
+							<LanguageButton 
+								active={language === 'en'} 
+								onClick={() => setLanguage('en')}
+							>
+								EN
+							</LanguageButton>
+							<span style={{ color: 'rgba(255, 255, 255, 0.5)' }}>|</span>
+							<LanguageButton 
+								active={language === 'uk'} 
+								onClick={() => setLanguage('uk')}
+							>
+								UA
+							</LanguageButton>
+						</LanguageSwitcher>
 					</NavContainer>
 					<BurgerMenu onClick={toggleMobileMenu}>&#9776;</BurgerMenu>
 				</HeaderContent>
@@ -451,7 +526,7 @@ const Header: React.FC = () => {
 			{/* Mobile Menu Overlay */}
 			<MobileMenuOverlay isOpen={isMobileMenuOpen}>
 				<MobileMenuHeader>
-					<LogoLink to="/" onClick={handleLinkClick}>
+					<LogoLink to={getLocalizedPath('')} onClick={handleLinkClick}>
 						<MobileMenuLogo src="/logo.png" alt="Logo" />
 					</LogoLink>
 					<CloseButton onClick={closeMobileMenu}>×</CloseButton>
@@ -459,24 +534,24 @@ const Header: React.FC = () => {
 				<MobileMenuContent>
 					<MobileNavItem>
 						<MobileDropdownButton onClick={handleMobileDropdownToggle}>
-							<span>ABOUT US</span>
+							<span>{t('nav.aboutUs').toUpperCase()}</span>
 							<MobileDropdownIndicator>
 								{isMobileDropdownOpen ? '−' : '+'}
 							</MobileDropdownIndicator>
 						</MobileDropdownButton>
 						<MobileDropdownDivider isOpen={isMobileDropdownOpen} />
 						<MobileDropdownMenu isOpen={isMobileDropdownOpen}>
-							<MobileDropdownLink to="/we-believe" onClick={handleLinkClick}>
-								WE BELIEVE
+							<MobileDropdownLink to={getLocalizedPath('/we-believe')} onClick={handleLinkClick}>
+								{t('nav.weBelieve').toUpperCase()}
 							</MobileDropdownLink>
-							<MobileDropdownLink to="/leadership" onClick={handleLinkClick}>
-								OUR LEADERSHIP
+							<MobileDropdownLink to={getLocalizedPath('/leadership')} onClick={handleLinkClick}>
+								{t('nav.ourLeadership').toUpperCase()}
 							</MobileDropdownLink>
 						</MobileDropdownMenu>
 					</MobileNavItem>
 					<MobileNavItem>
-						<MobileNavLink to="/events" onClick={handleLinkClick}>
-							EVENTS
+						<MobileNavLink to={getLocalizedPath('/events')} onClick={handleLinkClick}>
+							{t('nav.events').toUpperCase()}
 						</MobileNavLink>
 					</MobileNavItem>
 					<MobileNavItem>
@@ -486,13 +561,36 @@ const Header: React.FC = () => {
 							rel="noopener noreferrer"
 							onClick={handleLinkClick}
 						>
-							GROUPS
+							{t('nav.groups').toUpperCase()}
 						</MobileNavExternalLink>
 					</MobileNavItem>
 					<MobileNavItem>
-						<MobileNavLink to="/give" onClick={handleLinkClick}>
-							GIVE
+						<MobileNavLink to={getLocalizedPath('/give')} onClick={handleLinkClick}>
+							{t('nav.give').toUpperCase()}
 						</MobileNavLink>
+					</MobileNavItem>
+					<MobileNavItem>
+						<MobileLanguageSwitcher>
+							<MobileLanguageButton 
+								active={language === 'en'} 
+								onClick={() => {
+									setLanguage('en');
+									handleLinkClick();
+								}}
+							>
+								EN
+							</MobileLanguageButton>
+							<span style={{ color: 'rgba(0, 0, 0, 0.3)' }}>|</span>
+							<MobileLanguageButton 
+								active={language === 'uk'} 
+								onClick={() => {
+									setLanguage('uk');
+									handleLinkClick();
+								}}
+							>
+								UA
+							</MobileLanguageButton>
+						</MobileLanguageSwitcher>
 					</MobileNavItem>
 				</MobileMenuContent>
 			</MobileMenuOverlay>

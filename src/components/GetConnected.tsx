@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components for the layout and styling
 const Section = styled.section`
@@ -64,20 +65,21 @@ const ActionButton = styled.a`
 `;
 
 const GetConnected = () => {
+	const { t } = useLanguage();
 	return (
 		<Section>
 			<Content className="container">
-				<Heading>Get Connected</Heading>
-				<SubHeading>Join Our Community</SubHeading>
+				<Heading>{t('getConnected.title')}</Heading>
+				<SubHeading>{t('getConnected.subtitle')}</SubHeading>
 				<Description>
-					We'd love to get to know you better! Fill out our connection form to let us know you're interested in becoming part of our church family. We'll reach out and help you take the next steps in your journey with us.
+					{t('getConnected.description')}
 				</Description>
 				<ActionButton 
 					href="https://churchofnewhope.churchcenter.com/people/forms/922690" 
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					Get Connected
+					{t('getConnected.button')}
 				</ActionButton>
 			</Content>
 		</Section>

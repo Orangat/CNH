@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Styled components for the layout and styling
 const Section = styled.section`
@@ -73,15 +74,16 @@ const ActionLink = styled.a`
 `;
 
 const SmallGroups = () => {
+	const { t } = useLanguage();
 	return (
 		<Section>
 			<Content className="container">
-				<Heading>Small Groups</Heading>
-				<SubHeading>Get involved in our vibrant community!</SubHeading>
+				<Heading>{t('smallGroups.title')}</Heading>
+				<SubHeading>{t('smallGroups.subtitle')}</SubHeading>
 				<Description>
-					Small groups are where deep growth and connection happens in our church. We have groups that meet all over Charlotte for families, men, women, and young adults in both languages.
+					{t('smallGroups.description')}
 				</Description>
-				<ActionLink href="https://churchofnewhope.churchcenter.com/groups" target="_blank">JOIN A SMALL GROUP</ActionLink>
+				<ActionLink href="https://churchofnewhope.churchcenter.com/groups" target="_blank">{t('smallGroups.joinButton')}</ActionLink>
 			</Content>
 		</Section>
 	);

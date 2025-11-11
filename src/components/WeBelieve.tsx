@@ -1,210 +1,280 @@
 // src/components/WeBelieve.tsx
 import React from 'react';
 import styled from 'styled-components';
-import { ChurchInformation } from "../utils/enums";
+import { useLanguage } from '../contexts/LanguageContext';
 
-const ImageWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  max-height: 600px;
-  overflow: hidden;
+const PageWrapper = styled.div`
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  padding-bottom: 4rem;
 `;
 
-const Image = styled.img`
+const Header = styled.div`
+  background-color: #000;
+  color: white;
+  text-align: center;
+  padding: 6rem 1rem 4rem;
+  margin-bottom: 3rem;
   width: 100%;
-  max-height: 600px;
-  object-fit: cover; /* Ensures the image covers the area */
-  object-position: center center; /* Centers the image */
-`;
-
-const IconRow = styled.p`
-  font-family: 'Creo', sans-serif;
-  font-weight: 300;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  margin: 0;
-
-  i {
-    font-size: 1.25rem;
-  }
-`;
-
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); // Dark transparent overlay
-  z-index: 1; // Ensures the overlay stays on top of the image
-`;
-
-const Container = styled.div`
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  color: #333;
-  border-radius: 8px;
+  justify-content: center;
 
   @media (max-width: 768px) {
-    padding: 15px;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
   }
 `;
 
 const Title = styled.h1`
   font-family: 'Creo', sans-serif;
-  text-align: center;
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
-  color: #555;
-  margin-bottom: 30px;
   text-transform: uppercase;
+  color: white;
+  margin: 0;
 
   @media (max-width: 768px) {
     font-size: 2rem;
   }
 `;
 
-const SubTitle = styled.h2`
-  font-family: 'Creo', sans-serif;
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #555;
-  margin-top: 30px;
+const Content = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+`;
+
+const CardsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
 
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 `;
 
-const Section = styled.div`
-  margin-bottom: 25px;
+const Card = styled.div<{ fullWidth?: boolean }>`
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  grid-column: ${({ fullWidth }) => (fullWidth ? '1 / -1' : 'auto')};
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    gap: 1.25rem;
+    grid-column: 1;
+  }
 `;
 
-const Paragraph = styled.p`
+const IconWrapper = styled.div`
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
+`;
+
+const Icon = styled.div`
+  font-size: 3rem;
+  line-height: 1;
+  color: #1C5273;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const CardContent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+`;
+
+const CardTitle = styled.h2`
   font-family: 'Creo', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  text-transform: uppercase;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
+`;
+
+const CardText = styled.p`
+  font-family: 'Creo', sans-serif;
+  font-size: 1rem;
   font-weight: 300;
   line-height: 1.6;
   color: #555;
-  text-align: justify;
+  margin: 0;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 `;
 
+// Icon components using Font Awesome classes
+const GodIcon = () => (
+  <IconWrapper>
+    <Icon>
+      <i className="fas fa-wind" style={{ color: '#1C5273' }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
+const BibleIcon = () => (
+  <IconWrapper>
+    <Icon>
+      <i className="fas fa-book-open" style={{ color: '#1C5273' }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
+const ManIcon = () => (
+  <IconWrapper>
+    <Icon>
+      <i className="fas fa-user" style={{ color: '#1C5273' }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
+const SalvationIcon = () => (
+  <IconWrapper>
+    <Icon>
+      <i className="fas fa-cross" style={{ color: '#1C5273' }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
+const AssuranceIcon = () => (
+  <IconWrapper>
+    <Icon>
+      <i className="fas fa-shield-alt" style={{ color: '#1C5273' }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
+const DutiesIcon = () => (
+  <IconWrapper>
+    <Icon>
+      <i className="fas fa-hands-helping" style={{ color: '#1C5273' }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
+const ChurchIcon = () => (
+  <IconWrapper>
+    <Icon>
+      <i className="fas fa-church" style={{ color: '#1C5273' }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
+const OrdinancesIcon = () => (
+  <IconWrapper>
+    <Icon style={{ position: 'relative' }}>
+      <i className="fas fa-wine-glass" style={{ color: '#1C5273' }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
+const LastThingsIcon = () => (
+  <IconWrapper>
+    <Icon style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <i className="fas fa-cloud" style={{ color: '#1C5273', position: 'relative', zIndex: 1 }}></i>
+      <i className="fas fa-cross" style={{ fontSize: '1rem', color: '#1C5273', position: 'absolute', zIndex: 2 }}></i>
+    </Icon>
+  </IconWrapper>
+);
+
 const WeBelieve = () => {
+  const { t } = useLanguage();
+
+  const beliefs = [
+    {
+      key: 'god',
+      icon: <GodIcon />,
+    },
+    {
+      key: 'bible',
+      icon: <BibleIcon />,
+    },
+    {
+      key: 'man',
+      icon: <ManIcon />,
+    },
+    {
+      key: 'salvation',
+      icon: <SalvationIcon />,
+    },
+    {
+      key: 'assurance',
+      icon: <AssuranceIcon />,
+    },
+    {
+      key: 'duties',
+      icon: <DutiesIcon />,
+    },
+    {
+      key: 'church',
+      icon: <ChurchIcon />,
+    },
+    {
+      key: 'ordinances',
+      icon: <OrdinancesIcon />,
+    },
+    {
+      key: 'lastThings',
+      icon: <LastThingsIcon />,
+    },
+  ];
+
+  // Check if last card should be full width (odd number of cards)
+  const isLastCardFullWidth = beliefs.length % 2 === 1;
+
   return (
-    <div>
-      <ImageWrapper>
-        <Image src="/webelieve.jpg" alt="We Believe" />
-        <Overlay />
-      </ImageWrapper>
-
-      <Container>
-        <Title>STATEMENT OF FAITH</Title>
-
-        <Section>
-          <SubTitle>GOD</SubTitle>
-          <Paragraph>
-            We believe that there is only one true, living, and eternal God and that the Godhead is revealed as Father,
-            Son, and Holy Spirit.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <SubTitle>THE BIBLE</SubTitle>
-          <Paragraph>
-            We believe that the Holy Scriptures are the Old and New Testaments; the inspired and infallible Word of God
-            and therein is found the only reliable guide of Christian faith and conduct.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <SubTitle>MAN</SubTitle>
-          <Paragraph>
-            We believe that God created man in His own image to bring Him honor through obedience, and that when man
-            disobeyed, he became a fallen and sinful creature, unable to save himself. We believe that infants are in
-            the covenant of God's grace and that all persons become accountable to God when they reach a state of moral
-            responsibility.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <SubTitle>SALVATION</SubTitle>
-          <Paragraph>
-            We believe that salvation (regeneration, sanctification, justification, and redemption) has been provided
-            for all mankind through the redemptive work (life, death, resurrection, ascension, and intercession) of
-            Jesus Christ, and that this salvation can be received only through repentance toward God and faith toward
-            our Lord Jesus Christ.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <SubTitle>ASSURANCE AND ENDURANCE</SubTitle>
-          <Paragraph>
-            We believe that those who abide in Christ have the assurance of salvation. However, we believe that the
-            Christian retains his freedom of choice; therefore, it is possible for him to turn away from God and be
-            finally lost.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <SubTitle>CHRISTIAN DUTIES</SubTitle>
-          <Paragraph>
-            We believe that Christians should live faithfully by serving in and through the local church, praying
-            diligently, witnessing earnestly, practicing tolerance, showing loving kindness, giving as God prospers, and
-            conducting themselves in such a way as to bring glory to God.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <SubTitle>THE CHURCH</SubTitle>
-          <Paragraph>
-            We believe that the Church Universal is the Body of Christ, the fellowship of all believers, and that its
-            members have been called out from the world to come under the dominion and authority of Christ, its Head. We
-            believe that a local church is a fellowship of Christians, a part of the Body of Christ, voluntarily banded
-            together for worship, nurture, and service.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <SubTitle>ORDINANCES</SubTitle>
-          <Paragraph>
-            We believe that baptism and the Lord's Supper are ordinances instituted by Christ to be observed by
-            Christians only. We also believe that the biblical mode of baptism is immersion and that participation in
-            the Lord's Supper should be open to all Christians.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <SubTitle>LAST THINGS</SubTitle>
-          <Paragraph>
-            We believe in the personal return of Jesus Christ, and in the bodily resurrection of the dead. We believe
-            that God will judge all mankind by Jesus Christ; that He will reward the righteous with eternal life in
-            heaven, and that He will banish the unrighteous to everlasting punishment in hell.
-          </Paragraph>
-        </Section>
-
-        <Section>
-          <Paragraph>
-            You can find us at:
-          </Paragraph>
-          <IconRow>
-            <i className="fas fa-map-marker-alt"></i>
-            <a
-              href="https://www.google.com/maps/place/Church+of+New+Hope/@35.1386539,-80.6753961,17z/data=!4m15!1m8!3m7!1s0x8854237512253b49:0xd6feb6ee5600c036!2s13601+Idlewild+Rd,+Matthews,+NC+28105!3b1!8m2!3d35.1386539!4d-80.6753961!16s%2Fg%2F11c2bgk14q!3m5!1s0x8854233f1c141bad:0x52bdf54b20d5ecbd!8m2!3d35.1386659!4d-80.6753908!16s%2Fg%2F11r6_nkvqv?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
-              target="_blank"
-              rel="noopener noreferrer"
+    <PageWrapper>
+      <Header>
+        <Title>{t('weBelieve.title')}</Title>
+      </Header>
+      <Content>
+        <CardsGrid>
+          {beliefs.map((belief, index) => (
+            <Card 
+              key={belief.key}
+              fullWidth={isLastCardFullWidth && index === beliefs.length - 1}
             >
-              {ChurchInformation.CHURCH_ADDRESS}
-            </a>
-          </IconRow>
-          <Paragraph>
-            Come as you are – we can’t wait to meet you and share in a meaningful experience together.
-          </Paragraph>
-        </Section>
-      </Container>
-    </div>
+              {belief.icon}
+              <CardContent>
+                <CardTitle>{t(`weBelieve.${belief.key}.title`)}</CardTitle>
+                <CardText>{t(`weBelieve.${belief.key}.text`)}</CardText>
+              </CardContent>
+            </Card>
+          ))}
+        </CardsGrid>
+      </Content>
+    </PageWrapper>
   );
 };
 
