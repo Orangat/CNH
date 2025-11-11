@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     <div className="Home">
       <UpcomingServices key={location.pathname} videoUrl={videoUrl}>
         <h1 className="overlay-title">SUNDAYS</h1>
-        <p>Join us for services at<br /> {ChurchInformation.ENGLISH_SERVICE_TIME} (English) <br /> {ChurchInformation.UKRAINIAN_SERVICE_TIME} (Ukrainian)</p>
+        <p>Join us<br /> {ChurchInformation.ENGLISH_SERVICE_TIME} (English) <br /> {ChurchInformation.UKRAINIAN_SERVICE_TIME} (Ukrainian)</p>
       </UpcomingServices>
       <AboutChurchHome />
       <SmallGroups />
