@@ -106,22 +106,16 @@ const Leadership = () => {
       photo: '/images/plukchii.jpg',
     },
     {
-      name: 'Dima Grinchak',
-      title: 'Pastor',
+      name: 'Yevgenni Prannik',
+      title: 'Hospitality Pastor',
       emails: ['info@churchofnewhope.org'],
-      photo: '',
+      photo: '/images/pranik.jpg',
     },
     {
       name: 'Alexander Grinchak',
       title: 'Visitation Pastor',
       emails: ['info@churchofnewhope.org'],
       photo: '/images/grinchak.jpg',
-    },
-    {
-      name: 'Yevgenni Prannik',
-      title: 'Hospitality Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/pranik.jpg',
     },
     {
       name: 'Andrii Kyslianka',
@@ -131,9 +125,15 @@ const Leadership = () => {
     },
     {
       name: 'Andriy Omeliash',
-      title: 'Church Administrator',
+      title: 'Church Operations Director',
       emails: ['andriy@churchofnewhope.org'],
       photo: '/images/omelash.jpg',
+    },
+    {
+      name: 'Dima Grinchak',
+      title: 'Pastor',
+      emails: ['info@churchofnewhope.org'],
+      photo: '',
     },
     {
       name: 'Artem Topchi',
@@ -143,7 +143,7 @@ const Leadership = () => {
     },
     {
       name: 'Maksym & Victoria Sak',
-      title: 'Ministry Operations Director & Creative Media Manager',
+      title: 'Ministry Operations Director & Creative Media Director',
       emails: ['maksym@churchofnewhope.org', 'creative@churchofnewhope.org'],
       photo: '/images/sak.jpg',
     },
@@ -214,8 +214,8 @@ const Leadership = () => {
       photo: '/images/metin.jpg',
     },
     {
-      name: 'Julie Romanteyev',
-      title: 'Social Media Manager',
+      name: 'Katie Bernik',
+      title: 'Social Media Director',
       emails: ['creative@churchofnewhope.org'],
       photo: '/images/yulia.jpg',
     },
