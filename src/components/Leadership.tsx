@@ -124,16 +124,16 @@ const Leadership = () => {
       photo: '/images/kuslanka.jpg',
     },
     {
-      name: 'Andriy Omeliash',
-      title: 'Church Operations Director',
-      emails: ['andriy@churchofnewhope.org'],
-      photo: '/images/omelash.jpg',
-    },
-    {
       name: 'Dima Grinchak',
       title: 'Pastor',
       emails: ['info@churchofnewhope.org'],
       photo: '',
+    },
+    {
+      name: 'Andriy Omeliash',
+      title: 'Church Operations Director',
+      emails: ['andriy@churchofnewhope.org'],
+      photo: '/images/omelash.jpg',
     },
     {
       name: 'Artem Topchi',
