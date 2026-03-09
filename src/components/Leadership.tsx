@@ -217,7 +217,7 @@ const Leadership = () => {
       name: 'Katie Bernik',
       title: 'Social Media Director',
       emails: ['creative@churchofnewhope.org'],
-      photo: '/images/yulia.jpg',
+      photo: '',
     },
     {
       name: 'Nelia Olos',
