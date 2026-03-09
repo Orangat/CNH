@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSiteContent, Leader } from '../contexts/SiteContentContext';
 
 const PageWrapper = styled.div`
   background-color: #f4f4f4;
@@ -86,160 +87,9 @@ const LeaderEmail = styled.p`
 `;
 
 const Leadership = () => {
-  const leaders = [
-    {
-      name: 'Vasily & Lucy Rudnitsky',
-      title: 'Senior Pastor & Church Accountant',
-      emails: ['vasily@churchofnewhope.org', 'lucy@churchofnewhope.org'],
-      photo: '/images/rudn.jpg',
-    },
-    {
-      name: 'Yuriy Rudnitsky',
-      title: 'English Service Pastor',
-      emails: ['yuriy@churchofnewhope.org'],
-      photo: '/images/yurrudn.jpg',
-    },
-    {
-      name: 'Anatoli Plukchi',
-      title: 'Home Groups Pastor',
-      emails: ['homegroups@churchofnewhope.org'],
-      photo: '/images/plukchii.jpg',
-    },
-    {
-      name: 'Yevgenni Prannik',
-      title: 'Hospitality Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/pranik.jpg',
-    },
-    {
-      name: 'Alexander Grinchak',
-      title: 'Visitation Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/grinchak.jpg',
-    },
-    {
-      name: 'Andrii Kyslianka',
-      title: 'Family Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/kuslanka.jpg',
-    },
-    {
-      name: 'Dima Grinchak',
-      title: 'Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Andriy Omeliash',
-      title: 'Church Operations Director',
-      emails: ['andriy@churchofnewhope.org'],
-      photo: '/images/omelash.jpg',
-    },
-    {
-      name: 'Artem Topchi',
-      title: 'Head Deacon',
-      emails: ['artem@churchofnewhope.org'],
-      photo: '/images/topchiiArtem.jpg',
-    },
-    {
-      name: 'Maksym & Victoria Sak',
-      title: 'Ministry Operations Director & Creative Media Director',
-      emails: ['maksym@churchofnewhope.org', 'creative@churchofnewhope.org'],
-      photo: '/images/sak.jpg',
-    },
-    {
-      name: 'Iurii & Angelina Prokopchuk',
-      title: "Service Director & Women's Ministry Director",
-      emails: ['iurii@churchofnewhope.org', 'women@churchofnewhope.org'],
-      photo: '/images/prokopchuk.jpg',
-    },
-    {
-      name: 'Vitaliy Kuprovsky',
-      title: 'Creative & Production Director',
-      emails: ['vitaliy@churchofnewhope.org'],
-      photo: '/images/kuprovskii.jpg',
-    },
-    {
-      name: 'Alexander Berezovsky',
-      title: 'Missions Director',
-      emails: ['missions@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Katie Topchi',
-      title: 'Worship Ministry Director',
-      emails: ['worship@churchofnewhope.org'],
-      photo: '/images/katetopchii.jpg',
-    },
-    {
-      name: 'Iryna Zyhalenko',
-      title: 'Choir Director',
-      emails: ['worship@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Vlad Ferkaliak',
-      title: "Men's Ministry Director",
-      emails: ['men@churchofnewhope.org'],
-      photo: '/images/ferkal.jpg',
-    },
-    {
-      name: 'Vitalii Arshulik',
-      title: 'Youth Ministry Director',
-      emails: ['youth@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'David Pavlyuk',
-      title: 'Youth Ministry Leader',
-      emails: ['youth@churchofnewhope.org'],
-      photo: '/images/david.jpg',
-    },
-    {
-      name: 'Vasily and Olena Manilenko',
-      title: "Children's Ministry Directors",
-      emails: ['kids@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Nataliia Bohodenko',
-      title: 'Kids Choir Director',
-      emails: ['kids@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Maks Mitin',
-      title: 'Sunday School Director',
-      emails: ['kids@churchofnewhope.org'],
-      photo: '/images/metin.jpg',
-    },
-    {
-      name: 'Katie Bernik',
-      title: 'Social Media Director',
-      emails: ['creative@churchofnewhope.org'],
-      photo: '/images/yulia.jpg',
-    },
-    {
-      name: 'Nelia Olos',
-      title: 'Hospitality Director',
-      emails: ['hospitality@churchofnewhope.org'],
-      photo: '/images/olos.jpg',
-    },
-    {
-      name: 'Olena Soloninko',
-      title: 'Décor Director',
-      emails: ['info@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Victoria Kyshko',
-      title: 'Kitchen Ministry Director',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/kushko.jpg',
-    },
-  ];
-
   const { t } = useLanguage();
+  const { leaders: leadersContent } = useSiteContent();
+  const leaders = leadersContent.leaders || [];
   
   const cardVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.9 },
@@ -255,7 +105,7 @@ const Leadership = () => {
   };
 
   // Individual card component with its own scroll trigger
-  const LeaderCardWithAnimation: React.FC<{ leader: typeof leaders[0], index: number }> = ({ leader, index }) => {
+  const LeaderCardWithAnimation: React.FC<{ leader: Leader; index: number }> = ({ leader, index }) => {
     const cardRef = useRef<HTMLDivElement>(null);
     // First 3 cards should appear immediately (visible on desktop in 3-column grid)
     const shouldShowImmediately = index < 3;
@@ -298,7 +148,7 @@ const Leadership = () => {
       </motion.div>
       <LeadersGrid>
         {leaders.map((leader, index) => (
-          <LeaderCardWithAnimation key={index} leader={leader} index={index} />
+          <LeaderCardWithAnimation key={leader.id || index} leader={leader} index={index} />
         ))}
       </LeadersGrid>
     </PageWrapper>

@@ -1,0 +1,79 @@
+{
+  "titleEn": "STATEMENT OF FAITH",
+  "titleUk": "ДЕКЛАРАЦІЯ ВІРИ",
+  "items": [
+    {
+      "id": "god",
+      "icon": "wind",
+      "titleEn": "GOD",
+      "textEn": "We believe that there is only one true, living, and eternal God and that the Godhead is revealed as Father, Son, and Holy Spirit.",
+      "titleUk": "БОГ",
+      "textUk": "Ми віримо, що існує лише один істинний, живий та вічний Бог, і що Божество відкривається як Отець, Син і Святий Дух."
+    },
+    {
+      "id": "bible",
+      "icon": "book",
+      "titleEn": "THE BIBLE",
+      "textEn": "We believe that the Holy Scriptures are the Old and New Testaments; the inspired and infallible Word of God and therein is found the only reliable guide of Christian faith and conduct.",
+      "titleUk": "БІБЛІЯ",
+      "textUk": "Ми віримо, що Святе Писання - це Старий і Новий Завіти; натхненне та безпомилкове Слово Боже, і в ньому знаходиться єдиний надійний путівник християнської віри та поведінки."
+    },
+    {
+      "id": "man",
+      "icon": "user",
+      "titleEn": "MAN",
+      "textEn": "We believe that God created man in His own image to bring Him honor through obedience, and that when man disobeyed, he became a fallen and sinful creature, unable to save himself. We believe that infants are in the covenant of God's grace and that all persons become accountable to God when they reach a state of moral responsibility.",
+      "titleUk": "ЛЮДИНА",
+      "textUk": "Ми віримо, що Бог створив людину за Своїм образом, щоб принести Йому честь через послух, і що коли людина не послухалася, вона стала падшою та грішною істотою, нездатною врятувати себе. Ми віримо, що немовлята перебувають у завіті Божої благодаті, і що всі люди стають відповідальними перед Богом, коли досягають стану моральної відповідальності."
+    },
+    {
+      "id": "salvation",
+      "icon": "cross",
+      "titleEn": "SALVATION",
+      "textEn": "We believe that salvation (regeneration, sanctification, justification, and redemption) has been provided for all mankind through the redemptive work (life, death, resurrection, ascension, and intercession) of Jesus Christ, and that this salvation can be received only through repentance toward God and faith toward our Lord Jesus Christ.",
+      "titleUk": "СПАСІННЯ",
+      "textUk": "Ми віримо, що спасіння (відродження, освячення, виправдання та спокута) було надане всьому людству через спокутну працю (життя, смерть, воскресіння, вознесіння та заступництво) Ісуса Христа, і що це спасіння може бути отримане лише через каяття перед Богом та віру в нашого Господа Ісуса Христа."
+    },
+    {
+      "id": "assurance",
+      "icon": "shield",
+      "titleEn": "ASSURANCE AND ENDURANCE",
+      "textEn": "We believe that those who abide in Christ have the assurance of salvation. However, we believe that the Christian retains his freedom of choice; therefore, it is possible for him to turn away from God and be finally lost.",
+      "titleUk": "ВПЕВНЕНІСТЬ ТА ВИТРИВАЛІСТЬ",
+      "textUk": "Ми віримо, що ті, хто перебуває в Христі, мають впевненість у спасінні. Однак ми віримо, що християнин зберігає свою свободу вибору; тому для нього можливо відвернутися від Бога і бути нарешті втраченим."
+    },
+    {
+      "id": "duties",
+      "icon": "hands",
+      "titleEn": "CHRISTIAN DUTIES",
+      "textEn": "We believe that Christians should live faithfully by serving in and through the local church, praying diligently, witnessing earnestly, practicing tolerance, showing loving kindness, giving as God prospers, and conducting themselves in such a way as to bring glory to God.",
+      "titleUk": "ХРИСТИЯНСЬКІ ОБОВ'ЯЗКИ",
+      "textUk": "Ми віримо, що християни повинні жити вірно, служачи в місцевій церкві та через неї, молячись старанно, свідчачи щиро, практикуючи толерантність, виявляючи люблячу доброту, даючи, як Бог процвітає, і поводячись таким чином, щоб принести славу Богу."
+    },
+    {
+      "id": "church",
+      "icon": "church",
+      "titleEn": "THE CHURCH",
+      "textEn": "We believe that the Church Universal is the Body of Christ, the fellowship of all believers, and that its members have been called out from the world to come under the dominion and authority of Christ, its Head. We believe that a local church is a fellowship of Christians, a part of the Body of Christ, voluntarily banded together for worship, nurture, and service.",
+      "titleUk": "ЦЕРКВА",
+      "textUk": "Ми віримо, що Вселенська Церква - це Тіло Христове, спільнота всіх віруючих, і що її члени були покликані зі світу, щоб прийти під владу та авторитет Христа, її Голови. Ми віримо, що місцева церква - це спільнота християн, частина Тіла Христового, добровільно об'єднаних для поклоніння, виховання та служіння."
+    },
+    {
+      "id": "ordinances",
+      "icon": "wine",
+      "titleEn": "ORDINANCES",
+      "textEn": "We believe that baptism and the Lord's Supper are ordinances instituted by Christ to be observed by Christians only. We also believe that the biblical mode of baptism is immersion and that participation in the Lord's Supper should be open to all Christians.",
+      "titleUk": "ОБРЯДИ",
+      "textUk": "Ми віримо, що хрещення та Вечеря Господня - це обряди, встановлені Христом для спостереження лише християнами. Ми також віримо, що біблійний спосіб хрещення - це занурення, і що участь у Вечері Господній повинна бути відкритою для всіх християн."
+    },
+    {
+      "id": "lastThings",
+      "icon": "cloud-cross",
+      "titleEn": "RESURRECTION",
+      "textEn": "We believe in the personal return of Jesus Christ, and in the bodily resurrection of the dead. We believe that God will judge all mankind by Jesus Christ; that He will reward the righteous with eternal life in heaven, and that He will banish the unrighteous to everlasting punishment in hell.",
+      "titleUk": "ВОСКРЕСІННЯ",
+      "textUk": "Ми віримо в особисте повернення Ісуса Христа та в тілесне воскресіння мертвих. Ми віримо, що Бог буде судити все людство через Ісуса Христа; що Він нагородить праведних вічним життям на небесах, і що Він відішле несправедливих до вічної кари в пеклі."
+    }
+  ]
+}
+

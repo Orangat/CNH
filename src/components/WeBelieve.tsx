@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSiteContent, WeBelieveIcon, WeBelieveItem } from '../contexts/SiteContentContext';
 
 const PageWrapper = styled.div`
   min-height: 100vh;
@@ -209,54 +210,29 @@ const LastThingsIcon = () => (
   </IconWrapper>
 );
 
+const iconByKey: Record<WeBelieveIcon, React.ReactNode> = {
+  wind: <GodIcon />,
+  book: <BibleIcon />,
+  user: <ManIcon />,
+  cross: <SalvationIcon />,
+  shield: <AssuranceIcon />,
+  hands: <DutiesIcon />,
+  church: <ChurchIcon />,
+  wine: <OrdinancesIcon />,
+  'cloud-cross': <LastThingsIcon />,
+};
+
 const WeBelieve = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { weBelieve } = useSiteContent();
   const headerRef = useRef(null);
   const gridRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true });
   const gridInView = useInView(gridRef, { once: true, amount: 0, margin: '-100px' });
-
-  const beliefs = [
-    {
-      key: 'god',
-      icon: <GodIcon />,
-    },
-    {
-      key: 'bible',
-      icon: <BibleIcon />,
-    },
-    {
-      key: 'man',
-      icon: <ManIcon />,
-    },
-    {
-      key: 'salvation',
-      icon: <SalvationIcon />,
-    },
-    {
-      key: 'assurance',
-      icon: <AssuranceIcon />,
-    },
-    {
-      key: 'duties',
-      icon: <DutiesIcon />,
-    },
-    {
-      key: 'church',
-      icon: <ChurchIcon />,
-    },
-    {
-      key: 'ordinances',
-      icon: <OrdinancesIcon />,
-    },
-    {
-      key: 'lastThings',
-      icon: <LastThingsIcon />,
-    },
-  ];
+  const items: WeBelieveItem[] = weBelieve.items || [];
 
   // Check if last card should be full width (odd number of cards)
-  const isLastCardFullWidth = beliefs.length % 2 === 1;
+  const isLastCardFullWidth = items.length % 2 === 1;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -291,7 +267,7 @@ const WeBelieve = () => {
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <Header>
-          <Title>{t('weBelieve.title')}</Title>
+          <Title>{(language === 'uk' ? weBelieve.titleUk : weBelieve.titleEn) || t('weBelieve.title')}</Title>
         </Header>
       </motion.div>
       <Content>
@@ -302,16 +278,16 @@ const WeBelieve = () => {
           initial="hidden"
           animate={gridInView ? 'visible' : 'hidden'}
         >
-          {beliefs.map((belief, index) => (
+          {items.map((belief, index) => (
             <Card
-              key={belief.key}
-              fullWidth={isLastCardFullWidth && index === beliefs.length - 1}
+              key={belief.id}
+              fullWidth={isLastCardFullWidth && index === items.length - 1}
               variants={cardVariants}
             >
-              {belief.icon}
+              {iconByKey[belief.icon] ?? <GodIcon />}
               <CardContent>
-                <CardTitle>{t(`weBelieve.${belief.key}.title`)}</CardTitle>
-                <CardText>{t(`weBelieve.${belief.key}.text`)}</CardText>
+                <CardTitle>{language === 'uk' ? belief.titleUk : belief.titleEn}</CardTitle>
+                <CardText>{language === 'uk' ? belief.textUk : belief.textEn}</CardText>
               </CardContent>
             </Card>
           ))}

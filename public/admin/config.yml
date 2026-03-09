@@ -1,0 +1,120 @@
+local_backend: true
+
+backend:
+  name: github
+  repo: Orangat/CNH
+  branch: main
+  base_url: https://churchofnewhope.org/.netlify/functions
+  auth_endpoint: auth
+
+media_folder: public/images
+public_folder: /images
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: site
+    label: Site Settings
+    format: json
+    file: public/content/site.json
+    editor:
+      preview: false
+    fields:
+      - label: Service Times
+        name: serviceTimes
+        widget: object
+        fields:
+          - { label: English, name: english, widget: string }
+          - { label: Ukrainian, name: ukrainian, widget: string }
+
+      - label: Home Announcement
+        name: homeAnnouncement
+        widget: object
+        fields:
+          - { label: Enabled, name: enabled, widget: boolean, default: false }
+          - { label: English Text, name: en, widget: text, required: false }
+          - { label: Ukrainian Text, name: uk, widget: text, required: false }
+
+      - label: Footer
+        name: footer
+        widget: object
+        fields:
+          - { label: Church Name, name: churchName, widget: string }
+          - { label: Address (display), name: address, widget: string }
+          - { label: Google Maps URL, name: mapUrl, widget: string }
+          - { label: Phone (display), name: phoneDisplay, widget: string }
+          - { label: Phone (tel link, e.g. +1704...), name: phoneTel, widget: string }
+          - { label: Extra line (optional), name: extraLine, widget: string, required: false }
+
+      - label: Giving
+        name: giving
+        widget: object
+        fields:
+          - { label: Zelle Phone (display), name: zellePhoneDisplay, widget: string }
+          - { label: Zelle Phone (digits only), name: zellePhoneRaw, widget: string }
+
+      - label: Game Time (optional)
+        name: gameTime
+        widget: object
+        fields:
+          - { label: Enabled, name: enabled, widget: boolean, default: false }
+          - { label: Label (EN), name: labelEn, widget: string, required: false }
+          - { label: Label (UK), name: labelUk, widget: string, required: false }
+          - { label: Time (EN), name: timeEn, widget: string, required: false }
+          - { label: Time (UK), name: timeUk, widget: string, required: false }
+
+  - name: leaders
+    label: Leadership
+    format: json
+    file: public/content/leaders.json
+    editor:
+      preview: false
+    fields:
+      - label: Leaders
+        name: leaders
+        widget: list
+        summary: "{{fields.name}} — {{fields.title}}"
+        fields:
+          - { label: ID, name: id, widget: string, hint: "Unique stable id (no spaces)." }
+          - { label: Name, name: name, widget: string }
+          - { label: Title/Position, name: title, widget: string }
+          - label: Emails
+            name: emails
+            widget: list
+            required: false
+            field: { label: Email, name: email, widget: string }
+          - { label: Photo (path in /public/images), name: photo, widget: image, required: false }
+
+  - name: we_believe
+    label: We Believe
+    format: json
+    file: public/content/we-believe.json
+    editor:
+      preview: false
+    fields:
+      - { label: Title (EN), name: titleEn, widget: string }
+      - { label: Title (UK), name: titleUk, widget: string }
+      - label: Items
+        name: items
+        widget: list
+        summary: "{{fields.titleEn}}"
+        fields:
+          - { label: ID, name: id, widget: string }
+          - label: Icon
+            name: icon
+            widget: select
+            options:
+              - { label: Wind, value: wind }
+              - { label: Book, value: book }
+              - { label: User, value: user }
+              - { label: Cross, value: cross }
+              - { label: Shield, value: shield }
+              - { label: Hands, value: hands }
+              - { label: Church, value: church }
+              - { label: Wine, value: wine }
+              - { label: Cloud + Cross, value: cloud-cross }
+          - { label: Title (EN), name: titleEn, widget: string }
+          - { label: Text (EN), name: textEn, widget: text }
+          - { label: Title (UK), name: titleUk, widget: string }
+          - { label: Text (UK), name: textUk, widget: text }
+

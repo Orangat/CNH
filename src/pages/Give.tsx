@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSiteContent } from '../contexts/SiteContentContext';
 
 // Styled components
 const GiveContainer = styled.div`
@@ -207,8 +208,10 @@ const ExternalLinkIcon = styled.i`
 
 const Give: React.FC = () => {
     // Generate QR code for Zelle phone number
-    const zellePhoneNumber = "(704) 453-9365";
     const { t } = useLanguage();
+    const { site } = useSiteContent();
+    const zellePhoneDisplay = site.giving.zellePhoneDisplay;
+    const zellePhoneRaw = site.giving.zellePhoneRaw;
     const headerRef = useRef(null);
     const gridRef = useRef(null);
     const headerInView = useInView(headerRef, { once: true });
@@ -277,7 +280,7 @@ const Give: React.FC = () => {
                         <ZelleInfo>
                             <InfoRow>
                                 <InfoLabel>{t('give.zelle.phone')}</InfoLabel>
-                                <InfoValue>{zellePhoneNumber}</InfoValue>
+                                <InfoValue>{zellePhoneDisplay}</InfoValue>
                             </InfoRow>
                             <InfoRow>
                                 <InfoLabel>{t('give.zelle.note')}</InfoLabel>
@@ -288,7 +291,7 @@ const Give: React.FC = () => {
                         <QRCodeContainer>
                             <QRCodeWrapper>
                                 <QRCodeCanvas
-                                    value={zellePhoneNumber}
+                                    value={zellePhoneRaw || zellePhoneDisplay}
                                     size={160}
                                     level="M"
                                     includeMargin={true}

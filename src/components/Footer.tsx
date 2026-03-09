@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
-import { ChurchInformation } from "../utils/enums";
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSiteContent } from '../contexts/SiteContentContext';
 
 // Styled components for the footer layout and styling
 const FooterSection = styled.footer`
@@ -98,6 +98,7 @@ const Footer: React.FC = () => {
   const { t, language } = useLanguage();
   const { lang } = useParams<{ lang: string }>();
   const currentLang = lang || language;
+  const { site } = useSiteContent();
 
   const getLocalizedPath = (path: string) => {
     return `/${currentLang}${path}`;
@@ -109,27 +110,28 @@ const Footer: React.FC = () => {
         <FooterContainer>
           {/* Left Column */}
           <Column className="left">
-            <Title>{t('footer.churchName')}</Title>
+            <Title>{site.footer.churchName || t('footer.churchName')}</Title>
             <IconRow>
               <i className="fas fa-map-marker-alt"></i>
               <a
-                href="https://www.google.com/maps/place/Church+of+New+Hope/@35.1386539,-80.6753961,17z/data=!4m15!1m8!3m7!1s0x8854237512253b49:0xd6feb6ee5600c036!2s13601+Idlewild+Rd,+Matthews,+NC+28105!3b1!8m2!3d35.1386539!4d-80.6753961!16s%2Fg%2F11c2bgk14q!3m5!1s0x8854233f1c141bad:0x52bdf54b20d5ecbd!8m2!3d35.1386659!4d-80.6753908!16s%2Fg%2F11r6_nkvqv?entry=ttu&g_ep=EgoyMDI0MTExOS4yIKXMDSoASAFQAw%3D%3D"
+                href={site.footer.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {ChurchInformation.CHURCH_ADDRESS}
+                {site.footer.address}
               </a>
             </IconRow>
             <IconRow>
               <i className="fas fa-phone"></i>
-              <a href="tel:+17044539365" style={{ color: 'inherit', textDecoration: 'none' }}>
-                {ChurchInformation.CHURCH_PHONE}
+              <a href={`tel:${site.footer.phoneTel}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                {site.footer.phoneDisplay}
               </a>
             </IconRow>
             <IconRow>
               <i className="fas fa-clock"></i>
-              {ChurchInformation.ENGLISH_SERVICE_TIME} ({t('home.english')}), {ChurchInformation.UKRAINIAN_SERVICE_TIME} ({t('home.ukrainian')})
+              {site.serviceTimes.english} ({t('home.english')}), {site.serviceTimes.ukrainian} ({t('home.ukrainian')})
             </IconRow>
+            {site.footer.extraLine ? <IconRow>{site.footer.extraLine}</IconRow> : null}
           </Column>
 
           {/* Right Column */}
