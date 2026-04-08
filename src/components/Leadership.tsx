@@ -2,6 +2,9 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useLeaders } from '../data/useLeaders';
+import { leaderPhotoUrl } from '../lib/supabase';
+import { LeaderRow } from '../data/types';
 
 const PageWrapper = styled.div`
   background-color: #f4f4f4;
@@ -85,207 +88,54 @@ const LeaderEmail = styled.p`
   color: #555;
 `;
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
+    },
+  },
+};
+
+const LeaderCardWithAnimation: React.FC<{
+  leader: LeaderRow;
+  index: number;
+  language: 'en' | 'uk';
+}> = ({ leader, index, language }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const shouldShowImmediately = index < 3;
+  const isInView = useInView(cardRef, { once: true, amount: 0.2, margin: '-150px 0px' });
+  const shouldAnimate = shouldShowImmediately || isInView;
+
+  const name = language === 'uk' && leader.name_uk ? leader.name_uk : leader.name_en;
+  const title = language === 'uk' && leader.title_uk ? leader.title_uk : leader.title_en;
+
+  return (
+    <LeaderCard
+      ref={cardRef}
+      variants={cardVariants}
+      initial="hidden"
+      animate={shouldAnimate ? 'visible' : 'hidden'}
+    >
+      <LeaderImage src={leaderPhotoUrl(leader.photo_path)} alt={name} />
+      <LeaderInfo>
+        <LeaderName>{name}</LeaderName>
+        <LeaderTitle>{title}</LeaderTitle>
+        {leader.emails && leader.emails.length > 0 && leader.emails.map((email, idx) => (
+          <LeaderEmail key={idx}><a href={`mailto:${email}`}>{email}</a></LeaderEmail>
+        ))}
+      </LeaderInfo>
+    </LeaderCard>
+  );
+};
+
 const Leadership = () => {
-  const leaders = [
-    {
-      name: 'Vasily & Lucy Rudnitsky',
-      title: 'Senior Pastor & Church Accountant',
-      emails: ['vasily@churchofnewhope.org', 'lucy@churchofnewhope.org'],
-      photo: '/images/rudn.jpg',
-    },
-    {
-      name: 'Yuriy Rudnitsky',
-      title: 'English Service Pastor',
-      emails: ['yuriy@churchofnewhope.org'],
-      photo: '/images/yurrudn.jpg',
-    },
-    {
-      name: 'Anatoli Plukchi',
-      title: 'Home Groups Pastor',
-      emails: ['homegroups@churchofnewhope.org'],
-      photo: '/images/plukchii.jpg',
-    },
-    {
-      name: 'Yevgenni Prannik',
-      title: 'Hospitality Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/pranik.jpg',
-    },
-    {
-      name: 'Alexander Grinchak',
-      title: 'Visitation Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/grinchak.jpg',
-    },
-    {
-      name: 'Andrii Kyslianka',
-      title: 'Family Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/kuslanka.jpg',
-    },
-    {
-      name: 'Dima Grinchak',
-      title: 'Pastor',
-      emails: ['info@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Andriy Omeliash',
-      title: 'Church Operations Director',
-      emails: ['andriy@churchofnewhope.org'],
-      photo: '/images/omelash.jpg',
-    },
-    {
-      name: 'Artem Topchi',
-      title: 'Head Deacon',
-      emails: ['artem@churchofnewhope.org'],
-      photo: '/images/topchiiArtem.jpg',
-    },
-    {
-      name: 'Maksym & Victoria Sak',
-      title: 'Ministry Operations Director & Creative Media Director',
-      emails: ['maksym@churchofnewhope.org', 'creative@churchofnewhope.org'],
-      photo: '/images/sak.jpg',
-    },
-    {
-      name: 'Iurii & Angelina Prokopchuk',
-      title: "Service Director & Women's Ministry Director",
-      emails: ['iurii@churchofnewhope.org', 'women@churchofnewhope.org'],
-      photo: '/images/prokopchuk.jpg',
-    },
-    {
-      name: 'Vitaliy Kuprovsky',
-      title: 'Creative & Production Director',
-      emails: ['vitaliy@churchofnewhope.org'],
-      photo: '/images/kuprovskii.jpg',
-    },
-    {
-      name: 'Alexander Berezovsky',
-      title: 'Missions Director',
-      emails: ['missions@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Katie Topchi',
-      title: 'Worship Ministry Director',
-      emails: ['worship@churchofnewhope.org'],
-      photo: '/images/katetopchii.jpg',
-    },
-    {
-      name: 'Iryna Zyhalenko',
-      title: 'Choir Director',
-      emails: ['worship@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Vlad Ferkaliak',
-      title: "Men's Ministry Director",
-      emails: ['men@churchofnewhope.org'],
-      photo: '/images/ferkal.jpg',
-    },
-    {
-      name: 'Vitalii Arshulik',
-      title: 'Youth Ministry Director',
-      emails: ['youth@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'David Pavlyuk',
-      title: 'Youth Ministry Leader',
-      emails: ['youth@churchofnewhope.org'],
-      photo: '/images/david.jpg',
-    },
-    {
-      name: 'Vasily and Olena Manilenko',
-      title: "Children's Ministry Directors",
-      emails: ['kids@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Nataliia Bohodenko',
-      title: 'Kids Choir Director',
-      emails: ['kids@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Maks Mitin',
-      title: 'Sunday School Director',
-      emails: ['kids@churchofnewhope.org'],
-      photo: '/images/metin.jpg',
-    },
-    {
-      name: 'Katie Bernik',
-      title: 'Social Media Director',
-      emails: ['creative@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Nelia Olos',
-      title: 'Hospitality Director',
-      emails: ['hospitality@churchofnewhope.org'],
-      photo: '/images/olos.jpg',
-    },
-    {
-      name: 'Olena Soloninko',
-      title: 'Décor Director',
-      emails: ['info@churchofnewhope.org'],
-      photo: '',
-    },
-    {
-      name: 'Victoria Kyshko',
-      title: 'Kitchen Ministry Director',
-      emails: ['info@churchofnewhope.org'],
-      photo: '/images/kushko.jpg',
-    },
-  ];
-
-  const { t } = useLanguage();
-  
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94] as const
-      }
-    }
-  };
-
-  // Individual card component with its own scroll trigger
-  const LeaderCardWithAnimation: React.FC<{ leader: typeof leaders[0], index: number }> = ({ leader, index }) => {
-    const cardRef = useRef<HTMLDivElement>(null);
-    // First 3 cards should appear immediately (visible on desktop in 3-column grid)
-    const shouldShowImmediately = index < 3;
-    const isInView = useInView(cardRef, { 
-      once: true, 
-      amount: 0.2, 
-      margin: '-150px 0px'
-    });
-    
-    // For first 3 cards, show immediately; others wait for scroll into view
-    const shouldAnimate = shouldShowImmediately || isInView;
-
-    return (
-      <LeaderCard
-        ref={cardRef}
-        variants={cardVariants}
-        initial="hidden"
-        animate={shouldAnimate ? 'visible' : 'hidden'}
-      >
-        <LeaderImage src={leader.photo || '/images/placeholder.png'} alt={leader.name} />
-        <LeaderInfo>
-          <LeaderName>{leader.name}</LeaderName>
-          <LeaderTitle>{leader.title}</LeaderTitle>
-          {leader.emails && leader.emails.length > 0 && leader.emails.map((email, idx) => (
-            <LeaderEmail key={idx}><a href={`mailto:${email}`}>{email}</a></LeaderEmail>
-          ))}
-        </LeaderInfo>
-      </LeaderCard>
-    );
-  };
+  const { t, language } = useLanguage();
+  const { data: leaders } = useLeaders();
 
   return (
     <PageWrapper>
@@ -298,7 +148,12 @@ const Leadership = () => {
       </motion.div>
       <LeadersGrid>
         {leaders.map((leader, index) => (
-          <LeaderCardWithAnimation key={index} leader={leader} index={index} />
+          <LeaderCardWithAnimation
+            key={leader.id}
+            leader={leader}
+            index={index}
+            language={language}
+          />
         ))}
       </LeadersGrid>
     </PageWrapper>

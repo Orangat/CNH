@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -10,9 +10,11 @@ import Leadership from "./pages/Leadership";
 import Give from "./pages/Give";
 import Events from "./pages/Events";
 
-function App() {
+const AdminApp = lazy(() => import('./admin/AdminApp'));
+
+function PublicSite() {
 	return (
-		<div className="App">
+		<>
 			<Header />
 			<Routes>
 				<Route path="/:lang" element={<Home />} />
@@ -23,6 +25,25 @@ function App() {
 				<Route path="*" element={<Navigate to="/en" replace />} />
 			</Routes>
 			<Footer />
+		</>
+	);
+}
+
+function App() {
+	const location = useLocation();
+	const isAdmin = location.pathname.startsWith('/admin');
+
+	return (
+		<div className="App">
+			{isAdmin ? (
+				<Suspense fallback={<div style={{ padding: 40 }}>Loading admin…</div>}>
+					<Routes>
+						<Route path="/admin/*" element={<AdminApp />} />
+					</Routes>
+				</Suspense>
+			) : (
+				<PublicSite />
+			)}
 		</div>
 	);
 }

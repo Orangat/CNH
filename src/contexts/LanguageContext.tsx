@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useLocation, useNavigate } from 'react-router-dom';
 import enTranslations from '../translations/en.json';
 import ukTranslations from '../translations/uk.json';
+import { useSiteTexts, TextMap } from '../data/useSiteTexts';
 
 type Language = 'en' | 'uk';
 
@@ -13,25 +14,36 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const translations: Record<Language, any> = {
+const jsonTranslations: Record<Language, any> = {
   en: enTranslations,
   uk: ukTranslations,
 };
+
+function lookupJson(lang: Language, key: string): string | null {
+  const parts = key.split('.');
+  let value: any = jsonTranslations[lang];
+  for (const k of parts) {
+    if (value && typeof value === 'object' && k in value) {
+      value = value[k];
+    } else {
+      return null;
+    }
+  }
+  return typeof value === 'string' ? value : null;
+}
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [language, setLanguageState] = useState<Language>('en');
+  const { data: remoteTexts } = useSiteTexts();
 
-  // Extract language from URL path
   useEffect(() => {
     const pathParts = location.pathname.split('/').filter(Boolean);
     const langFromPath = pathParts[0];
-    
     if (langFromPath === 'en' || langFromPath === 'uk') {
       setLanguageState(langFromPath);
     } else {
-      // Default to English if no language in path
       setLanguageState('en');
     }
   }, [location.pathname]);
@@ -39,30 +51,25 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     const pathParts = location.pathname.split('/').filter(Boolean);
-    
-    // Remove existing language prefix if present
     if (pathParts[0] === 'en' || pathParts[0] === 'uk') {
       pathParts.shift();
     }
-    
-    // Build new path with language prefix
     const newPath = pathParts.length > 0 ? `/${lang}/${pathParts.join('/')}` : `/${lang}`;
     navigate(newPath, { replace: true });
   };
 
   const t = (key: string): string => {
-    const keys = key.split('.');
-    let value: any = translations[language];
-    
-    for (const k of keys) {
-      if (value && typeof value === 'object' && k in value) {
-        value = value[k];
-      } else {
-        return key; // Return key if translation not found
-      }
+    // 1. Supabase override (if present and non-empty)
+    const remote = (remoteTexts as TextMap)[key];
+    if (remote) {
+      const v = language === 'uk' ? remote.uk : remote.en;
+      if (v && v.trim().length > 0) return v;
     }
-    
-    return typeof value === 'string' ? value : key;
+    // 2. Bundled JSON fallback
+    const json = lookupJson(language, key);
+    if (json !== null) return json;
+    // 3. Last resort: return the key
+    return key;
   };
 
   return (
@@ -79,4 +86,3 @@ export const useLanguage = (): LanguageContextType => {
   }
   return context;
 };
-
