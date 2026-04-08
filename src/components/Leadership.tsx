@@ -1,162 +1,89 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components';
 import { motion, useInView } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useLeaders } from '../data/useLeaders';
 import { leaderPhotoUrl } from '../lib/supabase';
 import { LeaderRow } from '../data/types';
+import { stockPhotos } from '../data/stockImages';
+import Hero from './redesign/Hero';
+import Section from './redesign/Section';
 
-const PageWrapper = styled.div`
-  background-color: #f4f4f4;
-  padding-bottom: 4rem;
-`;
-
-const Header = styled.div`
-  font-family: 'Creo', sans-serif;
-  background-color: #000;
-  color: white;
-  text-align: center;
-  padding: 6rem 1rem 4rem;
-  font-size: 3rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 3rem;
-
-  @media (max-width: 768px) {
-    padding: 2rem 1rem;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-`;
-
-const LeadersGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  padding: 2rem;
-  max-width: 1080px;
-  margin: 0 auto;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-`;
-
-const LeaderCard = styled(motion.div)`
-  background: white;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 338px;
-`;
-
-const LeaderImage = styled.img`
-  width: 338px;
-  height: 338px;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-`;
-
-const LeaderInfo = styled.div`
-  padding: 1rem;
-`;
-
-const LeaderName = styled.h3`
-  font-family: 'Creo', sans-serif;
-  margin: 0;
-  font-size: 18px;
-  color: black;
-  font-weight: 700;
-`;
-
-const LeaderTitle = styled.p`
-  font-family: 'Creo', sans-serif;
-  margin: 0.5rem 0 0;
-  font-size: 16px;
-  color: #157a6e;
-  font-weight: 700;
-`;
-
-const LeaderEmail = styled.p`
-  font-family: 'Creo', sans-serif;
-  margin: 0.25rem 0;
-  font-size: 14px;
-  font-weight: 300;
-  color: #555;
-`;
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94] as const,
-    },
-  },
-};
-
-const LeaderCardWithAnimation: React.FC<{
+interface CardProps {
   leader: LeaderRow;
   index: number;
   language: 'en' | 'uk';
-}> = ({ leader, index, language }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const shouldShowImmediately = index < 3;
-  const isInView = useInView(cardRef, { once: true, amount: 0.2, margin: '-150px 0px' });
-  const shouldAnimate = shouldShowImmediately || isInView;
+}
+
+const LeaderCard: React.FC<CardProps> = ({ leader, index, language }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.15, margin: '-80px 0px' });
+  const visible = index < 6 || inView;
 
   const name = language === 'uk' && leader.name_uk ? leader.name_uk : leader.name_en;
   const title = language === 'uk' && leader.title_uk ? leader.title_uk : leader.title_en;
 
   return (
-    <LeaderCard
-      ref={cardRef}
-      variants={cardVariants}
-      initial="hidden"
-      animate={shouldAnimate ? 'visible' : 'hidden'}
+    <motion.article
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={visible ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: (index % 6) * 0.05 }}
+      className="group relative overflow-hidden bg-white shadow-sm hover:shadow-2xl hover:shadow-navy-900/15 transition-shadow duration-500"
     >
-      <LeaderImage src={leaderPhotoUrl(leader.photo_path)} alt={name} />
-      <LeaderInfo>
-        <LeaderName>{name}</LeaderName>
-        <LeaderTitle>{title}</LeaderTitle>
-        {leader.emails && leader.emails.length > 0 && leader.emails.map((email, idx) => (
-          <LeaderEmail key={idx}><a href={`mailto:${email}`}>{email}</a></LeaderEmail>
-        ))}
-      </LeaderInfo>
-    </LeaderCard>
+      <div className="aspect-square overflow-hidden bg-navy-50">
+        <img
+          src={leaderPhotoUrl(leader.photo_path)}
+          alt={name}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+      </div>
+      <div className="p-6">
+        <h3 className="font-display text-base md:text-lg font-bold uppercase tracking-wider text-navy-900 leading-tight">
+          {name}
+        </h3>
+        <p className="mt-2 text-xs md:text-sm font-semibold uppercase tracking-widest text-tan-500">
+          {title}
+        </p>
+        {leader.emails && leader.emails.length > 0 && (
+          <ul className="mt-4 space-y-1">
+            {leader.emails.map((email) => (
+              <li key={email} className="text-xs text-navy-700/70">
+                <a href={`mailto:${email}`} className="hover:text-tan-500 transition-colors break-all">
+                  {email}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </motion.article>
   );
 };
 
-const Leadership = () => {
+const Leadership: React.FC = () => {
   const { t, language } = useLanguage();
   const { data: leaders } = useLeaders();
 
   return (
-    <PageWrapper>
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-      >
-        <Header>{t('leadership.title')}</Header>
-      </motion.div>
-      <LeadersGrid>
-        {leaders.map((leader, index) => (
-          <LeaderCardWithAnimation
-            key={leader.id}
-            leader={leader}
-            index={index}
-            language={language}
-          />
-        ))}
-      </LeadersGrid>
-    </PageWrapper>
+    <div className="bg-cream">
+      <Hero
+        image={stockPhotos.congregation.src(2000)}
+        eyebrow={t('leadership.eyebrow')}
+        scriptAccent={t('home.leadershipPreview.eyebrow')}
+        title={t('leadership.title')}
+        description={t('leadership.subtitle')}
+        height="short"
+      />
+
+      <Section variant="cream" padding="lg">
+        <div className="grid gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {leaders.map((leader, i) => (
+            <LeaderCard key={leader.id} leader={leader} index={i} language={language} />
+          ))}
+        </div>
+      </Section>
+    </div>
   );
 };
 

@@ -1,661 +1,359 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { Link, useParams, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 
-// Styled components
-const HeaderContainer = styled.header`
-	background-color: #000;
-	padding: 1rem 0;
-`;
+interface NavItem {
+  labelKey: string;
+  to?: string;
+  href?: string;
+  children?: NavItem[];
+}
 
-const HeaderContent = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 1rem;
-	position: relative;  // Ensure the header is positioned for the burger menu
-`;
-
-const LogoContainer = styled.div`
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-`;
-
-const LogoLink = styled(Link)`
-	display: flex;
-	align-items: center;
-	text-decoration: none;
-`;
-
-const Logo = styled.img`
-	height: 60px;
-`;
-
-
-const NavContainer = styled.nav`
-	display: flex;
-	align-items: center;
-
-	@media (max-width: 768px) {
-		display: none;
-	}
-`;
-
-const NavLink = styled(Link)`
-	font-family: 'Creo', sans-serif;
-	font-weight: 700;
-	text-decoration: none;
-	margin-left: 2rem;
-	color: white;
-	transition: all 0.2s ease-in-out;
-
-	&:hover {
-		color: rgba(255, 255, 255, 0.6);
-	}
-`;
-
-const NavExternalLink = styled.a`
-	font-family: 'Creo', sans-serif;
-	font-weight: 700;
-	text-decoration: none;
-	margin-left: 2rem;
-	color: white;
-	transition: all 0.2s ease-in-out;
-
-	&:hover {
-		color: rgba(255, 255, 255, 0.6);
-	}
-`;
-
-const DropdownContainer = styled.div`
-	position: relative;
-	margin-left: 2rem;
-`;
-
-const DropdownButton = styled.button`
-	font-family: 'Creo', sans-serif;
-	font-weight: 700;
-	background: none;
-	border: none;
-	color: white;
-	font-size: 1rem;
-	cursor: pointer;
-	transition: all 0.2s ease-in-out;
-	padding: 0;
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-
-	&:hover {
-		color: rgba(255, 255, 255, 0.6);
-	}
-`;
-
-const DropdownArrow = styled.svg<{ isOpen: boolean }>`
-	width: 14px;
-	height: 9px;
-	transition: transform 0.3s ease-in-out;
-	transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
-	flex-shrink: 0;
-`;
-
-const DropdownMenu = styled.div<{ isOpen: boolean }>`
-	position: absolute;
-	top: 100%;
-	left: 0;
-	background-color: #000;
-	min-width: 200px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-	opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
-	visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
-	transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-10px)')};
-	transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-	z-index: 20;
-	margin-top: 0.5rem;
-`;
-
-const DropdownLink = styled(Link)`
-	font-family: 'Creo', sans-serif;
-	font-weight: 300;
-	display: block;
-	padding: 0.75rem 1rem;
-	color: white;
-	text-decoration: none;
-	transition: background-color 0.2s ease-in-out;
-
-	&:hover {
-		background-color: rgba(255, 255, 255, 0.1);
-	}
-`;
-
-const BurgerMenu = styled.button`
-	background-color: transparent;
-	border: none;
-	font-size: 1.5rem;
-	cursor: pointer;
-	display: none;
-	color: white;
-
-	@media (max-width: 768px) {
-		display: block;
-		position: absolute;
-		top: 50%;
-		right: 1rem;
-		transform: translateY(-50%);
-		z-index: 100;
-	}
-`;
-
-// Mobile Menu Overlay
-const MobileMenuOverlay = styled.div<{ isOpen: boolean }>`
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #faf9f5;
-	z-index: 999;
-	transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
-	transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-	overflow-y: auto;
-	display: none;
-	text-align: left;
-
-	@media (max-width: 768px) {
-		display: block;
-	}
-`;
-
-const MobileMenuHeader = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 1.5rem 2rem;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-	position: sticky;
-	top: 0;
-	background-color: #faf9f5;
-	z-index: 1;
-	text-align: left;
-`;
-
-const MobileMenuLogo = styled.img`
-	height: 75px;
-`;
-
-const MobileMenuContent = styled.div`
-	padding: 1.5rem 2rem 2rem 2rem;
-	text-align: left;
-	width: 100%;
-`;
-
-const MobileNavItem = styled.div`
-	margin-bottom: 0;
-	text-align: left;
-	width: 100%;
-`;
-
-const MobileNavLink = styled(Link)`
-	font-family: 'Creo', sans-serif;
-	display: block;
-	color: #000;
-	text-decoration: none;
-	font-size: 1.75rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	padding: 1.25rem 0;
-	letter-spacing: 0.3px;
-	transition: opacity 0.2s ease;
-	line-height: 1.2;
-	text-align: left;
-	width: 100%;
-
-	&:hover {
-		opacity: 0.7;
-	}
-
-	&:active {
-		opacity: 0.5;
-	}
-`;
-
-const MobileNavExternalLink = styled.a`
-	font-family: 'Creo', sans-serif;
-	display: block;
-	color: #000;
-	text-decoration: none;
-	font-size: 1.75rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	padding: 1.25rem 0;
-	letter-spacing: 0.3px;
-	transition: opacity 0.2s ease;
-	line-height: 1.2;
-	text-align: left;
-	width: 100%;
-
-	&:hover {
-		opacity: 0.7;
-	}
-
-	&:active {
-		opacity: 0.5;
-	}
-`;
-
-const MobileDropdownButton = styled.button`
-	font-family: 'Creo', sans-serif;
-	display: flex;
-	align-items: center;
-	width: 100%;
-	background: none;
-	border: none;
-	color: #000;
-	text-decoration: none;
-	font-size: 1.75rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	padding: 1.25rem 0;
-	letter-spacing: 0.3px;
-	cursor: pointer;
-	text-align: left;
-	transition: opacity 0.2s ease;
-	line-height: 1.2;
-	gap: 0.5rem;
-	
-	> span {
-		text-align: left;
-	}
-
-	&:hover {
-		opacity: 0.7;
-	}
-
-	&:active {
-		opacity: 0.5;
-	}
-`;
-
-const MobileDropdownIndicator = styled.span`
-	font-size: 1.5rem;
-	font-weight: 400;
-	line-height: 1;
-	min-width: 20px;
-	text-align: center;
-	flex-shrink: 0;
-`;
-
-const MobileDropdownDivider = styled.div<{ isOpen: boolean }>`
-	height: 1px;
-	background-color: #000;
-	margin: ${({ isOpen }) => (isOpen ? '0.5rem 0 1rem 0' : '0')};
-	opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
-	transition: opacity 0.3s ease-in-out, margin 0.3s ease-in-out;
-	overflow: hidden;
-`;
-
-const MobileDropdownMenu = styled.div<{ isOpen: boolean }>`
-	max-height: ${({ isOpen }) => (isOpen ? '300px' : '0')};
-	opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
-	overflow: hidden;
-	transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out;
-	text-align: left;
-	width: 100%;
-`;
-
-const MobileDropdownLink = styled(Link)`
-	font-family: 'Creo', sans-serif;
-	display: block;
-	color: #000;
-	text-decoration: none;
-	font-size: 1.4rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	padding: 0.875rem 0 0.875rem 1.5rem;
-	letter-spacing: 0.3px;
-	transition: opacity 0.2s ease;
-	line-height: 1.3;
-	text-align: left;
-	width: 100%;
-
-	&:hover {
-		opacity: 0.7;
-	}
-
-	&:active {
-		opacity: 0.5;
-	}
-`;
-
-const LanguageSwitcher = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-	margin-left: 2rem;
-`;
-
-const LanguageButton = styled.button<{ active: boolean }>`
-	font-family: 'Creo', sans-serif;
-	font-weight: ${({ active }) => (active ? '700' : '300')};
-	background: none;
-	border: none;
-	color: white;
-	font-size: 0.9rem;
-	cursor: pointer;
-	transition: all 0.2s ease-in-out;
-	padding: 0.25rem 0.5rem;
-	opacity: ${({ active }) => (active ? '1' : '0.6')};
-
-	&:hover {
-		opacity: 1;
-	}
-`;
-
-const MobileLanguageSwitcher = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 1rem;
-	padding: 0;
-	margin-top: 0;
-	border-top: none;
-`;
-
-const MobileLanguageButton = styled.button<{ active: boolean }>`
-	font-family: 'Creo', sans-serif;
-	font-weight: ${({ active }) => (active ? '700' : '300')};
-	background: none;
-	border: none;
-	color: #000;
-	font-size: 1.75rem;
-	cursor: pointer;
-	transition: opacity 0.2s ease;
-	padding: 1.25rem 0;
-	opacity: ${({ active }) => (active ? '1' : '0.6')};
-	text-transform: uppercase;
-	letter-spacing: 0.3px;
-
-	&:hover {
-		opacity: 1;
-	}
-`;
+const navItems: NavItem[] = [
+  {
+    labelKey: 'nav.aboutUs',
+    children: [
+      { labelKey: 'nav.weBelieve', to: '/we-believe' },
+      { labelKey: 'nav.ourLeadership', to: '/leadership' },
+      { labelKey: 'nav.ministries', to: '/ministries' },
+    ],
+  },
+  { labelKey: 'nav.sermons', to: '/sermons' },
+  { labelKey: 'nav.events', to: '/events' },
+  { labelKey: 'nav.groups', href: 'https://churchofnewhope.churchcenter.com/groups' },
+  { labelKey: 'nav.prayer', to: '/prayer' },
+  { labelKey: 'nav.give', to: '/give' },
+];
 
 const Header: React.FC = () => {
-	const { language, setLanguage, t } = useLanguage();
-	const { lang } = useParams<{ lang: string }>();
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+  const { lang } = useParams<{ lang: string }>();
+  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
-	const getLocalizedPath = (path: string) => {
-		const currentLang = lang || language;
-		return `/${currentLang}${path}`;
-	};
+  // The home page has a full-bleed hero, so the header starts transparent
+  // and turns solid on scroll. Other pages get a solid header from the start.
+  const isHomePage =
+    location.pathname === `/${lang || language}` ||
+    location.pathname === `/${lang || language}/`;
 
-	const toggleMobileMenu = () => {
-		setIsMobileMenuOpen(!isMobileMenuOpen);
-		setIsMobileDropdownOpen(false);
-	};
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-	const closeMobileMenu = () => {
-		setIsMobileMenuOpen(false);
-		setIsMobileDropdownOpen(false);
-	};
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
 
-	const handleMobileDropdownToggle = () => {
-		setIsMobileDropdownOpen(!isMobileDropdownOpen);
-	};
+  // Close menus on route change
+  useEffect(() => {
+    setMobileOpen(false);
+    setOpenDropdown(null);
+    setMobileExpanded(null);
+  }, [location.pathname]);
 
-	const handleLinkClick = () => {
-		closeMobileMenu();
-	};
+  const localized = (path: string) => `/${lang || language}${path}`;
 
-	const handleDropdownMouseEnter = () => {
-		setIsDropdownOpen(true);
-	};
+  const transparent = isHomePage && !scrolled && !mobileOpen;
 
-	const handleDropdownMouseLeave = () => {
-		setIsDropdownOpen(false);
-	};
+  const headerClass = `fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+    transparent
+      ? 'bg-transparent py-4'
+      : 'bg-navy-900/95 backdrop-blur-md py-2 shadow-lg shadow-navy-900/20'
+  }`;
 
-	// Prevent body scroll when mobile menu is open
-	useEffect(() => {
-		if (isMobileMenuOpen) {
-			document.body.style.overflow = 'hidden';
-		} else {
-			document.body.style.overflow = 'unset';
-		}
-		return () => {
-			document.body.style.overflow = 'unset';
-		};
-	}, [isMobileMenuOpen]);
+  return (
+    <>
+      <header className={headerClass}>
+        <div className="mx-auto flex max-w-8xl items-center justify-between px-6 md:px-10">
+          {/* Logo */}
+          <Link
+            to={localized('')}
+            className="flex items-center transition-opacity hover:opacity-80"
+            aria-label="Church of New Hope"
+          >
+            <img
+              src="/logo.png"
+              alt="Church of New Hope"
+              className={`transition-all duration-300 ${transparent ? 'h-14 md:h-16' : 'h-12 md:h-14 brightness-0 invert'}`}
+            />
+          </Link>
 
-	return (
-		<>
-			<HeaderContainer>
-				<HeaderContent className="container">
-					<motion.div
-						initial={{ opacity: 0, y: -20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, ease: 'easeOut' }}
-					>
-						<LogoContainer>
-							<LogoLink to={getLocalizedPath('')}>
-								<Logo src="/logo.png" alt="Logo" />
-							</LogoLink>
-						</LogoContainer>
-					</motion.div>
-					<motion.div
-						initial={{ opacity: 0, y: -20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-					>
-						<NavContainer>
-						<DropdownContainer
-							onMouseEnter={handleDropdownMouseEnter}
-							onMouseLeave={handleDropdownMouseLeave}
-						>
-							<DropdownButton>
-								{t('nav.aboutUs')}
-								<DropdownArrow 
-									isOpen={isDropdownOpen} 
-									xmlns="http://www.w3.org/2000/svg" 
-									width="14" 
-									height="9" 
-									viewBox="0 0 14 9" 
-									fill="none"
-								>
-									<path 
-										d="M1 1.5L7 7.5L13 1.5" 
-										stroke="currentColor" 
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</DropdownArrow>
-							</DropdownButton>
-							<DropdownMenu isOpen={isDropdownOpen}>
-								<DropdownLink to={getLocalizedPath('/we-believe')}>
-									{t('nav.weBelieve')}
-								</DropdownLink>
-								<DropdownLink to={getLocalizedPath('/leadership')}>
-									{t('nav.ourLeadership')}
-								</DropdownLink>
-							</DropdownMenu>
-						</DropdownContainer>
-						<NavLink to={getLocalizedPath('/events')}>{t('nav.events')}</NavLink>
-						<NavExternalLink 
-							href="https://churchofnewhope.churchcenter.com/groups" 
-							target="_blank" 
-							rel="noopener noreferrer"
-						>
-							{t('nav.groups')}
-						</NavExternalLink>
-						<NavLink to={getLocalizedPath('/give')}>{t('nav.give')}</NavLink>
-						<LanguageSwitcher>
-							<LanguageButton 
-								active={language === 'en'} 
-								onClick={() => setLanguage('en')}
-							>
-								EN
-							</LanguageButton>
-							<span style={{ color: 'rgba(255, 255, 255, 0.5)' }}>|</span>
-							<LanguageButton 
-								active={language === 'uk'} 
-								onClick={() => setLanguage('uk')}
-							>
-								UA
-							</LanguageButton>
-						</LanguageSwitcher>
-						</NavContainer>
-					</motion.div>
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5, delay: 0.2 }}
-					>
-						<BurgerMenu onClick={toggleMobileMenu}>&#9776;</BurgerMenu>
-					</motion.div>
-				</HeaderContent>
-			</HeaderContainer>
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {navItems.map((item) => (
+              <NavItemDesktop
+                key={item.labelKey}
+                item={item}
+                t={t}
+                localized={localized}
+                openDropdown={openDropdown}
+                setOpenDropdown={setOpenDropdown}
+              />
+            ))}
+            <div className="ml-4 flex items-center gap-2 border-l border-white/20 pl-4">
+              <LangBtn active={language === 'en'} onClick={() => setLanguage('en')}>EN</LangBtn>
+              <span className="text-white/30">/</span>
+              <LangBtn active={language === 'uk'} onClick={() => setLanguage('uk')}>UA</LangBtn>
+            </div>
+            <Link
+              to={localized('/visit')}
+              className="ml-4 inline-flex items-center justify-center rounded-none bg-tan-500 px-5 py-3 text-xs font-bold uppercase tracking-widest text-navy-900 transition-all hover:bg-tan-600 hover:text-white cursor-pointer"
+            >
+              {t('nav.planVisit')}
+            </Link>
+          </nav>
 
-			{/* Mobile Menu Overlay */}
-			<MobileMenuOverlay isOpen={isMobileMenuOpen}>
-				<MobileMenuHeader>
-					<motion.div
-						initial={{ opacity: 0, x: -20 }}
-						animate={{ opacity: 1, x: 0 }}
-						transition={{ duration: 0.3 }}
-					>
-						<LogoLink to={getLocalizedPath('')} onClick={handleLinkClick}>
-							<MobileMenuLogo src="/logo.png" alt="Logo" />
-						</LogoLink>
-					</motion.div>
-					<motion.button
-						initial={{ opacity: 0, rotate: -90 }}
-						animate={{ opacity: 1, rotate: 0 }}
-						transition={{ duration: 0.3 }}
-						onClick={closeMobileMenu}
-						style={{
-							background: 'none',
-							border: 'none',
-							fontSize: '2rem',
-							cursor: 'pointer',
-							color: '#000',
-							fontWeight: 'normal',
-							width: '40px',
-							height: '40px',
-							display: 'flex',
-							alignItems: 'center',
-							justifyContent: 'center',
-							padding: 0,
-							lineHeight: 1
-						}}
-					>
-						×
-					</motion.button>
-				</MobileMenuHeader>
-				<MobileMenuContent>
-					{isMobileMenuOpen && (
-						<>
-							<motion.div
-								initial={{ opacity: 0, x: -20 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ duration: 0.3, delay: 0.1 }}
-							>
-								<MobileNavItem>
-									<MobileDropdownButton onClick={handleMobileDropdownToggle}>
-										<span>{t('nav.aboutUs').toUpperCase()}</span>
-										<MobileDropdownIndicator>
-											{isMobileDropdownOpen ? '−' : '+'}
-										</MobileDropdownIndicator>
-									</MobileDropdownButton>
-									<MobileDropdownDivider isOpen={isMobileDropdownOpen} />
-									<MobileDropdownMenu isOpen={isMobileDropdownOpen}>
-										<MobileDropdownLink to={getLocalizedPath('/we-believe')} onClick={handleLinkClick}>
-											{t('nav.weBelieve').toUpperCase()}
-										</MobileDropdownLink>
-										<MobileDropdownLink to={getLocalizedPath('/leadership')} onClick={handleLinkClick}>
-											{t('nav.ourLeadership').toUpperCase()}
-										</MobileDropdownLink>
-									</MobileDropdownMenu>
-								</MobileNavItem>
-							</motion.div>
-							<motion.div
-								initial={{ opacity: 0, x: -20 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ duration: 0.3, delay: 0.15 }}
-							>
-								<MobileNavItem>
-									<MobileNavLink to={getLocalizedPath('/events')} onClick={handleLinkClick}>
-										{t('nav.events').toUpperCase()}
-									</MobileNavLink>
-								</MobileNavItem>
-							</motion.div>
-							<motion.div
-								initial={{ opacity: 0, x: -20 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ duration: 0.3, delay: 0.2 }}
-							>
-								<MobileNavItem>
-									<MobileNavExternalLink 
-										href="https://churchofnewhope.churchcenter.com/groups" 
-										target="_blank" 
-										rel="noopener noreferrer"
-										onClick={handleLinkClick}
-									>
-										{t('nav.groups').toUpperCase()}
-									</MobileNavExternalLink>
-								</MobileNavItem>
-							</motion.div>
-							<motion.div
-								initial={{ opacity: 0, x: -20 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ duration: 0.3, delay: 0.25 }}
-							>
-								<MobileNavItem>
-									<MobileNavLink to={getLocalizedPath('/give')} onClick={handleLinkClick}>
-										{t('nav.give').toUpperCase()}
-									</MobileNavLink>
-								</MobileNavItem>
-							</motion.div>
-							<motion.div
-								initial={{ opacity: 0, x: -20 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ duration: 0.3, delay: 0.3 }}
-							>
-								<MobileNavItem>
-									<MobileLanguageSwitcher>
-										<MobileLanguageButton 
-											active={language === 'en'} 
-											onClick={() => {
-												setLanguage('en');
-												handleLinkClick();
-											}}
-										>
-											EN
-										</MobileLanguageButton>
-										<span style={{ color: 'rgba(0, 0, 0, 0.3)' }}>|</span>
-										<MobileLanguageButton 
-											active={language === 'uk'} 
-											onClick={() => {
-												setLanguage('uk');
-												handleLinkClick();
-											}}
-										>
-											UA
-										</MobileLanguageButton>
-									</MobileLanguageSwitcher>
-								</MobileNavItem>
-							</motion.div>
-						</>
-					)}
-				</MobileMenuContent>
-			</MobileMenuOverlay>
-		</>
-	);
+          {/* Mobile burger */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            className="lg:hidden flex h-12 w-12 items-center justify-center rounded text-white hover:bg-white/10 transition-colors cursor-pointer"
+            aria-label="Open menu"
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      {/* Spacer for non-home pages — navy to match header band */}
+      {!isHomePage && <div className="h-20 bg-navy-900" aria-hidden="true" />}
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'tween', duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+            className="fixed inset-0 z-[60] bg-cream lg:hidden overflow-y-auto"
+          >
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-navy-900/10 bg-cream px-6 py-4">
+              <Link to={localized('')} onClick={() => setMobileOpen(false)}>
+                <img src="/logo.png" alt="Church of New Hope" className="h-14" />
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                className="flex h-12 w-12 items-center justify-center text-navy-900 hover:bg-navy-900/5 cursor-pointer"
+                aria-label="Close menu"
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            <nav className="px-6 py-6">
+              {navItems.map((item) => (
+                <MobileNavItem
+                  key={item.labelKey}
+                  item={item}
+                  t={t}
+                  localized={localized}
+                  expanded={mobileExpanded === item.labelKey}
+                  onToggle={() =>
+                    setMobileExpanded(mobileExpanded === item.labelKey ? null : item.labelKey)
+                  }
+                  onClose={() => setMobileOpen(false)}
+                />
+              ))}
+
+              <div className="mt-8 border-t border-navy-900/10 pt-6">
+                <Link
+                  to={localized('/visit')}
+                  onClick={() => setMobileOpen(false)}
+                  className="block w-full bg-tan-500 px-6 py-4 text-center text-sm font-bold uppercase tracking-widest text-navy-900 hover:bg-tan-600 hover:text-white transition-colors cursor-pointer"
+                >
+                  {t('nav.planVisit')}
+                </Link>
+                <div className="mt-6 flex items-center justify-center gap-4">
+                  <LangBtn dark active={language === 'en'} onClick={() => setLanguage('en')}>EN</LangBtn>
+                  <span className="text-navy-900/30">/</span>
+                  <LangBtn dark active={language === 'uk'} onClick={() => setLanguage('uk')}>UA</LangBtn>
+                </div>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 };
+
+// =============================================================================
+// Subcomponents
+// =============================================================================
+
+const NavItemDesktop: React.FC<{
+  item: NavItem;
+  t: (key: string) => string;
+  localized: (path: string) => string;
+  openDropdown: string | null;
+  setOpenDropdown: (k: string | null) => void;
+}> = ({ item, t, localized, openDropdown, setOpenDropdown }) => {
+  const linkClass =
+    'px-3 py-2 text-xs font-bold uppercase tracking-widest text-white hover:text-tan-500 transition-colors cursor-pointer';
+
+  if (item.children) {
+    const open = openDropdown === item.labelKey;
+    return (
+      <div
+        className="relative"
+        onMouseEnter={() => setOpenDropdown(item.labelKey)}
+        onMouseLeave={() => setOpenDropdown(null)}
+      >
+        <button type="button" className={`${linkClass} flex items-center gap-1.5`}>
+          {t(item.labelKey)}
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className={`transition-transform ${open ? 'rotate-180' : ''}`}>
+            <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute left-0 top-full mt-2 min-w-[220px] bg-navy-900 shadow-2xl shadow-navy-900/40"
+            >
+              {item.children.map((c) => (
+                <Link
+                  key={c.labelKey}
+                  to={localized(c.to!)}
+                  className="block px-5 py-3 text-xs font-semibold uppercase tracking-widest text-white/80 hover:bg-navy-800 hover:text-tan-500 transition-colors"
+                >
+                  {t(c.labelKey)}
+                </Link>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+  if (item.href) {
+    return (
+      <a href={item.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+        {t(item.labelKey)}
+      </a>
+    );
+  }
+  return (
+    <Link to={localized(item.to!)} className={linkClass}>
+      {t(item.labelKey)}
+    </Link>
+  );
+};
+
+const MobileNavItem: React.FC<{
+  item: NavItem;
+  t: (key: string) => string;
+  localized: (path: string) => string;
+  expanded: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}> = ({ item, t, localized, expanded, onToggle, onClose }) => {
+  if (item.children) {
+    return (
+      <div>
+        <button
+          type="button"
+          onClick={onToggle}
+          className="flex w-full items-center justify-between py-4 text-left text-2xl font-bold uppercase tracking-wide text-navy-900 cursor-pointer"
+        >
+          <span>{t(item.labelKey)}</span>
+          <span className="text-3xl font-light">{expanded ? '−' : '+'}</span>
+        </button>
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="overflow-hidden"
+            >
+              <div className="border-l-2 border-tan-500 pl-4 pb-4">
+                {item.children.map((c) => (
+                  <Link
+                    key={c.labelKey}
+                    to={localized(c.to!)}
+                    onClick={onClose}
+                    className="block py-3 text-lg font-semibold uppercase tracking-wide text-navy-700 hover:text-tan-500 cursor-pointer"
+                  >
+                    {t(c.labelKey)}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+  if (item.href) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClose}
+        className="block py-4 text-2xl font-bold uppercase tracking-wide text-navy-900 cursor-pointer"
+      >
+        {t(item.labelKey)}
+      </a>
+    );
+  }
+  return (
+    <Link
+      to={localized(item.to!)}
+      onClick={onClose}
+      className="block py-4 text-2xl font-bold uppercase tracking-wide text-navy-900 cursor-pointer"
+    >
+      {t(item.labelKey)}
+    </Link>
+  );
+};
+
+const LangBtn: React.FC<{
+  active: boolean;
+  onClick: () => void;
+  dark?: boolean;
+  children: React.ReactNode;
+}> = ({ active, onClick, dark, children }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`text-xs font-bold uppercase tracking-widest cursor-pointer transition-colors ${
+      dark
+        ? active
+          ? 'text-navy-900'
+          : 'text-navy-900/40 hover:text-navy-900'
+        : active
+        ? 'text-white'
+        : 'text-white/50 hover:text-white'
+    }`}
+  >
+    {children}
+  </button>
+);
 
 export default Header;

@@ -17,6 +17,9 @@ const AdminLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
           <h1>Church admin</h1>
           <nav>
             <NavLink to="/admin/leaders" className={({ isActive }) => (isActive ? 'active' : '')}>Leaders</NavLink>
+            <NavLink to="/admin/sermons" className={({ isActive }) => (isActive ? 'active' : '')}>Sermons</NavLink>
+            <NavLink to="/admin/ministries" className={({ isActive }) => (isActive ? 'active' : '')}>Ministries</NavLink>
+            <NavLink to="/admin/prayer" className={({ isActive }) => (isActive ? 'active' : '')}>Prayer requests</NavLink>
             <NavLink to="/admin/texts" className={({ isActive }) => (isActive ? 'active' : '')}>Texts</NavLink>
             <NavLink to="/admin/contact" className={({ isActive }) => (isActive ? 'active' : '')}>Contact info</NavLink>
           </nav>

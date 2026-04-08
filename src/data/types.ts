@@ -39,3 +39,43 @@ export interface AdminUserRow {
   email: string;
   role: 'admin' | 'editor';
 }
+
+export interface SermonRow {
+  id: string;
+  title_en: string;
+  title_uk: string;
+  speaker: string;
+  series: string;
+  scripture: string;
+  description_en: string;
+  description_uk: string;
+  youtube_id: string;
+  preached_at: string | null;
+  is_published: boolean;
+  sort_order: number;
+}
+
+export interface MinistryRow {
+  id: string;
+  slug: string;
+  name_en: string;
+  name_uk: string;
+  description_en: string;
+  description_uk: string;
+  contact_email: string;
+  meeting_info_en: string;
+  meeting_info_uk: string;
+  icon: string;
+  sort_order: number;
+  is_published: boolean;
+}
+
+export interface PrayerRequestRow {
+  id: string;
+  name: string;
+  email: string;
+  request: string;
+  share_with_team: boolean;
+  status: 'new' | 'praying' | 'answered' | 'archived';
+  created_at: string;
+}

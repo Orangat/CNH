@@ -9,6 +9,10 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Leadership from "./pages/Leadership";
 import Give from "./pages/Give";
 import Events from "./pages/Events";
+import Visit from "./pages/Visit";
+import Sermons from "./pages/Sermons";
+import Ministries from "./pages/Ministries";
+import Prayer from "./pages/Prayer";
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
 
@@ -20,6 +24,10 @@ function PublicSite() {
 				<Route path="/:lang" element={<Home />} />
 				<Route path="/:lang/we-believe" element={<WeBelieve />} />
 				<Route path="/:lang/leadership" element={<Leadership />} />
+				<Route path="/:lang/visit" element={<Visit />} />
+				<Route path="/:lang/sermons" element={<Sermons />} />
+				<Route path="/:lang/ministries" element={<Ministries />} />
+				<Route path="/:lang/prayer" element={<Prayer />} />
 				<Route path="/:lang/give" element={<Give />} />
 				<Route path="/:lang/events" element={<Events />} />
 				<Route path="*" element={<Navigate to="/en" replace />} />
