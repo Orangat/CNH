@@ -10,7 +10,6 @@ import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 import SectionHeading from '../components/redesign/SectionHeading';
 import Button from '../components/redesign/Button';
-import BrandPattern from '../components/redesign/BrandPattern';
 
 const Home: React.FC = () => {
   const { t, language } = useLanguage();
