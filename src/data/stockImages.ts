@@ -55,12 +55,12 @@ export const stockPhotos = {
     'Aaron Burden',
     'aaronburden'
   ),
-  // Cross silhouette against sky
+  // Giving / generosity — hands holding seedling
   cross: make(
-    '1490127252417-7c393f993ee4',
-    'Wooden cross silhouette against evening sky',
-    'Aaron Burden',
-    'aaronburden'
+    '1679110663825-c6ec1ad51884',
+    'Hands gently holding a small seedling in soil',
+    'Jennifer Delmarre',
+    'delmarre'
   ),
   // Diverse community
   community: make(
@@ -69,12 +69,12 @@ export const stockPhotos = {
     'Hannah Busing',
     'hannahbusing'
   ),
-  // Worship music / band
+  // Church community event / gathering
   worship: make(
-    '1510924199351-4e9d94df18a6',
-    'Worship band on stage with stage lights',
-    'Edward Cisneros',
-    'edwardcisneros'
+    '1695938746747-ec185ea81325',
+    'People greeting and embracing at a church community event',
+    'Claudia Raya',
+    'claudiaraya'
   ),
   // Kids in classroom
   kids: make(
@@ -83,12 +83,12 @@ export const stockPhotos = {
     'CDC',
     'cdc'
   ),
-  // Worship night / community gathering with music
+  // Small group worship / Bible study indoors
   fellowship: make(
-    '1525026198548-4baa812f1183',
-    'Worship gathering with raised hands and stage lights',
-    'Edward Cisneros',
-    'edwardcisneros'
+    '1649365810760-19eaf9c78ca7',
+    'Young people worshipping together indoors at a church gathering',
+    'Ismael Paramo',
+    'ismaelparamo'
   ),
   // Charlotte / NC cityscape
   charlotte: make(
@@ -97,12 +97,12 @@ export const stockPhotos = {
     'Kevin Charit',
     'kcharit'
   ),
-  // Praying hands
+  // People praying together indoors
   prayer: make(
-    '1545987796-200677ee1011',
-    'Hands folded in prayer with light',
-    'Patrick Fore',
-    'patrickian4'
+    '1547382002-b908c9367d83',
+    'People praying together with arms around each other at church',
+    'Sam Balye',
+    'sambalye'
   ),
   // Communion / gathering (replacement — original ID 404'd)
   communion: make(
@@ -111,12 +111,12 @@ export const stockPhotos = {
     'Priscilla Du Preez',
     'priscilladupreez'
   ),
-  // Welcome / open doors
+  // Welcome / congregation gathered in church
   welcome: make(
-    '1519671482749-fd09be7ccebf',
-    'Open church doors with sunlight streaming in',
-    'Karl Fredrickson',
-    'karlfredrickson'
+    '1759127481171-30a27de310ad',
+    'Congregation seated in a church during a service',
+    'Benito Sanity',
+    'benitosito'
   ),
 };
 

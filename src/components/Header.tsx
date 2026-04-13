@@ -35,12 +35,6 @@ const Header: React.FC = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
-  // The home page has a full-bleed hero, so the header starts transparent
-  // and turns solid on scroll. Other pages get a solid header from the start.
-  const isHomePage =
-    location.pathname === `/${lang || language}` ||
-    location.pathname === `/${lang || language}/`;
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
@@ -62,9 +56,9 @@ const Header: React.FC = () => {
     setMobileExpanded(null);
   }, [location.pathname]);
 
-  const localized = (path: string) => `/${lang || language}${path}`;
+  const localized = (path: string) => `/v2/${lang || language}${path}`;
 
-  const transparent = isHomePage && !scrolled && !mobileOpen;
+  const transparent = !scrolled && !mobileOpen;
 
   const headerClass = `fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
     transparent
@@ -130,8 +124,6 @@ const Header: React.FC = () => {
         </div>
       </header>
 
-      {/* Spacer for non-home pages — navy to match header band */}
-      {!isHomePage && <div className="h-20 bg-navy-900" aria-hidden="true" />}
 
       {/* Mobile drawer */}
       <AnimatePresence>
@@ -225,24 +217,41 @@ const NavItemDesktop: React.FC<{
             <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </button>
+        {/* Invisible bridge so the mouse doesn't leave the hover zone */}
+        <div className="absolute left-0 top-full h-3 w-full" />
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="absolute left-0 top-full mt-2 min-w-[220px] bg-navy-900 shadow-2xl shadow-navy-900/40"
+              initial={{ opacity: 0, scaleY: 0.92, y: -4 }}
+              animate={{ opacity: 1, scaleY: 1, y: 0 }}
+              exit={{ opacity: 0, scaleY: 0.92, y: -4 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              style={{ originY: 0, backdropFilter: 'blur(12px) saturate(1.4)' }}
+              className="absolute left-0 top-full mt-3 min-w-[240px] overflow-hidden border border-white/[0.12] bg-black/25 shadow-[0_12px_48px_-8px_rgba(0,0,0,0.4)]"
             >
-              {item.children.map((c) => (
-                <Link
-                  key={c.labelKey}
-                  to={localized(c.to!)}
-                  className="block px-5 py-3 text-xs font-semibold uppercase tracking-widest text-white/80 hover:bg-navy-800 hover:text-tan-500 transition-colors"
-                >
-                  {t(c.labelKey)}
-                </Link>
-              ))}
+              {/* Accent line */}
+              <div className="h-[2px] bg-gradient-to-r from-tan-500 via-tan-400 to-transparent" />
+
+              <div className="py-2">
+                {item.children.map((c, i) => (
+                  <motion.div
+                    key={c.labelKey}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.25, delay: i * 0.05, ease: 'easeOut' }}
+                  >
+                    <Link
+                      to={localized(c.to!)}
+                      className="group flex items-center gap-3 px-5 py-3 transition-all duration-200"
+                    >
+                      <span className="h-px w-0 bg-tan-500 transition-all duration-300 group-hover:w-4" />
+                      <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/70 transition-colors duration-200 group-hover:text-white">
+                        {t(c.labelKey)}
+                      </span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   const { lang } = useParams<{ lang: string }>();
   const { data: leaders } = useLeaders();
   const { data: contact } = useContactInfo();
-  const localized = (path: string) => `/${lang || language}${path}`;
+  const localized = (path: string) => `/v2/${lang || language}${path}`;
 
   // First three published leaders for preview section
   const previewLeaders = leaders.slice(0, 3);
@@ -146,15 +146,44 @@ const Home: React.FC = () => {
       </Section>
 
       {/* ============================================================ STATS strip */}
-      <Section variant="gradient" padding="md">
-        <BrandPattern opacity={0.15} />
-        <div className="relative grid grid-cols-2 gap-8 md:grid-cols-4 text-center">
-          <Stat to={20} suffix="+" label={t('home.stats.years')} />
-          <Stat to={2} label={t('home.stats.languages')} />
-          <Stat to={15} suffix="+" label={t('home.stats.groups')} />
-          <Stat to={25} suffix="+" label={t('home.stats.ministries')} />
+      <section className="relative overflow-hidden bg-navy-900 py-20 md:py-28">
+        {/* Subtle grain texture */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")' }}
+        />
+        {/* Top accent line */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-tan-500/50 to-transparent" />
+
+        <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {[
+              { to: 20, suffix: '+', label: t('home.stats.years') },
+              { to: 2, suffix: '', label: t('home.stats.languages') },
+              { to: 15, suffix: '+', label: t('home.stats.groups') },
+              { to: 25, suffix: '+', label: t('home.stats.ministries') },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                className={`relative flex flex-col items-center py-6 md:py-0 ${
+                  i < 2 ? 'border-b border-white/[0.06] md:border-b-0' : ''
+                } ${i % 2 === 0 ? 'border-r border-white/[0.06] md:border-r-0' : ''} ${
+                  i > 0 ? 'md:border-l md:border-white/[0.06]' : ''
+                }`}
+              >
+                <Stat to={stat.to} suffix={stat.suffix} label={stat.label} />
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </Section>
+
+        {/* Bottom accent line */}
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-tan-500/50 to-transparent" />
+      </section>
 
       {/* ============================================================ LEADERSHIP PREVIEW */}
       <Section variant="cream" padding="lg">
@@ -265,13 +294,12 @@ const Stat: React.FC<{ to: number; suffix?: string; label: string }> = ({
 
   useEffect(() => {
     if (!inView) return;
-    const duration = 1500; // ms
+    const duration = 1800;
     const start = performance.now();
     let raf = 0;
     const step = (now: number) => {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // easeOutQuart for a nice deceleration
       const eased = 1 - Math.pow(1 - progress, 4);
       setValue(Math.round(eased * to));
       if (progress < 1) raf = requestAnimationFrame(step);
@@ -281,12 +309,21 @@ const Stat: React.FC<{ to: number; suffix?: string; label: string }> = ({
   }, [inView, to]);
 
   return (
-    <div ref={ref}>
-      <div className="font-display text-4xl md:text-6xl font-bold text-tan-500 tabular-nums">
-        {value}
-        {suffix}
+    <div ref={ref} className="flex flex-col items-center text-center px-4">
+      <div className="flex items-baseline">
+        <span className="font-display text-5xl md:text-7xl font-bold text-white tabular-nums leading-none">
+          {value}
+        </span>
+        {suffix && (
+          <span className="font-display text-3xl md:text-4xl font-bold text-tan-500 leading-none ml-0.5">
+            {suffix}
+          </span>
+        )}
       </div>
-      <div className="mt-2 text-xs md:text-sm uppercase tracking-widest text-white/70">{label}</div>
+      <div className="mt-4 w-8 h-px bg-tan-500/40" />
+      <p className="mt-3 text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-white/50 font-semibold leading-relaxed">
+        {label}
+      </p>
     </div>
   );
 };
