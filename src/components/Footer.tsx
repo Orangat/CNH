@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useContactInfo } from '../data/useContactInfo';
 import BrandPattern from './redesign/BrandPattern';
@@ -7,10 +7,12 @@ import BrandPattern from './redesign/BrandPattern';
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
   const { lang } = useParams<{ lang: string }>();
+  const location = useLocation();
   const currentLang = lang || language;
   const { data: contact } = useContactInfo();
   const telHref = `tel:${contact.phone.replace(/[^+\d]/g, '')}`;
   const localized = (path: string) => `/v2/${currentLang}${path}`;
+  const isVisitPage = location.pathname === localized('/visit');
 
   const connectLinks = [
     { key: 'nav.visit', to: '/visit' },
@@ -48,15 +50,17 @@ const Footer: React.FC = () => {
                 <i className="fas fa-map-marker-alt text-tan-500" />
                 {contact.address}
               </a>
-              <div className="mt-6">
-                <Link
-                  to={localized('/visit')}
-                  className="group inline-flex items-center gap-3 bg-navy-900 px-8 py-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-tan-500 hover:text-navy-900 transition-colors cursor-pointer"
-                >
-                  {t('nav.planVisit')}
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
-                </Link>
-              </div>
+              {!isVisitPage && (
+                <div className="mt-6">
+                  <Link
+                    to={localized('/visit')}
+                    className="group inline-flex items-center gap-3 bg-navy-900 px-8 py-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-tan-500 hover:text-navy-900 transition-colors cursor-pointer"
+                  >
+                    {t('nav.planVisit')}
+                    <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Right — service times card */}
