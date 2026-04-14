@@ -7,6 +7,19 @@ import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 
 const ZELLE_PHONE = '(704) 453-9365';
+const ZELLE_NAME = 'CHURCH OF NEW HOPE Accounts';
+
+// Build the official Zelle QR payload so banking apps recognise it as a
+// payment request rather than a plain text phone number. The token must
+// match the phone number the recipient enrolled with Zelle.
+const zellePayload = {
+  name: ZELLE_NAME,
+  token: ZELLE_PHONE.replace(/\D/g, ''),
+  action: 'payment',
+};
+const ZELLE_QR_VALUE = `https://enroll.zellepay.com/qr-codes?data=${btoa(
+  JSON.stringify(zellePayload),
+)}`;
 
 const Give: React.FC = () => {
   const { t } = useLanguage();
@@ -103,7 +116,7 @@ const Give: React.FC = () => {
             </div>
             <div className="mt-6 flex flex-col items-center">
               <div className="bg-white p-3 border border-navy-900/10">
-                <QRCodeCanvas value={ZELLE_PHONE} size={140} level="M" includeMargin={false} />
+                <QRCodeCanvas value={ZELLE_QR_VALUE} size={140} level="M" includeMargin={false} />
               </div>
               <p className="mt-3 text-xs text-navy-700/70 text-center">{t('give.zelle.scanQR')}</p>
             </div>

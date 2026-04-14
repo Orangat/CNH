@@ -43,7 +43,7 @@
           "body": "Practical messages grounded in Scripture, translated live in both English and Ukrainian."
         },
         "kids": {
-          "title": "Kids ministry",
+          "title": "Joyful kids ministry",
           "body": "Safe, joyful classes for kids from nursery through middle school during every service."
         },
         "fellowship": {
@@ -57,6 +57,12 @@
       "languages": "Languages every Sunday",
       "groups": "Active small groups",
       "ministries": "Ministry teams"
+    },
+    "mission": {
+      "eyebrow": "Our mission",
+      "lineOne": "Love God.",
+      "lineTwo": "Love People.",
+      "scripture": "Matthew 22:37–39"
     },
     "leadershipPreview": {
       "eyebrow": "Our team",

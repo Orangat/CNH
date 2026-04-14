@@ -144,6 +144,70 @@ const Home: React.FC = () => {
         </div>
       </Section>
 
+      {/* ============================================================ MISSION statement */}
+      <section className="relative overflow-hidden bg-cream py-24 md:py-36">
+        {/* Large decorative cross-hairs pattern */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="h-px w-full max-w-5xl bg-gradient-to-r from-transparent via-tan-500/20 to-transparent" />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 1 }}
+          className="relative z-10 mx-auto max-w-5xl px-6 md:px-10 text-center"
+        >
+          {/* Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="flex items-center justify-center gap-4"
+          >
+            <span className="h-px w-10 bg-tan-500" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-tan-500">
+              {t('home.mission.eyebrow')}
+            </span>
+            <span className="h-px w-10 bg-tan-500" />
+          </motion.div>
+
+          {/* Main statement — two lines, each staggered */}
+          <div className="mt-10 md:mt-14 space-y-2 md:space-y-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] tracking-tight text-navy-900"
+            >
+              {t('home.mission.lineOne')}
+            </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-[0.95] tracking-tight text-tan-500"
+            >
+              {t('home.mission.lineTwo')}
+            </motion.h2>
+          </div>
+
+          {/* Scripture reference */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="mt-10 md:mt-14 font-script text-2xl md:text-3xl text-navy-700/60"
+          >
+            — {t('home.mission.scripture')} —
+          </motion.p>
+        </motion.div>
+      </section>
+
       {/* ============================================================ STATS strip */}
       <section className="relative overflow-hidden bg-navy-900 py-20 md:py-28">
         {/* Subtle grain texture */}
