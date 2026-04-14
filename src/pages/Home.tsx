@@ -132,10 +132,10 @@ const Home: React.FC = () => {
                 <div className="flex h-14 w-14 items-center justify-center bg-navy-50 text-navy-700 group-hover:bg-tan-500 group-hover:text-white transition-colors">
                   <Icon />
                 </div>
-                <h3 className="mt-6 font-display text-lg font-bold uppercase tracking-wider text-navy-900">
+                <h3 className="mt-6 font-display text-lg font-bold uppercase tracking-wider text-navy-900 leading-tight min-h-[3.5rem] flex items-start text-left">
                   {t(`home.expect.items.${item.key}.title`)}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-navy-700/80">
+                <p className="mt-4 text-sm leading-relaxed text-navy-700/80 text-left">
                   {t(`home.expect.items.${item.key}.body`)}
                 </p>
               </motion.div>
