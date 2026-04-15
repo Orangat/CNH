@@ -7,7 +7,7 @@ const AdminLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const signOut = async () => {
     await supabase?.auth.signOut();
-    navigate('/v2/admin/login', { replace: true });
+    navigate('/admin/login', { replace: true });
   };
 
   return (
@@ -16,12 +16,12 @@ const AdminLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <aside className="admin-sidebar">
           <h1>Church admin</h1>
           <nav>
-            <NavLink to="/v2/admin/leaders" className={({ isActive }) => (isActive ? 'active' : '')}>Leaders</NavLink>
-            <NavLink to="/v2/admin/sermons" className={({ isActive }) => (isActive ? 'active' : '')}>Sermons</NavLink>
-            <NavLink to="/v2/admin/ministries" className={({ isActive }) => (isActive ? 'active' : '')}>Ministries</NavLink>
-            <NavLink to="/v2/admin/prayer" className={({ isActive }) => (isActive ? 'active' : '')}>Prayer requests</NavLink>
-            <NavLink to="/v2/admin/texts" className={({ isActive }) => (isActive ? 'active' : '')}>Texts</NavLink>
-            <NavLink to="/v2/admin/contact" className={({ isActive }) => (isActive ? 'active' : '')}>Contact info</NavLink>
+            <NavLink to="/admin/leaders" className={({ isActive }) => (isActive ? 'active' : '')}>Leaders</NavLink>
+            <NavLink to="/admin/sermons" className={({ isActive }) => (isActive ? 'active' : '')}>Sermons</NavLink>
+            <NavLink to="/admin/ministries" className={({ isActive }) => (isActive ? 'active' : '')}>Ministries</NavLink>
+            <NavLink to="/admin/prayer" className={({ isActive }) => (isActive ? 'active' : '')}>Prayer requests</NavLink>
+            <NavLink to="/admin/texts" className={({ isActive }) => (isActive ? 'active' : '')}>Texts</NavLink>
+            <NavLink to="/admin/contact" className={({ isActive }) => (isActive ? 'active' : '')}>Contact info</NavLink>
           </nav>
           <div className="spacer" />
           <button className="signout" onClick={signOut}>Sign out</button>
