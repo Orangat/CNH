@@ -22,7 +22,7 @@ Church of New Hope (churchofnewhope.org) is a bilingual (EN/UK) church website. 
 ### Non-goals (YAGNI — explicitly rejected)
 
 - Public sign-up, member profiles, member directory.
-- Online giving inside the application (use Stripe Customer Portal link).
+- Online giving inside the application (existing Stripe donation link remains as-is).
 - Comments, likes, social features.
 - Push notifications, email blasts, SMS.
 - Event CRUD (external service: Planning Center / Eventbrite / Facebook Events — embed or link).
@@ -107,7 +107,7 @@ When SEO feedback loop proves Phase 1 is insufficient (social media previews sta
 │                     External services                           │
 │                                                                │
 │  Events     → Planning Center / Eventbrite / Facebook Events   │
-│  Giving     → Stripe Customer Portal (recurring + receipts)    │
+│  Giving     → Stripe donation link (one-time, existing)        │
 │  Zelle      → QR code (existing)                               │
 └────────────────────────────────────────────────────────────────┘
 ```
@@ -120,7 +120,7 @@ When SEO feedback loop proves Phase 1 is insufficient (social media previews sta
 4. **Graceful degradation.** Public site must render even if Supabase returns 500: fallback → JSON → hardcoded constants.
 5. **Lazy-loaded admin.** Public visitors never download the admin bundle.
 6. **Externalise heavy stuff.** Giving → Stripe. Events → external service. Do not build a church ERP.
-7. **No serverless functions in Phase 1.** PostgREST + RLS is sufficient. Add Supabase Edge Functions only when user invitation or Stripe webhook appears (Phase 2).
+7. **No serverless functions in Phase 1.** PostgREST + RLS is sufficient. Add Supabase Edge Functions only when user invitation UI appears (Phase 2).
 
 ---
 
@@ -745,9 +745,7 @@ No new E2E framework added in Phase 1 (YAGNI). Existing unit tests remain. Data 
 
 ## 12. Open questions / decisions to revisit
 
-1. Exact rollout order of PR 7 (Blog) — depends on pastor's content readiness.
-2. Whether to add `react-snap` build-time prerender in Phase 1 if social previews become blocking before Phase 2.
-3. Stripe Customer Portal integration — which Stripe account holds church donations today? Needs follow-up before adding link.
+1. Whether to add `react-snap` build-time prerender in Phase 1 if social previews become blocking before Phase 2.
 
 ---
 
