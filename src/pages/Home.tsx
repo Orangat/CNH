@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const { lang } = useParams<{ lang: string }>();
   const { data: leaders } = useLeaders();
   const { data: contact } = useContactInfo();
-  const localized = (path: string) => `/v2/${lang || language}${path}`;
+  const localized = (path: string) => `/${lang || language}${path}`;
 
   // First three published leaders for preview section
   const previewLeaders = leaders.slice(0, 3);

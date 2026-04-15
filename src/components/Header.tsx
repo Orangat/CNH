@@ -56,7 +56,7 @@ const Header: React.FC = () => {
     setMobileExpanded(null);
   }, [location.pathname]);
 
-  const localized = (path: string) => `/v2/${lang || language}${path}`;
+  const localized = (path: string) => `/${lang || language}${path}`;
 
   const transparent = !scrolled && !mobileOpen;
 

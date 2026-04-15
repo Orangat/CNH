@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
   const currentLang = lang || language;
   const { data: contact } = useContactInfo();
   const telHref = `tel:${contact.phone.replace(/[^+\d]/g, '')}`;
-  const localized = (path: string) => `/v2/${currentLang}${path}`;
+  const localized = (path: string) => `/${currentLang}${path}`;
   const isVisitPage = location.pathname === localized('/visit');
 
   const connectLinks = [
