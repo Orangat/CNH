@@ -56,6 +56,23 @@ const LeaderForm: React.FC<Props> = ({ initial, onClose, onSaved }) => {
     toast('Photo uploaded', 'success');
   };
 
+  const removePhoto = async () => {
+    if (!form.photo_path) return;
+    if (!window.confirm('Remove this photo? The monogram placeholder will be shown instead.')) return;
+    // Only delete from Storage if it's a Supabase-managed path (not a /images/ static asset)
+    if (supabase && !form.photo_path.startsWith('/') && !form.photo_path.startsWith('http')) {
+      const { error } = await supabase.storage
+        .from(LEADER_PHOTOS_BUCKET)
+        .remove([form.photo_path]);
+      if (error) {
+        toast(`Storage delete failed: ${error.message}`, 'error');
+        return;
+      }
+    }
+    update('photo_path', null);
+    toast('Photo removed', 'success');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!supabase) return;
@@ -169,6 +186,24 @@ const LeaderForm: React.FC<Props> = ({ initial, onClose, onSaved }) => {
               }}
             />
           </div>
+          {form.photo_path && (
+            <div style={{ marginTop: 8, display: 'flex', gap: 8 }}>
+              <button
+                type="button"
+                className="admin-btn secondary"
+                onClick={(e) => { e.stopPropagation(); fileInput.current?.click(); }}
+              >
+                Replace photo
+              </button>
+              <button
+                type="button"
+                className="admin-btn danger"
+                onClick={(e) => { e.stopPropagation(); removePhoto(); }}
+              >
+                Remove photo
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="admin-row">
