@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Reorder, useDragControls } from 'framer-motion';
+import { Reorder, useDragControls, motion, AnimatePresence } from 'framer-motion';
 import { supabase, leaderPhotoUrl, LEADER_PHOTOS_BUCKET } from '../../lib/supabase';
 import { LeaderRow } from '../../data/types';
 import { useToast } from '../components/Toast';
@@ -11,6 +11,7 @@ const LeadersPage: React.FC = () => {
   const [rows, setRows] = useState<LeaderRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<LeaderRow | null | undefined>(undefined);
+  const [preview, setPreview] = useState<LeaderRow | null>(null);
 
   const refresh = useCallback(async () => {
     if (!supabase) return;
@@ -100,6 +101,7 @@ const LeadersPage: React.FC = () => {
                 onMoveDown={() => move(i, 1)}
                 onEdit={() => setEditing(r)}
                 onDelete={() => remove(r)}
+                onPhotoClick={() => setPreview(r)}
               />
             ))}
           </Reorder.Group>
@@ -113,7 +115,85 @@ const LeadersPage: React.FC = () => {
           onSaved={() => { setEditing(undefined); refresh(); }}
         />
       )}
+
+      <AnimatePresence>
+        {preview && <PhotoLightbox leader={preview} onClose={() => setPreview(null)} />}
+      </AnimatePresence>
     </>
+  );
+};
+
+const PhotoLightbox: React.FC<{ leader: LeaderRow; onClose: () => void }> = ({ leader, onClose }) => {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Photo of ${leader.name_en}`}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 2000,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: 'rgba(15, 23, 42, 0.88)', backdropFilter: 'blur(4px)',
+        padding: 24, cursor: 'zoom-out',
+      }}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+        style={{
+          position: 'absolute', top: 16, right: 16,
+          width: 44, height: 44, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.1)', color: '#fff',
+          border: 'none', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 24, lineHeight: 1,
+        }}
+      >
+        ×
+      </button>
+      <motion.div
+        initial={{ scale: 0.92, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          maxWidth: '80vw', maxHeight: '80vh',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          cursor: 'default',
+        }}
+      >
+        <img
+          src={leaderPhotoUrl(leader.photo_path)}
+          alt={leader.name_en}
+          style={{
+            maxWidth: '100%', maxHeight: '70vh',
+            objectFit: 'contain',
+            border: '4px solid rgba(255,255,255,0.1)',
+          }}
+        />
+        <div style={{ marginTop: 16, textAlign: 'center', color: '#fff' }}>
+          <div style={{ fontWeight: 700, fontSize: 16 }}>{leader.name_en}</div>
+          <div style={{ marginTop: 4, fontSize: 13, color: '#cbd5e1' }}>{leader.title_en}</div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -125,10 +205,12 @@ interface LeaderItemProps {
   onMoveDown: () => void;
   onEdit: () => void;
   onDelete: () => void;
+  onPhotoClick: () => void;
 }
 
-const LeaderItem: React.FC<LeaderItemProps> = ({ row, index, total, onMoveUp, onMoveDown, onEdit, onDelete }) => {
+const LeaderItem: React.FC<LeaderItemProps> = ({ row, index, total, onMoveUp, onMoveDown, onEdit, onDelete, onPhotoClick }) => {
   const controls = useDragControls();
+  const hasPhoto = Boolean(row.photo_path);
 
   return (
     <Reorder.Item
@@ -154,7 +236,14 @@ const LeaderItem: React.FC<LeaderItemProps> = ({ row, index, total, onMoveUp, on
         </svg>
       </span>
       <span className="leader-col-photo">
-        <img className="admin-thumb" src={leaderPhotoUrl(row.photo_path)} alt="" />
+        <img
+          className="admin-thumb"
+          src={leaderPhotoUrl(row.photo_path)}
+          alt=""
+          onClick={hasPhoto ? onPhotoClick : undefined}
+          style={{ cursor: hasPhoto ? 'zoom-in' : 'default' }}
+          title={hasPhoto ? 'Click to enlarge' : undefined}
+        />
       </span>
       <span className="leader-col-name">{row.name_en}</span>
       <span className="leader-col-title">{row.title_en}</span>
