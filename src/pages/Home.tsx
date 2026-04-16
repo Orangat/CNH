@@ -305,7 +305,7 @@ const Home: React.FC = () => {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-navy-700/85">{t('home.groupsCta.body')}</p>
             <div className="mt-8">
-              <Button href="https://churchofnewhope.churchcenter.com/groups">
+              <Button href="https://churchofnewhope.churchcenter.com/groups" target="_blank" rel="noopener noreferrer">
                 {t('home.groupsCta.button')} →
               </Button>
             </div>
