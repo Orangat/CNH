@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
   const currentLang = lang || language;
   const { data: contact } = useContactInfo();
   const telHref = `tel:${contact.phone.replace(/[^+\d]/g, '')}`;
-  const localized = (path: string) => `/v2/${currentLang}${path}`;
+  const localized = (path: string) => `/${currentLang}${path}`;
   const isVisitPage = location.pathname === localized('/visit');
 
   const connectLinks = [
@@ -168,6 +168,7 @@ const Footer: React.FC = () => {
           <div className="mt-14 flex flex-col md:flex-row md:items-center md:justify-between gap-3 border-t border-white/10 pt-8 text-xs text-white/50">
             <p>{t('footer.copyright')}</p>
             <p className="font-script text-tan-500/70 text-base">{t('footer.tagline')}</p>
+            <Link to="/admin" className="text-white/20 hover:text-white/40 transition-colors">Admin</Link>
           </div>
         </div>
       </section>

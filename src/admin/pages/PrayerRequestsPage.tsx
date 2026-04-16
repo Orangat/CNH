@@ -5,24 +5,57 @@ import { useToast } from '../components/Toast';
 
 type Status = PrayerRequestRow['status'] | 'all';
 
+const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  new:      { bg: '#fef3c7', text: '#92400e', border: '#f59e0b' },
+  praying:  { bg: '#dbeafe', text: '#1e40af', border: '#3b82f6' },
+  answered: { bg: '#d1fae5', text: '#065f46', border: '#10b981' },
+  archived: { bg: '#f3f4f6', text: '#374151', border: '#9ca3af' },
+};
+
+function timeAgo(dateStr: string): string {
+  const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
+  if (seconds < 60) return 'just now';
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `${days}d ago`;
+  return new Date(dateStr).toLocaleDateString();
+}
+
 const PrayerRequestsPage: React.FC = () => {
   const { toast } = useToast();
   const [rows, setRows] = useState<PrayerRequestRow[]>([]);
+  const [allRows, setAllRows] = useState<PrayerRequestRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<Status>('new');
 
   const refresh = useCallback(async () => {
     if (!supabase) return;
     setLoading(true);
-    let q = supabase.from('prayer_requests').select('*').order('created_at', { ascending: false });
-    if (filter !== 'all') q = q.eq('status', filter);
-    const { data, error } = await q;
+    const { data, error } = await supabase
+      .from('prayer_requests')
+      .select('*')
+      .order('created_at', { ascending: false });
     setLoading(false);
     if (error) { toast(error.message, 'error'); return; }
-    setRows((data ?? []) as PrayerRequestRow[]);
-  }, [toast, filter]);
+    setAllRows((data ?? []) as PrayerRequestRow[]);
+  }, [toast]);
 
   useEffect(() => { refresh(); }, [refresh]);
+
+  useEffect(() => {
+    setRows(filter === 'all' ? allRows : allRows.filter(r => r.status === filter));
+  }, [filter, allRows]);
+
+  const counts = {
+    new: allRows.filter(r => r.status === 'new').length,
+    praying: allRows.filter(r => r.status === 'praying').length,
+    answered: allRows.filter(r => r.status === 'answered').length,
+    archived: allRows.filter(r => r.status === 'archived').length,
+    all: allRows.length,
+  };
 
   const setStatus = async (row: PrayerRequestRow, status: PrayerRequestRow['status']) => {
     if (!supabase) return;
@@ -51,14 +84,17 @@ const PrayerRequestsPage: React.FC = () => {
   return (
     <>
       <h2>Prayer requests</h2>
-      <div className="admin-card" style={{ display: 'flex', gap: 8 }}>
+      <div className="prayer-tabs">
         {tabs.map((tab) => (
           <button
             key={tab.key}
-            className={`admin-btn ${filter === tab.key ? '' : 'secondary'}`}
+            className={`prayer-tab ${filter === tab.key ? 'active' : ''}`}
             onClick={() => setFilter(tab.key)}
           >
             {tab.label}
+            {counts[tab.key] > 0 && (
+              <span className="prayer-tab-count">{counts[tab.key]}</span>
+            )}
           </button>
         ))}
       </div>
@@ -68,52 +104,61 @@ const PrayerRequestsPage: React.FC = () => {
       ) : rows.length === 0 ? (
         <div className="admin-empty">No requests in this view.</div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <div className="prayer-list">
           {rows.map((r) => (
-            <div className="admin-card" key={r.id}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
-                <div>
-                  <div style={{ fontWeight: 700, color: '#0f172a' }}>
-                    {r.name || 'Anonymous'}
-                    {r.email && <span style={{ marginLeft: 8, fontWeight: 400, color: '#64748b' }}>· {r.email}</span>}
-                  </div>
-                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>
-                    {new Date(r.created_at).toLocaleString()} · {r.share_with_team ? 'Shareable with prayer team' : 'Pastors only'}
-                  </div>
-                </div>
-                <span
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    padding: '4px 10px',
-                    borderRadius: 999,
-                    background:
-                      r.status === 'new' ? '#fef3c7' :
-                      r.status === 'praying' ? '#dbeafe' :
-                      r.status === 'answered' ? '#d1fae5' : '#e5e7eb',
-                    color:
-                      r.status === 'new' ? '#92400e' :
-                      r.status === 'praying' ? '#1e40af' :
-                      r.status === 'answered' ? '#065f46' : '#374151',
-                  }}
-                >
-                  {r.status}
-                </span>
-              </div>
-              <p style={{ marginTop: 12, whiteSpace: 'pre-wrap', color: '#334155' }}>{r.request}</p>
-              <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                {r.status !== 'praying' && <button className="admin-btn secondary" onClick={() => setStatus(r, 'praying')}>Mark praying</button>}
-                {r.status !== 'answered' && <button className="admin-btn secondary" onClick={() => setStatus(r, 'answered')}>Answered</button>}
-                {r.status !== 'archived' && <button className="admin-btn secondary" onClick={() => setStatus(r, 'archived')}>Archive</button>}
-                <button className="admin-btn danger" onClick={() => remove(r)}>Delete</button>
-              </div>
-            </div>
+            <PrayerCard
+              key={r.id}
+              row={r}
+              onSetStatus={setStatus}
+              onDelete={remove}
+            />
           ))}
         </div>
       )}
     </>
+  );
+};
+
+const PrayerCard: React.FC<{
+  row: PrayerRequestRow;
+  onSetStatus: (row: PrayerRequestRow, status: PrayerRequestRow['status']) => void;
+  onDelete: (row: PrayerRequestRow) => void;
+}> = ({ row, onSetStatus, onDelete }) => {
+  const [expanded, setExpanded] = useState(false);
+  const colors = STATUS_COLORS[row.status] || STATUS_COLORS.new;
+  const isLong = row.request.length > 200;
+  const displayText = isLong && !expanded ? row.request.slice(0, 200) + '…' : row.request;
+
+  return (
+    <div className="prayer-card" style={{ borderLeftColor: colors.border }}>
+      <div className="prayer-card-header">
+        <div className="prayer-card-meta">
+          <span className="prayer-card-name">{row.name || 'Anonymous'}</span>
+          {row.email && <span className="prayer-card-email">· {row.email}</span>}
+          <span className="prayer-card-time">{timeAgo(row.created_at)}</span>
+        </div>
+        <div className="prayer-card-badges">
+          {!row.share_with_team && (
+            <span className="prayer-badge pastors-only">Pastors only</span>
+          )}
+          <span className="prayer-badge" style={{ background: colors.bg, color: colors.text }}>
+            {row.status}
+          </span>
+        </div>
+      </div>
+      <p className="prayer-card-text">{displayText}</p>
+      {isLong && (
+        <button className="prayer-expand" onClick={() => setExpanded(!expanded)}>
+          {expanded ? 'Show less' : 'Read more'}
+        </button>
+      )}
+      <div className="prayer-card-actions">
+        {row.status !== 'praying' && <button className="admin-btn secondary" onClick={() => onSetStatus(row, 'praying')}>🙏 Praying</button>}
+        {row.status !== 'answered' && <button className="admin-btn secondary" onClick={() => onSetStatus(row, 'answered')}>✓ Answered</button>}
+        {row.status !== 'archived' && <button className="admin-btn secondary" onClick={() => onSetStatus(row, 'archived')}>Archive</button>}
+        <button className="admin-btn danger" onClick={() => onDelete(row)}>Delete</button>
+      </div>
+    </div>
   );
 };
 

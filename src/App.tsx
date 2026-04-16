@@ -3,16 +3,6 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-// Legacy (old design) imports
-import LegacyHeader from './components/legacy/Header';
-import LegacyFooter from './components/legacy/Footer';
-import LegacyHome from './pages/legacy/Home';
-import LegacyWeBelieve from './pages/legacy/WeBelieve';
-import LegacyLeadership from './pages/legacy/Leadership';
-import LegacyGive from './pages/legacy/Give';
-import LegacyEvents from './pages/legacy/Events';
-
-// V2 (redesign) imports
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -27,38 +17,21 @@ import Prayer from './pages/Prayer';
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
 
-function LegacySite() {
-	return (
-		<>
-			<LegacyHeader />
-			<Routes>
-				<Route path="/:lang" element={<LegacyHome />} />
-				<Route path="/:lang/we-believe" element={<LegacyWeBelieve />} />
-				<Route path="/:lang/leadership" element={<LegacyLeadership />} />
-				<Route path="/:lang/give" element={<LegacyGive />} />
-				<Route path="/:lang/events" element={<LegacyEvents />} />
-				<Route path="*" element={<Navigate to="/en" replace />} />
-			</Routes>
-			<LegacyFooter />
-		</>
-	);
-}
-
-function V2Site() {
+function PublicSite() {
 	return (
 		<>
 			<Header />
 			<Routes>
-				<Route path="/v2/:lang" element={<Home />} />
-				<Route path="/v2/:lang/we-believe" element={<WeBelieve />} />
-				<Route path="/v2/:lang/leadership" element={<Leadership />} />
-				<Route path="/v2/:lang/visit" element={<Visit />} />
-				<Route path="/v2/:lang/sermons" element={<Sermons />} />
-				<Route path="/v2/:lang/ministries" element={<Ministries />} />
-				<Route path="/v2/:lang/prayer" element={<Prayer />} />
-				<Route path="/v2/:lang/give" element={<Give />} />
-				<Route path="/v2/:lang/events" element={<Events />} />
-				<Route path="/v2/*" element={<Navigate to="/v2/en" replace />} />
+				<Route path="/:lang" element={<Home />} />
+				<Route path="/:lang/we-believe" element={<WeBelieve />} />
+				<Route path="/:lang/leadership" element={<Leadership />} />
+				<Route path="/:lang/visit" element={<Visit />} />
+				<Route path="/:lang/sermons" element={<Sermons />} />
+				<Route path="/:lang/ministries" element={<Ministries />} />
+				<Route path="/:lang/prayer" element={<Prayer />} />
+				<Route path="/:lang/give" element={<Give />} />
+				<Route path="/:lang/events" element={<Events />} />
+				<Route path="*" element={<Navigate to="/en" replace />} />
 			</Routes>
 			<Footer />
 		</>
@@ -75,8 +48,7 @@ function ScrollToTop() {
 
 function App() {
 	const location = useLocation();
-	const isAdmin = location.pathname.startsWith('/v2/admin');
-	const isV2 = location.pathname.startsWith('/v2');
+	const isAdmin = location.pathname.startsWith('/admin');
 
 	return (
 		<div className="App">
@@ -84,13 +56,11 @@ function App() {
 			{isAdmin ? (
 				<Suspense fallback={<div style={{ padding: 40 }}>Loading admin…</div>}>
 					<Routes>
-						<Route path="/v2/admin/*" element={<AdminApp />} />
+						<Route path="/admin/*" element={<AdminApp />} />
 					</Routes>
 				</Suspense>
-			) : isV2 ? (
-				<V2Site />
 			) : (
-				<LegacySite />
+				<PublicSite />
 			)}
 		</div>
 	);

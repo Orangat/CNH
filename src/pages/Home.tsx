@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const { lang } = useParams<{ lang: string }>();
   const { data: leaders } = useLeaders();
   const { data: contact } = useContactInfo();
-  const localized = (path: string) => `/v2/${lang || language}${path}`;
+  const localized = (path: string) => `/${lang || language}${path}`;
 
   // First three published leaders for preview section
   const previewLeaders = leaders.slice(0, 3);
@@ -221,10 +221,10 @@ const Home: React.FC = () => {
         <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { to: 20, suffix: '+', label: t('home.stats.years') },
-              { to: 2, suffix: '', label: t('home.stats.languages') },
-              { to: 15, suffix: '+', label: t('home.stats.groups') },
-              { to: 25, suffix: '+', label: t('home.stats.ministries') },
+              { to: parseInt(t('home.stats.years.value')) || 20, suffix: '+', label: t('home.stats.years') },
+              { to: parseInt(t('home.stats.languages.value')) || 2, suffix: '', label: t('home.stats.languages') },
+              { to: parseInt(t('home.stats.groups.value')) || 15, suffix: '+', label: t('home.stats.groups') },
+              { to: parseInt(t('home.stats.ministries.value')) || 25, suffix: '+', label: t('home.stats.ministries') },
             ].map((stat, i) => (
               <motion.div
                 key={i}
@@ -305,7 +305,7 @@ const Home: React.FC = () => {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-navy-700/85">{t('home.groupsCta.body')}</p>
             <div className="mt-8">
-              <Button href="https://churchofnewhope.churchcenter.com/groups">
+              <Button href="https://churchofnewhope.churchcenter.com/groups" target="_blank" rel="noopener noreferrer">
                 {t('home.groupsCta.button')} →
               </Button>
             </div>

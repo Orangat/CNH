@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
 import { stockPhotos } from '../data/stockImages';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
+
+const MAX_REQUEST_LENGTH = 2000;
 
 const Prayer: React.FC = () => {
   const { t } = useLanguage();
@@ -15,15 +17,23 @@ const Prayer: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState('');
+  const mountedAt = useRef(Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!request.trim()) return;
     setError(null);
+
+    if (honeypot || Date.now() - mountedAt.current < 3000) {
+      setSubmitting(true);
+      setTimeout(() => { setSubmitting(false); setSubmitted(true); }, 800);
+      return;
+    }
+
     setSubmitting(true);
 
     if (!supabase) {
-      // Graceful fallback when Supabase isn't configured
       setSubmitting(false);
       setSubmitted(true);
       return;
@@ -32,7 +42,7 @@ const Prayer: React.FC = () => {
     const { error: err } = await supabase.from('prayer_requests').insert({
       name: name.trim(),
       email: email.trim(),
-      request: request.trim(),
+      request: request.trim().slice(0, MAX_REQUEST_LENGTH),
       share_with_team: shareWithTeam,
     });
     setSubmitting(false);
@@ -127,11 +137,28 @@ const Prayer: React.FC = () => {
                   </label>
                   <textarea
                     value={request}
-                    onChange={(e) => setRequest(e.target.value)}
+                    onChange={(e) => setRequest(e.target.value.slice(0, MAX_REQUEST_LENGTH))}
                     placeholder={t('prayer.form.requestPlaceholder')}
                     required
                     rows={6}
+                    maxLength={MAX_REQUEST_LENGTH}
                     className="w-full border border-navy-900/15 px-4 py-3 text-sm focus:border-tan-500 focus:outline-none focus:ring-1 focus:ring-tan-500 resize-none"
+                  />
+                  <p className={`mt-1 text-xs text-right ${request.length > MAX_REQUEST_LENGTH * 0.9 ? 'text-red-500' : 'text-navy-400'}`}>
+                    {request.length}/{MAX_REQUEST_LENGTH}
+                  </p>
+                </div>
+                {/* Honeypot — invisible to humans, bots auto-fill it */}
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
                   />
                 </div>
                 <fieldset>
