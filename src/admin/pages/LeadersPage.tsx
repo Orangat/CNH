@@ -30,10 +30,14 @@ const LeadersPage: React.FC = () => {
   const handleReorder = async (newOrder: LeaderRow[]) => {
     setRows(newOrder);
     if (!supabase) return;
-    const updates = newOrder.map((r, i) => ({ id: r.id, sort_order: (i + 1) * 10 }));
-    const { error } = await supabase.from('leaders').upsert(updates);
-    if (error) {
-      toast(error.message, 'error');
+    const results = await Promise.all(
+      newOrder.map((r, i) =>
+        supabase!.from('leaders').update({ sort_order: (i + 1) * 10 }).eq('id', r.id)
+      )
+    );
+    const firstError = results.find((res) => res.error)?.error;
+    if (firstError) {
+      toast(firstError.message, 'error');
       refresh();
       return;
     }
