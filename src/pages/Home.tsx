@@ -221,10 +221,10 @@ const Home: React.FC = () => {
         <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { to: 20, suffix: '+', label: t('home.stats.years') },
-              { to: 2, suffix: '', label: t('home.stats.languages') },
-              { to: 15, suffix: '+', label: t('home.stats.groups') },
-              { to: 25, suffix: '+', label: t('home.stats.ministries') },
+              { to: parseInt(t('home.stats.years.value')) || 20, suffix: '+', label: t('home.stats.years') },
+              { to: parseInt(t('home.stats.languages.value')) || 2, suffix: '', label: t('home.stats.languages') },
+              { to: parseInt(t('home.stats.groups.value')) || 15, suffix: '+', label: t('home.stats.groups') },
+              { to: parseInt(t('home.stats.ministries.value')) || 25, suffix: '+', label: t('home.stats.ministries') },
             ].map((stat, i) => (
               <motion.div
                 key={i}

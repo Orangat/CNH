@@ -54,9 +54,13 @@
     },
     "stats": {
       "years": "Years serving Charlotte",
+      "years.value": "20",
       "languages": "Languages every Sunday",
+      "languages.value": "2",
       "groups": "Active small groups",
-      "ministries": "Ministry teams"
+      "groups.value": "15",
+      "ministries": "Ministry teams",
+      "ministries.value": "25"
     },
     "mission": {
       "eyebrow": "Our mission",

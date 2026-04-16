@@ -54,9 +54,13 @@
     },
     "stats": {
       "years": "Років служіння Шарлотту",
+      "years.value": "20",
       "languages": "Мови щонеділі",
+      "languages.value": "2",
       "groups": "Активні малі групи",
-      "ministries": "Служінь"
+      "groups.value": "15",
+      "ministries": "Служінь",
+      "ministries.value": "25"
     },
     "mission": {
       "eyebrow": "Наша місія",
