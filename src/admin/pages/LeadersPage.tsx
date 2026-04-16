@@ -172,23 +172,23 @@ const PhotoLightbox: React.FC<{ leader: LeaderRow; onClose: () => void }> = ({ l
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        onClick={(e) => e.stopPropagation()}
         style={{
           maxWidth: '80vw', maxHeight: '80vh',
           display: 'flex', flexDirection: 'column', alignItems: 'center',
-          cursor: 'default',
         }}
       >
         <img
           src={leaderPhotoUrl(leader.photo_path)}
           alt={leader.name_en}
+          onClick={(e) => e.stopPropagation()}
           style={{
             maxWidth: '100%', maxHeight: '70vh',
             objectFit: 'contain',
             border: '4px solid rgba(255,255,255,0.1)',
+            cursor: 'default',
           }}
         />
-        <div style={{ marginTop: 16, textAlign: 'center', color: '#fff' }}>
+        <div style={{ marginTop: 16, textAlign: 'center', color: '#fff', pointerEvents: 'none' }}>
           <div style={{ fontWeight: 700, fontSize: 16 }}>{leader.name_en}</div>
           <div style={{ marginTop: 4, fontSize: 13, color: '#cbd5e1' }}>{leader.title_en}</div>
         </div>

@@ -187,21 +187,21 @@ const PhotoLightbox: React.FC<{
         </svg>
       </button>
 
-      {/* Photo + caption (click inside doesn't close) */}
+      {/* Only the image itself swallows clicks; caption and empty space close */}
       <motion.div
         initial={{ scale: 0.92, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="relative max-w-4xl w-full max-h-[calc(100vh-4rem)] flex flex-col items-center cursor-default"
-        onClick={(e) => e.stopPropagation()}
+        className="relative max-w-4xl w-full max-h-[calc(100vh-4rem)] flex flex-col items-center"
       >
         <img
           src={leaderPhotoUrl(leader.photo_path)}
           alt={name}
-          className="max-h-[calc(100vh-10rem)] w-auto object-contain border-4 border-white/10"
+          onClick={(e) => e.stopPropagation()}
+          className="max-h-[calc(100vh-10rem)] w-auto object-contain border-4 border-white/10 cursor-default"
         />
-        <div className="mt-4 text-center text-white">
+        <div className="mt-4 text-center text-white pointer-events-none">
           <h3 className="font-display text-lg md:text-xl font-bold uppercase tracking-wider">{name}</h3>
           <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.22em] text-tan-500">{title}</p>
         </div>
