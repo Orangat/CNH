@@ -18,8 +18,8 @@ on conflict (id) do nothing;
 create policy "public read sermon-thumbs" on storage.objects
   for select using (bucket_id = 'sermon-thumbs');
 create policy "editors write sermon-thumbs" on storage.objects
-  for insert with check (bucket_id = 'sermon-thumbs' and can_edit_content());
+  for insert with check (bucket_id = 'sermon-thumbs' and is_admin());
 create policy "editors update sermon-thumbs" on storage.objects
-  for update using (bucket_id = 'sermon-thumbs' and can_edit_content());
+  for update using (bucket_id = 'sermon-thumbs' and is_admin());
 create policy "editors delete sermon-thumbs" on storage.objects
-  for delete using (bucket_id = 'sermon-thumbs' and can_edit_content());
+  for delete using (bucket_id = 'sermon-thumbs' and is_admin());
