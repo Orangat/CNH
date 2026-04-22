@@ -325,7 +325,7 @@ const MobileNavItem: React.FC<{
         target="_blank"
         rel="noopener noreferrer"
         onClick={onClose}
-        className="block py-4 text-2xl font-bold uppercase tracking-wide text-navy-900 cursor-pointer"
+        className="block py-4 text-left text-2xl font-bold uppercase tracking-wide text-navy-900 cursor-pointer"
       >
         {t(item.labelKey)}
       </a>
@@ -335,7 +335,7 @@ const MobileNavItem: React.FC<{
     <Link
       to={localized(item.to!)}
       onClick={onClose}
-      className="block py-4 text-2xl font-bold uppercase tracking-wide text-navy-900 cursor-pointer"
+      className="block py-4 text-left text-2xl font-bold uppercase tracking-wide text-navy-900 cursor-pointer"
     >
       {t(item.labelKey)}
     </Link>
