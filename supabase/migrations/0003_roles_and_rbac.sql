@@ -13,21 +13,21 @@ alter table admin_users add constraint admin_users_role_check
 -- 2. Helper functions (all SECURITY DEFINER to avoid RLS recursion)
 -- =============================================================================
 
-create or replace function current_role() returns text
+create or replace function get_user_role() returns text
   language sql stable security definer
   as $$ select role from admin_users where id = auth.uid() $$;
 
 create or replace function has_role(required text) returns bool
   language sql stable security definer
-  as $$ select current_role() = required $$;
+  as $$ select get_user_role() = required $$;
 
 create or replace function can_edit_content() returns bool
   language sql stable security definer
-  as $$ select current_role() in ('admin','pastor','editor') $$;
+  as $$ select get_user_role() in ('admin','pastor','editor') $$;
 
 create or replace function can_read_all_prayers() returns bool
   language sql stable security definer
-  as $$ select current_role() in ('admin','pastor') $$;
+  as $$ select get_user_role() in ('admin','pastor') $$;
 
 -- =============================================================================
 -- 3. admin_users SELECT — allow self-read (critical for useMe() hook)
