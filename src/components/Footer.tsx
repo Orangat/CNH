@@ -130,12 +130,12 @@ const Footer: React.FC = () => {
             </FooterColumn>
 
             {/* ───── CONTACT (4 cols) */}
-            <div className="md:col-span-4 text-center">
+            <div className="md:col-span-4">
               <h4 className="font-display text-xs font-bold uppercase tracking-widest text-tan-500">
                 {t('nav.aboutUs')}
               </h4>
               <ul className="mt-6 space-y-4 text-sm text-white/80">
-                <li className="flex items-start justify-center gap-3">
+                <li className="flex items-start gap-3">
                   <i className="fas fa-map-marker-alt mt-[3px] w-4 text-center text-tan-500" />
                   <a
                     href={contact.map_url}
@@ -146,13 +146,13 @@ const Footer: React.FC = () => {
                     {contact.address}
                   </a>
                 </li>
-                <li className="flex items-start justify-center gap-3">
+                <li className="flex items-start gap-3">
                   <i className="fas fa-phone mt-[3px] w-4 text-center text-tan-500" />
                   <a href={telHref} className="hover:text-tan-500 transition-colors">
                     {contact.phone}
                   </a>
                 </li>
-                <li className="flex items-start justify-center gap-3">
+                <li className="flex items-start gap-3">
                   <i className="fas fa-envelope mt-[3px] w-4 text-center text-tan-500" />
                   <a
                     href={`mailto:${contact.email}`}

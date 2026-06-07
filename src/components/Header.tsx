@@ -228,7 +228,7 @@ const NavItemDesktop: React.FC<{
               exit={{ opacity: 0, scaleY: 0.92, y: -4 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               style={{ originY: 0, backdropFilter: 'blur(12px) saturate(1.4)' }}
-              className="absolute left-0 top-full mt-3 min-w-[240px] overflow-hidden border border-white/[0.12] bg-black/25 shadow-[0_12px_48px_-8px_rgba(0,0,0,0.4)]"
+              className="absolute left-0 top-full mt-3 min-w-[240px] overflow-hidden border border-white/[0.12] bg-navy-900/95 shadow-[0_12px_48px_-8px_rgba(0,0,0,0.55)]"
             >
               {/* Accent line */}
               <div className="h-[2px] bg-gradient-to-r from-tan-500 via-tan-400 to-transparent" />

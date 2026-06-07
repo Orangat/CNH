@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useLeaders } from '../data/useLeaders';
@@ -144,15 +144,30 @@ const LeaderCard: React.FC<CardProps> = ({ leader, index, language, onPhotoClick
 };
 
 const PhotoLightbox: React.FC<{
-  leader: LeaderRow;
+  leaders: LeaderRow[];
+  index: number;
   language: 'en' | 'uk';
   onClose: () => void;
-}> = ({ leader, language, onClose }) => {
+  onNavigate: (index: number) => void;
+}> = ({ leaders, index, language, onClose, onNavigate }) => {
+  const leader = leaders[index];
   const name = language === 'uk' && leader.name_uk ? leader.name_uk : leader.name_en;
   const title = language === 'uk' && leader.title_uk ? leader.title_uk : leader.title_en;
+  const hasMultiple = leaders.length > 1;
+
+  const goPrev = useCallback(() => {
+    onNavigate((index - 1 + leaders.length) % leaders.length);
+  }, [index, leaders.length, onNavigate]);
+  const goNext = useCallback(() => {
+    onNavigate((index + 1) % leaders.length);
+  }, [index, leaders.length, onNavigate]);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      else if (e.key === 'ArrowLeft') goPrev();
+      else if (e.key === 'ArrowRight') goNext();
+    };
     document.addEventListener('keydown', onKey);
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -160,7 +175,7 @@ const PhotoLightbox: React.FC<{
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = prevOverflow;
     };
-  }, [onClose]);
+  }, [onClose, goPrev, goNext]);
 
   return (
     <motion.div
@@ -179,7 +194,7 @@ const PhotoLightbox: React.FC<{
         type="button"
         onClick={onClose}
         aria-label="Close"
-        className="absolute top-4 right-4 md:top-6 md:right-6 flex h-12 w-12 items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors cursor-pointer"
+        className="absolute top-4 right-4 md:top-6 md:right-6 z-10 flex h-12 w-12 items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors cursor-pointer"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="18" y1="6" x2="6" y2="18" />
@@ -187,25 +202,54 @@ const PhotoLightbox: React.FC<{
         </svg>
       </button>
 
+      {/* Prev / Next navigation */}
+      {hasMultiple && (
+        <>
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); goPrev(); }}
+            aria-label="Previous leader"
+            className="absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors cursor-pointer"
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); goNext(); }}
+            aria-label="Next leader"
+            className="absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors cursor-pointer"
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </>
+      )}
+
       {/* Only the image itself swallows clicks; caption and empty space close */}
-      <motion.div
-        initial={{ scale: 0.92, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="relative max-w-4xl w-full max-h-[calc(100vh-4rem)] flex flex-col items-center"
-      >
-        <img
-          src={leaderPhotoUrl(leader.photo_path)}
-          alt={name}
-          onClick={(e) => e.stopPropagation()}
-          className="max-h-[calc(100vh-10rem)] w-auto object-contain border-4 border-white/10 cursor-default"
-        />
-        <div className="mt-4 text-center text-white pointer-events-none">
-          <h3 className="font-display text-lg md:text-xl font-bold uppercase tracking-wider">{name}</h3>
-          <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.22em] text-tan-500">{title}</p>
-        </div>
-      </motion.div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={leader.id}
+          initial={{ scale: 0.92, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.95, opacity: 0 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="relative max-w-4xl w-full max-h-[calc(100vh-4rem)] flex flex-col items-center"
+        >
+          <img
+            src={leaderPhotoUrl(leader.photo_path)}
+            alt={name}
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[calc(100vh-10rem)] w-auto object-contain border-4 border-white/10 cursor-default"
+          />
+          <div className="mt-4 text-center text-white pointer-events-none">
+            <h3 className="font-display text-lg md:text-xl font-bold uppercase tracking-wider">{name}</h3>
+            <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.22em] text-tan-500">{title}</p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
 };
@@ -213,7 +257,19 @@ const PhotoLightbox: React.FC<{
 const Leadership: React.FC = () => {
   const { t, language } = useLanguage();
   const { data: leaders } = useLeaders();
-  const [preview, setPreview] = useState<LeaderRow | null>(null);
+  const photoLeaders = useMemo(
+    () => leaders.filter((l) => Boolean(l.photo_path)),
+    [leaders],
+  );
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
+
+  const openPreview = useCallback(
+    (leader: LeaderRow) => {
+      const idx = photoLeaders.findIndex((l) => l.id === leader.id);
+      if (idx >= 0) setPreviewIndex(idx);
+    },
+    [photoLeaders],
+  );
 
   return (
     <div className="bg-cream">
@@ -233,18 +289,20 @@ const Leadership: React.FC = () => {
               leader={leader}
               index={i}
               language={language}
-              onPhotoClick={setPreview}
+              onPhotoClick={openPreview}
             />
           ))}
         </div>
       </Section>
 
       <AnimatePresence>
-        {preview && (
+        {previewIndex !== null && photoLeaders[previewIndex] && (
           <PhotoLightbox
-            leader={preview}
+            leaders={photoLeaders}
+            index={previewIndex}
             language={language}
-            onClose={() => setPreview(null)}
+            onClose={() => setPreviewIndex(null)}
+            onNavigate={setPreviewIndex}
           />
         )}
       </AnimatePresence>
