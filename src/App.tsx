@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-// Legacy (old design) imports
+// Legacy (old design) — served at the site root, kept live until removed
 import LegacyHeader from './components/legacy/Header';
 import LegacyFooter from './components/legacy/Footer';
 import LegacyHome from './pages/legacy/Home';
@@ -12,7 +12,7 @@ import LegacyLeadership from './pages/legacy/Leadership';
 import LegacyGive from './pages/legacy/Give';
 import LegacyEvents from './pages/legacy/Events';
 
-// V2 (redesign) imports
+// V2 (redesign) — served under /v2
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -24,6 +24,7 @@ import Visit from './pages/Visit';
 import Sermons from './pages/Sermons';
 import Ministries from './pages/Ministries';
 import Prayer from './pages/Prayer';
+import Forms from './pages/Forms';
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
 
@@ -58,6 +59,7 @@ function V2Site() {
 				<Route path="/v2/:lang/prayer" element={<Prayer />} />
 				<Route path="/v2/:lang/give" element={<Give />} />
 				<Route path="/v2/:lang/events" element={<Events />} />
+				<Route path="/v2/:lang/forms" element={<Forms />} />
 				<Route path="/v2/*" element={<Navigate to="/v2/en" replace />} />
 			</Routes>
 			<Footer />

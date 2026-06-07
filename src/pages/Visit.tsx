@@ -23,7 +23,7 @@ const Visit: React.FC = () => {
         description={t('visit.hero.description')}
         height="tall"
       >
-        <Button href={contact.map_url} variant="primary" size="lg">
+        <Button href={contact.map_url} target="_blank" rel="noopener noreferrer" variant="primary" size="lg">
           {t('visit.cta')} →
         </Button>
       </Hero>
@@ -66,7 +66,7 @@ const Visit: React.FC = () => {
               {t('home.sundays')} · {contact.service_time_english} ({t('home.english')}) · {contact.service_time_ukrainian} ({t('home.ukrainian')})
             </p>
             <div className="mt-8">
-              <Button href={contact.map_url} variant="primary">
+              <Button href={contact.map_url} target="_blank" rel="noopener noreferrer" variant="primary">
                 {t('visit.cta')} →
               </Button>
             </div>

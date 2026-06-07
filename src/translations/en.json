@@ -10,7 +10,8 @@
     "groups": "Groups",
     "prayer": "Prayer",
     "give": "Give",
-    "planVisit": "Plan a visit"
+    "forms": "Forms",
+    "planVisit": "Join Us"
   },
   "home": {
     "sundays": "Sundays",
@@ -18,45 +19,49 @@
     "english": "English",
     "ukrainian": "Ukrainian",
     "hero": {
-      "eyebrow": "Welcome home",
+      "eyebrow": "Welcome to Church of New Hope",
       "script": "There is hope",
-      "title": "A church for the next generation",
-      "description": "We are a bilingual community gathering each Sunday in Charlotte to encounter Jesus, grow together, and serve the city we love. You are welcome here, just as you are.",
-      "ctaPrimary": "Plan your visit",
+      "title": "Love God. Love People.",
+      "description": "We're a church dedicated to helping people know Jesus, grow in faith, and impact Charlotte with the Gospel.",
+      "ctaPrimary": "Come to church",
       "ctaSecondary": "Watch a sermon"
     },
     "welcome": {
-      "eyebrow": "First time?",
-      "title": "Come as you are",
-      "body": "Whether you've been walking with Jesus for decades or are just beginning to ask questions, you'll find a warm welcome at Church of New Hope. We gather in two languages, share a meal, and worship together as one family."
+      "eyebrow": "New here?",
+      "title": "About Church of New Hope",
+      "body": "Whether you've been walking with Jesus for decades or are just beginning to ask questions, you'll find a warm welcome at Church of New Hope. We gather on Sundays in two languages for Bible-rooted teaching, authentic worship, and fellowship in a family-friendly environment."
     },
     "expect": {
       "eyebrow": "What to expect",
       "title": "Sundays at New Hope",
       "items": {
         "worship": {
-          "title": "Heartfelt worship",
-          "body": "Live music, congregational singing, and a moment for everyone to lift their voice."
+          "title": "Christ-Centered Worship",
+          "body": "Lift your voice and proclaim the name of Jesus in communal worship."
         },
         "teaching": {
           "title": "Bible-rooted teaching",
-          "body": "Practical messages grounded in Scripture, translated live in both English and Ukrainian."
+          "body": "Hear practical messages rooted in Scripture in both English and Ukrainian."
         },
         "kids": {
-          "title": "Joyful kids ministry",
-          "body": "Safe, joyful classes for kids from nursery through middle school during every service."
+          "title": "Intentional Kid's Ministry",
+          "body": "Access safe age-appropriate Bible classes. Nursery also available."
         },
         "fellowship": {
           "title": "Real community",
-          "body": "Coffee, conversation, and people genuinely glad to meet you after every gathering."
+          "body": "Join us after service for coffee, conversation, and genuine fellowship."
         }
       }
     },
     "stats": {
       "years": "Years serving Charlotte",
+      "years.value": "20",
       "languages": "Languages every Sunday",
+      "languages.value": "2",
       "groups": "Active small groups",
-      "ministries": "Ministry teams"
+      "groups.value": "15",
+      "ministries": "Ministry teams",
+      "ministries.value": "25"
     },
     "mission": {
       "eyebrow": "Our mission",
@@ -66,19 +71,19 @@
     },
     "leadershipPreview": {
       "eyebrow": "Our team",
-      "title": "Meet the people who serve you",
+      "title": "Get to know our leaders",
       "cta": "Meet the whole team"
     },
     "groupsCta": {
-      "eyebrow": "Go deeper",
-      "title": "Bible Study Groups",
-      "body": "Gather midweek in homes across Charlotte to study Scripture, pray together, and build real friendships — for families, men, women, and young adults, in both languages.",
+      "eyebrow": "You belong here",
+      "title": "Get connected",
+      "body": "We have over a dozen active Bible studies, prayer groups, and ministry groups meeting across Charlotte, Matthews, and Indian Trail in both English and Ukrainian.",
       "button": "Find a group"
     },
     "giveCta": {
       "eyebrow": "Generosity",
-      "title": "Support our mission",
-      "body": "Every gift fuels worship gatherings, ministry to kids and families, and outreach across our city.",
+      "title": "Support Church of New Hope",
+      "body": "Every gift supports our worship services, ministries, missions, and outreach across our city.",
       "button": "Give now"
     }
   },
@@ -103,7 +108,7 @@
       "eyebrow": "What we believe",
       "script": "Built on Christ",
       "title": "Our Statement of Faith",
-      "description": "Ten convictions that shape how we worship, teach, and walk together as a church family."
+      "description": "Though we worship in two languages, we are one congregation united in one Gospel, proclaiming one name: Jesus Christ."
     },
     "god": { "title": "God", "text": "We believe that there is only one true, living, and eternal God and that the Godhead is revealed as Father, Son, and Holy Spirit." },
     "bible": { "title": "The Bible", "text": "We believe that the Holy Scriptures are the Old and New Testaments; the inspired and infallible Word of God and therein is found the only reliable guide of Christian faith and conduct." },
@@ -120,39 +125,44 @@
   "leadership": {
     "title": "Our Leadership",
     "subtitle": "Meet the pastors, directors, and volunteers who serve our church family.",
-    "eyebrow": "The team"
+    "eyebrow": "The team",
+    "hero": {
+      "eyebrow": "Leadership",
+      "title": "Our Team",
+      "description": "Meet the pastors, directors, and volunteers who serve our church family."
+    }
   },
   "visit": {
     "hero": {
-      "eyebrow": "Plan your visit",
+      "eyebrow": "We can't wait to see you",
       "script": "We saved you a seat",
-      "title": "Your first time at New Hope",
+      "title": "Worship With Us",
       "description": "Here's everything you need to know before walking through our doors."
     },
     "sections": {
       "what": {
         "title": "What to expect",
-        "body": "Services last about 90 minutes and include music, prayer, and a Bible-based message. Come a few minutes early — we'll have coffee waiting and someone happy to show you around."
+        "body": "Services last from 60-90 minutes and include worship, prayer, and a Bible-based message. Make sure to stop by for coffee and fellowship between services. Your cup is free as a first-time guest!"
       },
       "wear": {
         "title": "What to wear",
-        "body": "Whatever feels comfortable. You'll see jeans, dresses, suits — and everything in between. There's no dress code at New Hope."
+        "body": "Wear whatever feels comfortable. You'll see jeans, dresses, suits, and everything in between. There's no dress code at New Hope. Come as you are, ready to worship!"
       },
       "kids": {
         "title": "For your kids",
-        "body": "We love kids. Our team runs safe, age-appropriate classes from nursery through 5th grade during every service. Check-in opens 20 minutes before service."
+        "body": "We love your kids! There are safe, age-appropriate Pre K-5 Sunday school classes available during Ukrainian service, and a nursery available during both services."
       },
       "parking": {
         "title": "Parking",
-        "body": "Free parking in our main lot. First-time guests can park up front in marked spots — look for the welcome banner."
+        "body": "There is plenty of parking in our main lot and the gravel lot directly behind the church building. A member of the parking team will guide you when you arrive."
       },
       "language": {
         "title": "Both languages",
-        "body": "English service at 10am, Ukrainian service at noon. Live translation is available between rooms — let a greeter know."
+        "body": "English service begins at 10AM, and Ukrainian service begins at 12PM. All are welcome at both services."
       },
       "questions": {
         "title": "Have questions?",
-        "body": "Reach out anytime. We're happy to answer anything — even the awkward ones."
+        "body": "Reach out to us any time at info@churchofnewhope.org"
       }
     },
     "cta": "Get directions"
@@ -161,8 +171,8 @@
     "hero": {
       "eyebrow": "Watch and listen",
       "script": "The Word, alive",
-      "title": "Recent sermons",
-      "description": "Catch up on past messages or share with a friend. New videos posted every week."
+      "title": "Sermons",
+      "description": "Catch up on past messages or share with a friend. New videos posted in English and Ukrainian every week."
     },
     "watchOn": "Watch on YouTube",
     "speakerLabel": "Speaker",
@@ -171,31 +181,31 @@
   },
   "ministries": {
     "hero": {
-      "eyebrow": "Get involved",
+      "eyebrow": "Find your fit",
       "script": "Find your place",
-      "title": "Ministries",
-      "description": "Every ministry exists to help people meet Jesus, grow in Him, and serve others. Find one that fits where you are right now."
+      "title": "Our Ministries",
+      "description": "Find community, grow in faith, and serve alongside others through the various ministries of our church, including men's and women's groups, prayer teams, and evangelism efforts."
     },
     "contact": "Contact",
     "empty": "Ministries are being added shortly."
   },
   "prayer": {
     "hero": {
-      "eyebrow": "We're praying with you",
+      "eyebrow": "Let us pray for you",
       "script": "You are not alone",
-      "title": "Prayer requests",
-      "description": "Whatever you're facing, our pastors and prayer team would be honored to pray with you. Your request is private unless you choose otherwise."
+      "title": "Submit a Prayer Request",
+      "description": "Fill out the form below to share a prayer request with our pastoral team. All submissions are private and shared only with CNH pastors unless otherwise requested."
     },
     "form": {
-      "name": "Your name",
-      "namePlaceholder": "First name (optional)",
+      "name": "Your name (optional)",
+      "namePlaceholder": "First name",
       "email": "Email (optional)",
       "emailPlaceholder": "We'll only use this to follow up",
       "request": "Your request",
       "requestPlaceholder": "Share what's on your heart…",
-      "share": "Share with the prayer team only",
+      "share": "Share with the prayer team?",
       "shareYes": "Yes, please pray with me",
-      "shareNo": "Keep this just between me and the pastors",
+      "shareNo": "Keep this between me and the pastors",
       "submit": "Send request",
       "submitting": "Sending…",
       "thanks": "Thank you. We will pray for you."
@@ -209,17 +219,17 @@
       "eyebrow": "Mark your calendar",
       "script": "See you there",
       "title": "Upcoming events",
-      "description": "Worship services, community gatherings, special events — there's always something happening at New Hope."
+      "description": "Join us for worship nights, community gatherings, outreach events and more."
     },
     "subtitle": "Join us for our upcoming services, gatherings, and special events. Check our calendar to see what's happening at Church of New Hope."
   },
   "give": {
     "title": "Give",
     "hero": {
-      "eyebrow": "Generosity",
+      "eyebrow": "Faithful giving changes lives",
       "script": "Thank you",
-      "title": "Give to New Hope",
-      "description": "Every gift — large or small — fuels Sunday worship, ministry to kids and families, and outreach across Charlotte."
+      "title": "Give To Church of New Hope",
+      "description": "Every gift helps support the life and mission of our church through Sunday services, events, ministries, and missions efforts. Thank you for your generosity!"
     },
     "subtitle": "Support the ministry of Church of New Hope through your generous giving. Choose any of the options below.",
     "zelle": {
@@ -246,7 +256,11 @@
   },
   "footer": {
     "churchName": "Church of New Hope",
-    "tagline": "A place to belong",
+    "tagline": "Love God. Love People.",
+    "banner": {
+      "eyebrow": "We saved you a seat",
+      "title": "Join Us Sunday"
+    },
     "services": "Services",
     "serviceTimes": "Service times",
     "explore": "Explore",
@@ -254,5 +268,57 @@
     "connectText": "Follow us on social media for daily encouragement, announcements, and live worship.",
     "photos": "Photos by",
     "copyright": "© 2026 Church of New Hope. All rights reserved."
+  },
+  "forms": {
+    "hero": {
+      "eyebrow": "Get involved",
+      "title": "Forms & Requests",
+      "description": "Everything you need in one place — connect with our church family, join a team, or submit a request to our staff."
+    },
+    "openForm": "Open form",
+    "groups": {
+      "connect": {
+        "eyebrow": "Take a next step",
+        "title": "Get Connected"
+      },
+      "requests": {
+        "eyebrow": "For members & ministries",
+        "title": "Requests & Support"
+      }
+    },
+    "items": {
+      "connectCard": {
+        "title": "Connect Card",
+        "desc": "New here? Fill out our Connect Card so we can get to know you, answer any questions, and help you get connected at New Hope."
+      },
+      "serveTeam": {
+        "title": "Serve Team",
+        "desc": "Interested in serving? Complete this form to learn about volunteer opportunities and join a ministry team that matches your gifts and interests."
+      },
+      "membership": {
+        "title": "Membership Application",
+        "desc": "Ready to make New Hope your church home? Submit this application to begin the membership process and learn more about becoming a member."
+      },
+      "building": {
+        "title": "Church Building Request",
+        "desc": "Use this form to request the use of church facilities for meetings, events, classes, or special gatherings."
+      },
+      "operator": {
+        "title": "Operator Request",
+        "desc": "Submit this form to request audio, video, livestream, presentation, or other technical support for your event or ministry activity."
+      },
+      "sermonSlides": {
+        "title": "Sermon Slides Request",
+        "desc": "Use this form to submit sermon notes, scriptures, and presentation details needed to prepare slides for worship services."
+      },
+      "graphic": {
+        "title": "Graphic Request",
+        "desc": "Need graphics for an event, ministry, or announcement? Submit this form to request flyers, social media graphics, presentation graphics, and other design projects."
+      }
+    },
+    "help": {
+      "title": "Not sure which form you need?",
+      "body": "Reach out to us any time at info@churchofnewhope.org and we'll point you in the right direction."
+    }
   }
 }

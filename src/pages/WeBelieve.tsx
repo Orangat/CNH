@@ -26,7 +26,6 @@ const WeBelieve: React.FC = () => {
       <Hero
         image={stockPhotos.openBible.src(2000)}
         eyebrow={t('weBelieve.hero.eyebrow')}
-        scriptAccent={t('weBelieve.hero.script')}
         title={t('weBelieve.hero.title')}
         description={t('weBelieve.hero.description')}
         height="tall"
@@ -76,13 +75,6 @@ const WeBelieve: React.FC = () => {
               </motion.div>
             );
           })}
-        </div>
-      </Section>
-
-      <Section variant="navy" padding="md">
-        <div className="text-center max-w-2xl mx-auto">
-          <p className="font-script text-3xl text-tan-500">{t('weBelieve.findUs')}</p>
-          <p className="mt-4 text-lg text-white/85">{t('weBelieve.comeAsYouAre')}</p>
         </div>
       </Section>
     </div>

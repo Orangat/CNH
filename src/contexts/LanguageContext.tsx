@@ -59,7 +59,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       pathParts.splice(langIndex, 1);
     }
     const prefix = isV2 ? '/v2' : '';
-    const rest = pathParts.filter(p => p !== 'v2').join('/');
+    const rest = pathParts.filter((p) => p !== 'v2').join('/');
     const newPath = rest.length > 0 ? `${prefix}/${lang}/${rest}` : `${prefix}/${lang}`;
     navigate(newPath, { replace: true });
   };

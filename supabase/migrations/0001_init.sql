@@ -27,7 +27,7 @@ create table if not exists admin_users (
 );
 
 create or replace function is_admin()
-returns boolean language sql stable as $$
+returns boolean language sql stable security definer as $$
   select exists (
     select 1 from admin_users where id = auth.uid()
   );

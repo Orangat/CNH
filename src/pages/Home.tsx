@@ -34,7 +34,6 @@ const Home: React.FC = () => {
       <Hero
         image={stockPhotos.worshipHands.src(2000)}
         eyebrow={t('home.hero.eyebrow')}
-        scriptAccent={t('home.hero.script')}
         title={t('home.hero.title')}
         description={t('home.hero.description')}
         height="full"
@@ -80,15 +79,14 @@ const Home: React.FC = () => {
             transition={{ duration: 0.7 }}
           >
             <p className="text-xs font-bold uppercase tracking-widest text-tan-500">{t('home.welcome.eyebrow')}</p>
-            <p className="mt-3 font-script text-4xl text-navy-700">{t('home.hero.script')}</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-bold uppercase leading-tight text-navy-900">
+            <h2 className="mt-4 font-display text-4xl md:text-5xl font-bold uppercase leading-tight text-navy-900">
               {t('home.welcome.title')}
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-navy-700/85">{t('home.welcome.body')}</p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button to={localized('/visit')} variant="secondary">{t('nav.planVisit')} →</Button>
-              <Button to={localized('/we-believe')} variant="ghost" className="!text-navy-900 hover:!bg-navy-900/5">
-                {t('nav.weBelieve')}
+              <Button to={localized('/we-believe')} variant="secondary">{t('nav.weBelieve')} →</Button>
+              <Button to={localized('/events')} variant="ghost" className="!text-navy-900 hover:!bg-navy-900/5">
+                {t('nav.events')}
               </Button>
             </div>
           </motion.div>
@@ -221,10 +219,10 @@ const Home: React.FC = () => {
         <div className="relative z-10 mx-auto max-w-6xl px-6 md:px-10">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { to: 20, suffix: '+', label: t('home.stats.years') },
-              { to: 2, suffix: '', label: t('home.stats.languages') },
-              { to: 15, suffix: '+', label: t('home.stats.groups') },
-              { to: 25, suffix: '+', label: t('home.stats.ministries') },
+              { to: parseInt(t('home.stats.years.value')) || 20, suffix: '+', label: t('home.stats.years') },
+              { to: parseInt(t('home.stats.languages.value')) || 2, suffix: '', label: t('home.stats.languages') },
+              { to: parseInt(t('home.stats.groups.value')) || 15, suffix: '+', label: t('home.stats.groups') },
+              { to: parseInt(t('home.stats.ministries.value')) || 25, suffix: '+', label: t('home.stats.ministries') },
             ].map((stat, i) => (
               <motion.div
                 key={i}
@@ -305,7 +303,7 @@ const Home: React.FC = () => {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-navy-700/85">{t('home.groupsCta.body')}</p>
             <div className="mt-8">
-              <Button href="https://churchofnewhope.churchcenter.com/groups">
+              <Button href="https://churchofnewhope.churchcenter.com/groups" target="_blank" rel="noopener noreferrer">
                 {t('home.groupsCta.button')} →
               </Button>
             </div>

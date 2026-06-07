@@ -53,6 +53,12 @@ export interface SermonRow {
   preached_at: string | null;
   is_published: boolean;
   sort_order: number;
+  thumbnail_url: string;
+  custom_thumbnail_path: string | null;
+  title_edited: boolean;
+  auto_imported: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface MinistryRow {
