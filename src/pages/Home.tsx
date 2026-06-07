@@ -84,9 +84,9 @@ const Home: React.FC = () => {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-navy-700/85">{t('home.welcome.body')}</p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button to={localized('/visit')} variant="secondary">{t('nav.planVisit')} →</Button>
-              <Button to={localized('/we-believe')} variant="ghost" className="!text-navy-900 hover:!bg-navy-900/5">
-                {t('nav.weBelieve')}
+              <Button to={localized('/we-believe')} variant="secondary">{t('nav.weBelieve')} →</Button>
+              <Button to={localized('/events')} variant="ghost" className="!text-navy-900 hover:!bg-navy-900/5">
+                {t('nav.events')}
               </Button>
             </div>
           </motion.div>

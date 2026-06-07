@@ -134,7 +134,7 @@
   },
   "visit": {
     "hero": {
-      "eyebrow": "Join Us",
+      "eyebrow": "We can't wait to see you",
       "script": "We saved you a seat",
       "title": "Worship With Us",
       "description": "Here's everything you need to know before walking through our doors."
@@ -256,7 +256,7 @@
   },
   "footer": {
     "churchName": "Church of New Hope",
-    "tagline": "A place to belong",
+    "tagline": "Love God. Love People.",
     "banner": {
       "eyebrow": "We saved you a seat",
       "title": "Join Us Sunday"
