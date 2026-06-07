@@ -219,10 +219,9 @@ const Leadership: React.FC = () => {
     <div className="bg-cream">
       <Hero
         image={stockPhotos.congregation.src(2000)}
-        eyebrow={t('leadership.eyebrow')}
-        scriptAccent={t('home.leadershipPreview.eyebrow')}
-        title={t('leadership.title')}
-        description={t('leadership.subtitle')}
+        eyebrow={t('leadership.hero.eyebrow')}
+        title={t('leadership.hero.title')}
+        description={t('leadership.hero.description')}
         height="short"
       />
 

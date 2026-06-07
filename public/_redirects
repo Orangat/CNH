@@ -2,12 +2,6 @@
 https://cnhcharlotte.com/*    https://churchofnewhope.org/:splat    301!
 https://www.cnhcharlotte.com/*    https://churchofnewhope.org/:splat    301!
 
-# Legacy /v2 URLs — preserve link integrity for old shares
-/v2/admin/*    /admin/:splat    301!
-/v2/*          /:splat          301!
-
-# Default language landing
-/              /en              302
-
-# SPA fallback (must be last)
-/*             /index.html      200
+# SPA redirect for churchofnewhope.org (serves both legacy at root and the
+# redesign under /v2, including /v2/admin)
+/*    /index.html   200

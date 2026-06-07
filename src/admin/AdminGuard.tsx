@@ -42,7 +42,7 @@ const AdminGuard: React.FC<{ children: ReactNode }> = ({ children }) => {
     return <div className="admin-root" style={{ padding: 40 }}>Checking session…</div>;
   }
   if (state.kind === 'unauthenticated') {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/v2/admin/login" replace />;
   }
   if (state.kind === 'unauthorized') {
     return (
@@ -53,7 +53,7 @@ const AdminGuard: React.FC<{ children: ReactNode }> = ({ children }) => {
           className="admin-btn"
           onClick={async () => {
             await supabase?.auth.signOut();
-            window.location.href = '/admin/login';
+            window.location.href = '/v2/admin/login';
           }}
         >
           Sign out

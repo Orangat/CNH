@@ -24,6 +24,7 @@ const navItems: NavItem[] = [
   { labelKey: 'nav.groups', href: 'https://churchofnewhope.churchcenter.com/groups' },
   { labelKey: 'nav.prayer', to: '/prayer' },
   { labelKey: 'nav.give', to: '/give' },
+  { labelKey: 'nav.forms', to: '/forms' },
 ];
 
 const Header: React.FC = () => {
@@ -56,7 +57,7 @@ const Header: React.FC = () => {
     setMobileExpanded(null);
   }, [location.pathname]);
 
-  const localized = (path: string) => `/${lang || language}${path}`;
+  const localized = (path: string) => `/v2/${lang || language}${path}`;
 
   const transparent = !scrolled && !mobileOpen;
 

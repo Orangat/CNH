@@ -11,14 +11,15 @@ const Footer: React.FC = () => {
   const currentLang = lang || language;
   const { data: contact } = useContactInfo();
   const telHref = `tel:${contact.phone.replace(/[^+\d]/g, '')}`;
-  const localized = (path: string) => `/${currentLang}${path}`;
+  const localized = (path: string) => `/v2/${currentLang}${path}`;
   const isVisitPage = location.pathname === localized('/visit');
 
   const connectLinks = [
-    { key: 'nav.visit', to: '/visit' },
+    { key: 'nav.planVisit', to: '/visit' },
     { key: 'nav.events', to: '/events' },
     { key: 'nav.prayer', to: '/prayer' },
     { key: 'nav.give', to: '/give' },
+    { key: 'nav.forms', to: '/forms' },
   ];
   const discoverLinks = [
     { key: 'nav.weBelieve', to: '/we-believe' },
@@ -35,11 +36,11 @@ const Footer: React.FC = () => {
           <div className="grid items-center gap-10 md:grid-cols-12">
             {/* Left — invitation copy */}
             <div className="md:col-span-5 text-center md:text-left">
-              <p className="font-script text-3xl md:text-4xl text-tan-500">
-                {t('visit.hero.script')}
+              <p className="text-xs md:text-sm font-bold uppercase tracking-widest text-tan-500">
+                {t('footer.banner.eyebrow')}
               </p>
-              <h2 className="mt-2 font-display text-3xl md:text-4xl font-bold uppercase leading-tight">
-                {t('home.hero.ctaPrimary')}
+              <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold uppercase leading-tight">
+                {t('footer.banner.title')}
               </h2>
               <a
                 href={contact.map_url}
@@ -168,7 +169,7 @@ const Footer: React.FC = () => {
           <div className="mt-14 flex flex-col md:flex-row md:items-center md:justify-between gap-3 border-t border-white/10 pt-8 text-xs text-white/50">
             <p>{t('footer.copyright')}</p>
             <p className="font-script text-tan-500/70 text-base">{t('footer.tagline')}</p>
-            <Link to="/admin" className="text-white/20 hover:text-white/40 transition-colors">Admin</Link>
+            <Link to="/v2/admin" className="text-white/20 hover:text-white/40 transition-colors">Admin</Link>
           </div>
         </div>
       </section>

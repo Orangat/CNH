@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const { lang } = useParams<{ lang: string }>();
   const { data: leaders } = useLeaders();
   const { data: contact } = useContactInfo();
-  const localized = (path: string) => `/${lang || language}${path}`;
+  const localized = (path: string) => `/v2/${lang || language}${path}`;
 
   // First three published leaders for preview section
   const previewLeaders = leaders.slice(0, 3);
@@ -34,7 +34,6 @@ const Home: React.FC = () => {
       <Hero
         image={stockPhotos.worshipHands.src(2000)}
         eyebrow={t('home.hero.eyebrow')}
-        scriptAccent={t('home.hero.script')}
         title={t('home.hero.title')}
         description={t('home.hero.description')}
         height="full"
@@ -80,8 +79,7 @@ const Home: React.FC = () => {
             transition={{ duration: 0.7 }}
           >
             <p className="text-xs font-bold uppercase tracking-widest text-tan-500">{t('home.welcome.eyebrow')}</p>
-            <p className="mt-3 font-script text-4xl text-navy-700">{t('home.hero.script')}</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-bold uppercase leading-tight text-navy-900">
+            <h2 className="mt-4 font-display text-4xl md:text-5xl font-bold uppercase leading-tight text-navy-900">
               {t('home.welcome.title')}
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-navy-700/85">{t('home.welcome.body')}</p>

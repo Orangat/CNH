@@ -23,7 +23,7 @@ const AdminLogin: React.FC = () => {
       setError(err.message);
       return;
     }
-    navigate('/admin/leaders', { replace: true });
+    navigate('/v2/admin/leaders', { replace: true });
   };
 
   return (

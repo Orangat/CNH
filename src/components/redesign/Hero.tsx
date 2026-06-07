@@ -36,7 +36,6 @@ const Hero: React.FC<Props> = ({
   image,
   eyebrow,
   title,
-  scriptAccent,
   description,
   children,
   height = 'tall',
@@ -70,16 +69,6 @@ const Hero: React.FC<Props> = ({
               className="mb-6 text-xs md:text-sm font-semibold uppercase tracking-widest text-tan-500"
             >
               {eyebrow}
-            </motion.p>
-          )}
-          {scriptAccent && (
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-2 font-script text-3xl md:text-5xl text-tan-500"
-            >
-              {scriptAccent}
             </motion.p>
           )}
           <motion.h1

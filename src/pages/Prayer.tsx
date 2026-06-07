@@ -61,7 +61,6 @@ const Prayer: React.FC = () => {
       <Hero
         image={stockPhotos.prayer.src(2000)}
         eyebrow={t('prayer.hero.eyebrow')}
-        scriptAccent={t('prayer.hero.script')}
         title={t('prayer.hero.title')}
         description={t('prayer.hero.description')}
         height="short"
@@ -77,8 +76,7 @@ const Prayer: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="md:col-span-2 flex flex-col justify-center"
           >
-            <p className="font-script text-3xl text-tan-500">{t('prayer.hero.script')}</p>
-            <blockquote className="mt-6 font-display text-2xl md:text-3xl leading-snug text-navy-900">
+            <blockquote className="font-display text-2xl md:text-3xl leading-snug text-navy-900">
               {t('prayer.verse')}
             </blockquote>
             <cite className="mt-4 block text-xs font-bold uppercase tracking-widest text-tan-500 not-italic">
