@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
             </FooterColumn>
 
             {/* ───── CONTACT (4 cols) */}
-            <div className="md:col-span-4">
+            <div className="md:col-span-4 text-left">
               <h4 className="font-display text-xs font-bold uppercase tracking-widest text-tan-500">
                 {t('nav.aboutUs')}
               </h4>
