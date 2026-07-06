@@ -3,7 +3,7 @@
 - **Date:** 2026-07-06
 - **Status:** Approved (pending final spec review)
 - **Scope:** Tier B — card grid + flagship detail pages + Church Center hand-off
-- **Relates to:** [[cnh-architecture-decisions]], PR 1 pre-merge blockers
+- **Relates to:** [[cnh-architecture-decisions]], PR 1 pre-merge blockers, the Admin redesign spec (this feature's admin UI is built on it)
 
 ## 1. Problem / current state
 
@@ -63,11 +63,24 @@ Every must-have field (name, audience, short description) stored in EN + UK. **F
 
 ## 6. Admin UX (extend existing `MinistriesPage` form)
 
+Built on the **Admin redesign** system: the interface stays **English**, every field uses the shared `Field` wrapper (label + one-line help + optional `?` tooltip), and the multi-file gallery uploader is the shared component from that spec. Grouped into sections: Basics · On the card · Photos · Flagship page · Call to action · Visibility.
+
 - **Card photo:** drag-and-drop single upload — reuse the exact `LeaderForm` pattern (upload to Storage, store path, `Replace` / `Remove`).
 - **Gallery (flagships):** **multi-file** upload — `<input multiple>` + drop several files at once; each file uploaded in a loop via the same helper; **thumbnail grid**; per-thumbnail **remove (×)** and **reorder via ↑/↓ buttons** (drag-reorder is an optional nice-to-have, not required); order persisted as an ordered `text[]`.
 - **New fields:** audience (EN/UK), language (select: EN / UK / Bilingual), long description (EN/UK), leader name, leader role (EN/UK), location (EN/UK).
 - **CTA:** `cta_url` (pre-filled with the Serve Team form as the default) + optional button label (EN/UK; empty → "I'm interested" / "Мені цікаво").
 - **Toggles:** `is_featured` (enables the detail page + gallery) and existing `is_published` re-labeled **Active/Inactive** (pause = disappears from the site without deletion).
+
+**Help text & tooltips (English copy, per the mockup):**
+
+| Field | One-line help | Tooltip (?) |
+|---|---|---|
+| Slug | Appears in the page address: `churchofnewhope.org/ministries/childrens-ministry` | Short, lowercase, words joined by dashes. Change it and old links stop working. |
+| Language | What language this ministry runs in. | Shown as a badge so families can tell if a group is in English, Ukrainian, or both. |
+| Gallery | Add several photos at once; drag the number to reorder, the first is the lead image. | Gallery photos show on the ministry's own page. Only flagship ministries show a gallery. |
+| Flagship | When on, the leader/long-description/gallery show on a dedicated page. | Flagships get a full page with gallery, leader, schedule, longer story. Keep to a handful so pages don't go stale. |
+| CTA link | Where the button sends people. Defaults to your Serve Team form. | Paste a Church Center link — a form, a group, or the Serve Team form. Blank = Serve Team form. |
+| Active | Turn off to hide from the site without deleting it. | — |
 
 ## 7. Data model & migration
 
