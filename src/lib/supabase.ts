@@ -22,6 +22,7 @@ export const supabase: SupabaseClient | null =
 export const isSupabaseConfigured = (): boolean => supabase !== null;
 
 export const LEADER_PHOTOS_BUCKET = 'leader-photos';
+export const MINISTRY_PHOTOS_BUCKET = 'ministry-photos';
 
 /**
  * Build a public URL for a photo stored in the given Storage bucket.
@@ -39,4 +40,9 @@ export function storagePublicUrl(bucket: string, photoPath: string | null | unde
 /** Public URL for a photo in the leader-photos bucket. */
 export function leaderPhotoUrl(photoPath: string | null | undefined): string {
   return storagePublicUrl(LEADER_PHOTOS_BUCKET, photoPath);
+}
+
+/** Public URL for a photo in the ministry-photos bucket. */
+export function ministryPhotoUrl(photoPath: string | null | undefined): string {
+  return storagePublicUrl(MINISTRY_PHOTOS_BUCKET, photoPath);
 }
