@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../../lib/supabase';
 import { PrayerRequestRow } from '../../data/types';
 import { useToast } from '../components/Toast';
+import { PageHeader } from '../components/PageHeader';
+import { Tooltip } from '../components/Tooltip';
 
 type Status = PrayerRequestRow['status'] | 'all';
 
@@ -83,7 +85,11 @@ const PrayerRequestsPage: React.FC = () => {
 
   return (
     <>
-      <h2>Prayer requests</h2>
+      <PageHeader
+        eyebrow="Care"
+        title="Prayer requests"
+        subtitle="Requests submitted through the site. Move each one through the stages as your team prays."
+      />
       <div className="prayer-tabs">
         {tabs.map((tab) => (
           <button
@@ -139,7 +145,10 @@ const PrayerCard: React.FC<{
         </div>
         <div className="prayer-card-badges">
           {!row.share_with_team && (
-            <span className="prayer-badge pastors-only">Pastors only</span>
+            <>
+              <span className="prayer-badge pastors-only">Pastors only</span>
+              <Tooltip text={<>The person didn&rsquo;t share this with the wider prayer team, so only pastors can see it.</>} label="About Pastors only" />
+            </>
           )}
           <span className="prayer-badge" style={{ background: colors.bg, color: colors.text }}>
             {row.status}
