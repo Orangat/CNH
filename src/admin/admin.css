@@ -92,7 +92,7 @@
 
 .admin-sidebar .signout {
   display: flex; align-items: center; gap: 8px;
-  margin: 16px 18px 0; padding: 8px 12px; width: calc(100% - 36px);
+  width: 100%; padding: 8px 12px;
   background: transparent; color: #AEBECD;
   border: 1px solid rgba(255, 255, 255, .14); border-radius: 8px;
   cursor: pointer; font-family: inherit; font-size: 12.5px;
