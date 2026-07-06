@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import BrandPattern from './BrandPattern';
 
 interface Props {
-  /** Background image URL */
+  /** Background image URL (also used as the video poster when `video` is set) */
   image?: string;
+  /** Optional background video. `image` is used as the poster/fallback. */
+  video?: { desktop: string; mobile?: string };
   /** Optional eyebrow line above the title */
   eyebrow?: string;
   title: ReactNode;
@@ -34,6 +36,7 @@ const overlayClasses: Record<NonNullable<Props['overlay']>, string> = {
 
 const Hero: React.FC<Props> = ({
   image,
+  video,
   eyebrow,
   title,
   description,
@@ -47,14 +50,32 @@ const Hero: React.FC<Props> = ({
     <section
       className={`relative flex items-center overflow-hidden bg-navy-900 text-white ${heightClasses[height]}`}
     >
-      {image && (
-        <img
-          src={image}
-          alt=""
+      {video ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster={image}
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
-          loading="eager"
-        />
+        >
+          {video.mobile && (
+            <source media="(max-width: 768px)" src={video.mobile} type="video/mp4" />
+          )}
+          <source src={video.desktop} type="video/mp4" />
+        </video>
+      ) : (
+        image && (
+          <img
+            src={image}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+          />
+        )
       )}
       <div className={`absolute inset-0 ${overlayClasses[overlay]}`} />
       <BrandPattern opacity={0.12} />
