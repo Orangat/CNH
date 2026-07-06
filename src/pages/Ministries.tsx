@@ -1,10 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useMinistries } from '../data/useMinistries';
+import { ministryPhotoUrl } from '../lib/supabase';
+import { pickLang } from '../utils/pickLang';
 import { stockPhotos } from '../data/stockImages';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
+
+const SERVE_TEAM_FORM = 'https://churchofnewhope.churchcenter.com/people/forms/922679';
+
+const LANGUAGE_LABEL: Record<'en' | 'uk' | 'bilingual', string> = {
+  en: 'English',
+  uk: 'Ukrainian',
+  bilingual: 'Bilingual',
+};
 
 interface MinistryItem {
   id: string;
@@ -13,6 +24,12 @@ interface MinistryItem {
   meeting?: string;
   image?: string;
   icon?: string;
+  audience?: string;
+  language?: 'en' | 'uk' | 'bilingual';
+  slug?: string;
+  isFeatured?: boolean;
+  ctaUrl?: string;
+  ctaLabel?: string;
   contactEmail?: string;
 }
 
@@ -98,58 +115,82 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
   ];
 }
 
-const MinistryCard: React.FC<{ item: MinistryItem; index: number; contactLabel: string }> = ({
-  item,
-  index,
-  contactLabel,
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-    className="group flex flex-col overflow-hidden bg-white border border-navy-900/10 hover:border-tan-500 hover:shadow-2xl hover:shadow-navy-900/10 transition-all"
-  >
-    {item.image ? (
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <img
-          src={item.image}
-          alt={item.name}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/40 to-transparent" />
-        <div className="absolute bottom-0 left-0 h-[3px] w-14 bg-tan-500" aria-hidden />
-      </div>
-    ) : (
-      <div className="p-8 pb-0">
-        <div className="flex h-14 w-14 items-center justify-center bg-navy-50 text-navy-700 group-hover:bg-tan-500 group-hover:text-white transition-colors">
-          <i className={`fas fa-${item.icon || 'users'} text-xl`} />
-        </div>
-      </div>
-    )}
+const cardLinkClass =
+  'mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-tan-500 hover:gap-3 transition-all';
 
-    <div className="flex flex-1 flex-col p-8">
-      <h3 className="font-display text-xl font-bold uppercase tracking-wider text-navy-900">
-        {item.name}
-      </h3>
-      {item.description && (
-        <p className="mt-4 text-sm leading-relaxed text-navy-700/85">{item.description}</p>
+const MinistryCard: React.FC<{
+  item: MinistryItem;
+  index: number;
+  contactLabel: string;
+  learnMoreLabel: string;
+  lang: 'en' | 'uk';
+}> = ({ item, index, contactLabel, learnMoreLabel, lang }) => {
+  const langBadge = item.language ? LANGUAGE_LABEL[item.language] : undefined;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
+      className="group flex flex-col overflow-hidden bg-white border border-navy-900/10 hover:border-tan-500 hover:shadow-2xl hover:shadow-navy-900/10 transition-all"
+    >
+      {item.image ? (
+        <div className="relative aspect-[4/3] overflow-hidden">
+          <img
+            src={item.image}
+            alt={item.name}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-900/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 h-[3px] w-14 bg-tan-500" aria-hidden />
+        </div>
+      ) : (
+        <div className="p-8 pb-0">
+          <div className="flex h-14 w-14 items-center justify-center bg-navy-50 text-navy-700 group-hover:bg-tan-500 group-hover:text-white transition-colors">
+            <i className={`fas fa-${item.icon || 'users'} text-xl`} />
+          </div>
+        </div>
       )}
-      {item.meeting && (
-        <p className="mt-4 text-xs uppercase tracking-wider text-navy-700/60">{item.meeting}</p>
-      )}
-      {item.contactEmail && (
-        <a
-          href={`mailto:${item.contactEmail}`}
-          className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-tan-500 hover:gap-3 transition-all"
-        >
-          {contactLabel} →
-        </a>
-      )}
-    </div>
-  </motion.div>
-);
+
+      <div className="flex flex-1 flex-col p-8">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="font-display text-xl font-bold uppercase tracking-wider text-navy-900">
+            {item.name}
+          </h3>
+          {langBadge && (
+            <span className="mt-1 shrink-0 rounded-full border border-navy-900/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-navy-700/70">
+              {langBadge}
+            </span>
+          )}
+        </div>
+        {item.audience && (
+          <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-tan-600">{item.audience}</p>
+        )}
+        {item.description && (
+          <p className="mt-4 text-sm leading-relaxed text-navy-700/85">{item.description}</p>
+        )}
+        {item.meeting && (
+          <p className="mt-4 text-xs uppercase tracking-wider text-navy-700/60">{item.meeting}</p>
+        )}
+
+        {item.isFeatured && item.slug ? (
+          <Link to={`/v2/${lang}/ministries/${item.slug}`} className={cardLinkClass}>
+            {learnMoreLabel} →
+          </Link>
+        ) : item.ctaUrl ? (
+          <a href={item.ctaUrl} target="_blank" rel="noopener noreferrer" className={cardLinkClass}>
+            {item.ctaLabel || contactLabel} →
+          </a>
+        ) : item.contactEmail ? (
+          <a href={`mailto:${item.contactEmail}`} className={cardLinkClass}>
+            {contactLabel} →
+          </a>
+        ) : null}
+      </div>
+    </motion.div>
+  );
+};
 
 const Ministries: React.FC = () => {
   const { t, language } = useLanguage();
@@ -157,14 +198,17 @@ const Ministries: React.FC = () => {
 
   const dbItems: MinistryItem[] = ministries.map((m) => ({
     id: m.id,
-    name: language === 'uk' && m.name_uk ? m.name_uk : m.name_en,
-    description:
-      language === 'uk' && m.description_uk ? m.description_uk : m.description_en || undefined,
-    meeting:
-      language === 'uk' && m.meeting_info_uk
-        ? m.meeting_info_uk
-        : m.meeting_info_en || undefined,
+    name: pickLang(language, m.name_en, m.name_uk),
+    description: pickLang(language, m.description_en, m.description_uk) || undefined,
+    meeting: pickLang(language, m.meeting_info_en, m.meeting_info_uk) || undefined,
+    image: m.photo_path ? ministryPhotoUrl(m.photo_path) : undefined,
     icon: m.icon || undefined,
+    audience: pickLang(language, m.audience_en ?? '', m.audience_uk ?? '') || undefined,
+    language: m.language,
+    slug: m.slug,
+    isFeatured: m.is_featured,
+    ctaUrl: m.cta_url || SERVE_TEAM_FORM,
+    ctaLabel: pickLang(language, m.cta_label_en ?? '', m.cta_label_uk ?? '') || undefined,
     contactEmail: m.contact_email || undefined,
   }));
 
@@ -191,7 +235,9 @@ const Ministries: React.FC = () => {
                 key={item.id}
                 item={item}
                 index={i}
+                lang={language}
                 contactLabel={t('ministries.contact')}
+                learnMoreLabel={t('ministries.learnMore')}
               />
             ))}
           </div>
