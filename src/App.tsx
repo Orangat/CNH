@@ -23,6 +23,7 @@ import Events from './pages/Events';
 import Visit from './pages/Visit';
 import Sermons from './pages/Sermons';
 import Ministries from './pages/Ministries';
+import MinistryDetail from './pages/MinistryDetail';
 import Prayer from './pages/Prayer';
 import Forms from './pages/Forms';
 
@@ -56,6 +57,7 @@ function V2Site() {
 				<Route path="/v2/:lang/visit" element={<Visit />} />
 				<Route path="/v2/:lang/sermons" element={<Sermons />} />
 				<Route path="/v2/:lang/ministries" element={<Ministries />} />
+				<Route path="/v2/:lang/ministries/:slug" element={<MinistryDetail />} />
 				<Route path="/v2/:lang/prayer" element={<Prayer />} />
 				<Route path="/v2/:lang/give" element={<Give />} />
 				<Route path="/v2/:lang/events" element={<Events />} />

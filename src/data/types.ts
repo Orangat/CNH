@@ -74,6 +74,23 @@ export interface MinistryRow {
   icon: string;
   sort_order: number;
   is_published: boolean;
+  // Media + Tier B fields (migration 0005)
+  photo_path: string | null;
+  gallery: string[];
+  audience_en: string;
+  audience_uk: string;
+  language: 'en' | 'uk' | 'bilingual';
+  long_description_en: string;
+  long_description_uk: string;
+  leader_name: string;
+  leader_role_en: string;
+  leader_role_uk: string;
+  location_en: string;
+  location_uk: string;
+  cta_url: string;
+  cta_label_en: string;
+  cta_label_uk: string;
+  is_featured: boolean;
 }
 
 export interface PrayerRequestRow {

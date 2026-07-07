@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabase';
 import { SiteTextRow } from '../../data/types';
 import { useToast } from '../components/Toast';
 import { invalidateSiteTexts } from '../../data/useSiteTexts';
+import { PageHeader } from '../components/PageHeader';
 
 const TextsPage: React.FC = () => {
   const { toast } = useToast();
@@ -66,13 +67,17 @@ const TextsPage: React.FC = () => {
 
   return (
     <>
-      <h2>Site texts</h2>
+      <PageHeader
+        eyebrow="Content"
+        title="Site texts"
+        subtitle="Every piece of editable copy on the site, grouped by page. Fill both languages; open a group to edit."
+      />
       <div className="admin-card">
         <input
           placeholder="Search by key or text…"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          style={{ width: '100%', padding: 10, border: '1px solid #d1d5db', borderRadius: 6 }}
+          style={{ width: '100%', padding: '9px 11px', border: '1px solid var(--border-strong)', borderRadius: 9, fontFamily: 'inherit', fontSize: 14 }}
         />
       </div>
 

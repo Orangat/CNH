@@ -30,7 +30,8 @@ const AdminLogin: React.FC = () => {
     <div className="admin-root">
       <div className="admin-login-wrap">
         <form className="admin-login" onSubmit={handleSubmit}>
-          <h1>Church admin</h1>
+          <h1>Church of New Hope</h1>
+          <p className="sub">Sign in to manage your church site</p>
           <div className="admin-field">
             <label>Email</label>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />

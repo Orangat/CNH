@@ -5,6 +5,9 @@ import { SermonRow } from '../../data/types';
 import { useToast } from '../components/Toast';
 import { invalidateSermons } from '../../data/useSermons';
 import { sermonThumbnail } from '../../lib/sermonThumbnail';
+import { PageHeader } from '../components/PageHeader';
+import { Field } from '../components/Field';
+import { Switch } from '../components/Switch';
 
 const SERMON_THUMBS_BUCKET = 'sermon-thumbs';
 
@@ -105,8 +108,12 @@ const SermonsPage: React.FC = () => {
 
   return (
     <>
-      <h2>Sermons</h2>
-      <div style={{ display: 'flex', gap: 10, marginBottom: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+      <PageHeader
+        eyebrow="Teaching"
+        title="Sermons"
+        subtitle="Sermons shown on the site. Sync pulls the latest videos from your YouTube channel; you can also add one by hand."
+      />
+      <div style={{ display: 'flex', gap: 10, margin: '18px 0 12px', flexWrap: 'wrap', alignItems: 'center' }}>
         <button className="admin-btn" onClick={syncFromYouTube} disabled={syncing}>
           {syncing ? '⏳ Syncing…' : '🔄 Sync from YouTube'}
         </button>
@@ -289,17 +296,21 @@ const SermonForm: React.FC<{
           <div className="admin-field"><label>Scripture</label><input value={f.scripture ?? ''} onChange={(e) => u('scripture', e.target.value)} placeholder="John 3:16" /></div>
           <div className="admin-field"><label>Preached on</label><input type="date" value={f.preached_at ?? ''} onChange={(e) => u('preached_at', e.target.value)} /></div>
         </div>
-        <div className="admin-field">
-          <label>YouTube video ID *</label>
+        <Field
+          label="YouTube video ID"
+          required
+          help="Paste a YouTube link or the 11-character video ID."
+          tooltip={<>The ID is the part after <b>watch?v=</b> or <b>youtu.be/</b> — e.g. <b>dQw4w9WgXcQ</b>.</>}
+        >
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <input value={f.youtube_id ?? ''} onChange={(e) => u('youtube_id', e.target.value)} placeholder="dQw4w9WgXcQ" required style={{ flex: 1 }} />
             {f.youtube_id && (
-              <a href={`https://www.youtube.com/watch?v=${f.youtube_id}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: '#0ea5e9', whiteSpace: 'nowrap' }}>
+              <a href={`https://www.youtube.com/watch?v=${f.youtube_id}`} target="_blank" rel="noopener noreferrer" style={{ fontSize: 12, color: 'var(--accent-ink)', whiteSpace: 'nowrap' }}>
                 Open on YouTube ↗
               </a>
             )}
           </div>
-        </div>
+        </Field>
 
         <div className="admin-field">
           <label>Custom thumbnail</label>
@@ -332,15 +343,13 @@ const SermonForm: React.FC<{
 
         <div className="admin-field"><label>Description (EN)</label><textarea value={f.description_en ?? ''} onChange={(e) => u('description_en', e.target.value)} /></div>
         <div className="admin-field"><label>Description (UK)</label><textarea value={f.description_uk ?? ''} onChange={(e) => u('description_uk', e.target.value)} /></div>
-        <div className="admin-row">
-          <div className="admin-field"><label>Sort order</label><input type="number" value={f.sort_order ?? 0} onChange={(e) => u('sort_order', parseInt(e.target.value, 10) || 0)} /></div>
-          <div className="admin-field">
-            <label>Published</label>
-            <select value={String(f.is_published ?? true)} onChange={(e) => u('is_published', e.target.value === 'true')}>
-              <option value="true">Yes</option><option value="false">No</option>
-            </select>
-          </div>
-        </div>
+        <div className="admin-field"><label>Sort order</label><input type="number" value={f.sort_order ?? 0} onChange={(e) => u('sort_order', parseInt(e.target.value, 10) || 0)} /></div>
+        <Switch
+          checked={f.is_published ?? true}
+          onChange={(v) => u('is_published', v)}
+          title="Published — visible on the site"
+          description="Turn off to hide this sermon without deleting."
+        />
         <div className="admin-modal-actions">
           <button type="button" className="admin-btn secondary" onClick={onClose}>Cancel</button>
           <button type="submit" className="admin-btn" disabled={saving}>{saving ? 'Saving…' : 'Save'}</button>

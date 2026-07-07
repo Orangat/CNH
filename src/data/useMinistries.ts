@@ -47,3 +47,10 @@ export function useMinistries() {
   }, [update]);
   return { data, loading };
 }
+
+/** Single published ministry by slug (from the already-loaded list). */
+export function useMinistry(slug: string) {
+  const { data, loading } = useMinistries();
+  const ministry = data.find((m) => m.slug === slug) ?? null;
+  return { data: ministry, loading };
+}

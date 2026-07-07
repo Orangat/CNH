@@ -22,16 +22,27 @@ export const supabase: SupabaseClient | null =
 export const isSupabaseConfigured = (): boolean => supabase !== null;
 
 export const LEADER_PHOTOS_BUCKET = 'leader-photos';
+export const MINISTRY_PHOTOS_BUCKET = 'ministry-photos';
 
 /**
- * Build a public URL for a photo stored in the leader-photos bucket.
- * Falls back to the original path (useful when seeded paths still point at /images/*).
+ * Build a public URL for a photo stored in the given Storage bucket.
+ * Falls back to the original path (useful when seeded paths still point at /images/*)
+ * or a placeholder when nothing is set.
  */
-export function leaderPhotoUrl(photoPath: string | null | undefined): string {
+export function storagePublicUrl(bucket: string, photoPath: string | null | undefined): string {
   if (!photoPath) return '/images/placeholder.png';
   // Already a full URL or a /public/ asset path → use as-is.
   if (photoPath.startsWith('http') || photoPath.startsWith('/')) return photoPath;
   if (!supabase) return '/images/placeholder.png';
-  const { data } = supabase.storage.from(LEADER_PHOTOS_BUCKET).getPublicUrl(photoPath);
-  return data.publicUrl;
+  return supabase.storage.from(bucket).getPublicUrl(photoPath).data.publicUrl;
+}
+
+/** Public URL for a photo in the leader-photos bucket. */
+export function leaderPhotoUrl(photoPath: string | null | undefined): string {
+  return storagePublicUrl(LEADER_PHOTOS_BUCKET, photoPath);
+}
+
+/** Public URL for a photo in the ministry-photos bucket. */
+export function ministryPhotoUrl(photoPath: string | null | undefined): string {
+  return storagePublicUrl(MINISTRY_PHOTOS_BUCKET, photoPath);
 }

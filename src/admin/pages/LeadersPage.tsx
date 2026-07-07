@@ -5,6 +5,7 @@ import { LeaderRow } from '../../data/types';
 import { useToast } from '../components/Toast';
 import { invalidateLeaders } from '../../data/useLeaders';
 import LeaderForm from './LeaderForm';
+import { PageHeader } from '../components/PageHeader';
 
 const LeadersPage: React.FC = () => {
   const { toast } = useToast();
@@ -66,10 +67,13 @@ const LeadersPage: React.FC = () => {
 
   return (
     <>
-      <h2>Leaders</h2>
-      <div style={{ marginBottom: 16 }}>
-        <button className="admin-btn" onClick={() => setEditing(null)}>+ Add leader</button>
-      </div>
+      <PageHeader
+        eyebrow="People"
+        title="Leadership"
+        subtitle="The people shown on the public Leadership page. Drag rows to reorder."
+        action={<button className="admin-btn" onClick={() => setEditing(null)}>+ Add leader</button>}
+      />
+      <div style={{ height: 18 }} />
       {loading ? (
         <div className="admin-empty">Loading…</div>
       ) : rows.length === 0 ? (

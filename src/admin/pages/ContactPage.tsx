@@ -3,17 +3,19 @@ import { supabase } from '../../lib/supabase';
 import { ContactInfoRow } from '../../data/types';
 import { useToast } from '../components/Toast';
 import { invalidateContactInfo } from '../../data/useContactInfo';
+import { PageHeader } from '../components/PageHeader';
+import { Field } from '../components/Field';
 
-const fields: Array<{ key: keyof ContactInfoRow; label: string; multiline?: boolean }> = [
-  { key: 'address', label: 'Address' },
-  { key: 'phone', label: 'Phone' },
-  { key: 'email', label: 'Email' },
-  { key: 'service_time_english', label: 'Service time (English)' },
-  { key: 'service_time_ukrainian', label: 'Service time (Ukrainian)' },
-  { key: 'map_url', label: 'Google Maps URL' },
-  { key: 'facebook_url', label: 'Facebook URL' },
-  { key: 'instagram_url', label: 'Instagram URL' },
-  { key: 'youtube_url', label: 'YouTube URL' },
+const fields: Array<{ key: keyof ContactInfoRow; label: string; help?: string }> = [
+  { key: 'address', label: 'Address', help: 'Full street address — shown on Visit and in the footer.' },
+  { key: 'phone', label: 'Phone', help: 'e.g. (555) 123-4567' },
+  { key: 'email', label: 'Email', help: 'Main church email address.' },
+  { key: 'service_time_english', label: 'Service time (English)', help: 'e.g. Sundays 11:00 AM' },
+  { key: 'service_time_ukrainian', label: 'Service time (Ukrainian)', help: 'e.g. Неділя 11:00' },
+  { key: 'map_url', label: 'Google Maps URL', help: 'Full link to the church on Google Maps.' },
+  { key: 'facebook_url', label: 'Facebook URL', help: 'Full URL, e.g. https://facebook.com/yourchurch' },
+  { key: 'instagram_url', label: 'Instagram URL', help: 'Full URL, e.g. https://instagram.com/yourchurch' },
+  { key: 'youtube_url', label: 'YouTube URL', help: 'Full YouTube channel URL.' },
 ];
 
 const ContactPage: React.FC = () => {
@@ -55,16 +57,19 @@ const ContactPage: React.FC = () => {
 
   return (
     <>
-      <h2>Contact info</h2>
+      <PageHeader
+        eyebrow="Details"
+        title="Contact info"
+        subtitle="Service times, address, phone, and social links shown across the site."
+      />
       <div className="admin-card">
         {fields.map((f) => (
-          <div className="admin-field" key={f.key}>
-            <label>{f.label}</label>
+          <Field key={f.key} label={f.label} help={f.help}>
             <input
               value={(row[f.key] as string) ?? ''}
               onChange={(e) => update(f.key, e.target.value)}
             />
-          </div>
+          </Field>
         ))}
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <button className="admin-btn" onClick={save} disabled={saving}>

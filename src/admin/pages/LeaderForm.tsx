@@ -1,7 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { supabase, LEADER_PHOTOS_BUCKET, leaderPhotoUrl } from '../../lib/supabase';
+import React, { useState } from 'react';
+import { supabase, LEADER_PHOTOS_BUCKET } from '../../lib/supabase';
 import { LeaderRow } from '../../data/types';
 import { useToast } from '../components/Toast';
+import { PhotoUploader } from '../components/PhotoUploader';
+import { Field } from '../components/Field';
+import { Switch } from '../components/Switch';
 
 interface Props {
   initial: Partial<LeaderRow> | null;
@@ -19,8 +22,6 @@ const LeaderForm: React.FC<Props> = ({ initial, onClose, onSaved }) => {
   const [form, setForm] = useState<Partial<LeaderRow>>({ ...empty, ...(initial ?? {}) });
   const [emailDraft, setEmailDraft] = useState('');
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const fileInput = useRef<HTMLInputElement>(null);
 
   const update = <K extends keyof LeaderRow>(k: K, v: LeaderRow[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
@@ -34,43 +35,6 @@ const LeaderForm: React.FC<Props> = ({ initial, onClose, onSaved }) => {
 
   const removeEmail = (i: number) => {
     update('emails', (form.emails ?? []).filter((_, idx) => idx !== i));
-  };
-
-  const handleFile = async (file: File) => {
-    if (!supabase) {
-      toast('Supabase not configured', 'error');
-      return;
-    }
-    setUploading(true);
-    const ext = file.name.split('.').pop() ?? 'jpg';
-    const path = `${crypto.randomUUID()}.${ext}`;
-    const { error } = await supabase.storage
-      .from(LEADER_PHOTOS_BUCKET)
-      .upload(path, file, { upsert: false, contentType: file.type });
-    setUploading(false);
-    if (error) {
-      toast(`Upload failed: ${error.message}`, 'error');
-      return;
-    }
-    update('photo_path', path);
-    toast('Photo uploaded', 'success');
-  };
-
-  const removePhoto = async () => {
-    if (!form.photo_path) return;
-    if (!window.confirm('Remove this photo? The monogram placeholder will be shown instead.')) return;
-    // Only delete from Storage if it's a Supabase-managed path (not a /images/ static asset)
-    if (supabase && !form.photo_path.startsWith('/') && !form.photo_path.startsWith('http')) {
-      const { error } = await supabase.storage
-        .from(LEADER_PHOTOS_BUCKET)
-        .remove([form.photo_path]);
-      if (error) {
-        toast(`Storage delete failed: ${error.message}`, 'error');
-        return;
-      }
-    }
-    update('photo_path', null);
-    toast('Photo removed', 'success');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -111,30 +75,25 @@ const LeaderForm: React.FC<Props> = ({ initial, onClose, onSaved }) => {
       <form className="admin-modal" onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit}>
         <h3>{initial?.id ? 'Edit leader' : 'Add leader'}</h3>
 
-        <div className="admin-row">
-          <div className="admin-field">
-            <label>Name (English) *</label>
+        <div className="grid2">
+          <Field label="Name (English)" required>
             <input value={form.name_en ?? ''} onChange={(e) => update('name_en', e.target.value)} required />
-          </div>
-          <div className="admin-field">
-            <label>Name (Ukrainian) *</label>
+          </Field>
+          <Field label="Name (Ukrainian)" required>
             <input value={form.name_uk ?? ''} onChange={(e) => update('name_uk', e.target.value)} required />
-          </div>
+          </Field>
         </div>
 
-        <div className="admin-row">
-          <div className="admin-field">
-            <label>Title (English) *</label>
+        <div className="grid2">
+          <Field label="Title (English)" required>
             <input value={form.title_en ?? ''} onChange={(e) => update('title_en', e.target.value)} required />
-          </div>
-          <div className="admin-field">
-            <label>Title (Ukrainian) *</label>
+          </Field>
+          <Field label="Title (Ukrainian)" required>
             <input value={form.title_uk ?? ''} onChange={(e) => update('title_uk', e.target.value)} required />
-          </div>
+          </Field>
         </div>
 
-        <div className="admin-field">
-          <label>Emails</label>
+        <Field label="Emails" help="Type an email and press Enter to add each one. Shown on the leadership page.">
           <div className="chip-input">
             {(form.emails ?? []).map((e, i) => (
               <span className="chip" key={i}>
@@ -155,77 +114,34 @@ const LeaderForm: React.FC<Props> = ({ initial, onClose, onSaved }) => {
               placeholder="email@example.com"
             />
           </div>
-        </div>
+        </Field>
 
-        <div className="admin-field">
-          <label>Photo</label>
-          <div
-            className="upload-area"
-            onClick={() => fileInput.current?.click()}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => {
-              e.preventDefault();
-              const f = e.dataTransfer.files?.[0];
-              if (f) handleFile(f);
-            }}
-          >
-            {form.photo_path ? (
-              <img src={leaderPhotoUrl(form.photo_path)} alt="" />
-            ) : (
-              <p>Click or drop a photo here</p>
-            )}
-            {uploading && <p style={{ marginTop: 8 }}>Uploading…</p>}
-            <input
-              ref={fileInput}
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                if (f) handleFile(f);
-              }}
-            />
-          </div>
-          {form.photo_path && (
-            <div style={{ marginTop: 8, display: 'flex', gap: 8 }}>
-              <button
-                type="button"
-                className="admin-btn secondary"
-                onClick={(e) => { e.stopPropagation(); fileInput.current?.click(); }}
-              >
-                Replace photo
-              </button>
-              <button
-                type="button"
-                className="admin-btn danger"
-                onClick={(e) => { e.stopPropagation(); removePhoto(); }}
-              >
-                Remove photo
-              </button>
-            </div>
-          )}
-        </div>
+        <Field label="Photo" help="A clear headshot. If empty, a monogram placeholder is shown.">
+          <PhotoUploader
+            value={form.photo_path ?? null}
+            bucket={LEADER_PHOTOS_BUCKET}
+            onChange={(p) => update('photo_path', p)}
+          />
+        </Field>
 
-        <div className="admin-row">
-          <div className="admin-field">
-            <label>Sort order</label>
-            <input
-              type="number"
-              value={form.sort_order ?? 0}
-              onChange={(e) => update('sort_order', parseInt(e.target.value, 10) || 0)}
-            />
-          </div>
-          <div className="admin-field">
-            <label>Published</label>
-            <select
-              value={String(form.is_published ?? true)}
-              onChange={(e) => update('is_published', e.target.value === 'true')}
-            >
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
-          </div>
-        </div>
+        <Field
+          label="Sort order"
+          help="Lower numbers appear first."
+          tooltip={<>You can also drag rows on the list to reorder instead of setting this by hand.</>}
+        >
+          <input
+            type="number"
+            value={form.sort_order ?? 0}
+            onChange={(e) => update('sort_order', parseInt(e.target.value, 10) || 0)}
+          />
+        </Field>
+
+        <Switch
+          checked={form.is_published ?? true}
+          onChange={(v) => update('is_published', v)}
+          title="Published — visible on the site"
+          description="Turn off to hide this leader without deleting."
+        />
 
         <div className="admin-modal-actions">
           <button type="button" className="admin-btn secondary" onClick={onClose}>Cancel</button>
