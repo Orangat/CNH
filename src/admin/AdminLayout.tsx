@@ -62,7 +62,7 @@ const AdminLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
             </button>
           </div>
         </aside>
-        <main className="admin-main">{children}</main>
+        <main className="admin-main"><div className="admin-content">{children}</div></main>
       </div>
     </div>
   );
