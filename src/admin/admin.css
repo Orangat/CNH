@@ -4,7 +4,10 @@
    Tokens mirror the brand book (tailwind.config.js): navy / tan / cream + Creo.
    ============================================================================= */
 
-.admin-root {
+/* Design tokens. Also declared on the toast container: ToastProvider renders it
+   outside .admin-root, so without this the toast colours resolve to nothing. */
+.admin-root,
+.admin-toast-container {
   /* ground */
   --bg: #FAF7F2;          /* cream */
   --surface: #FFFFFF;
@@ -31,7 +34,9 @@
   --radius: 12px;
   --radius-sm: 8px;
   --shadow: 0 1px 2px rgba(10, 42, 70, .05), 0 8px 24px rgba(10, 42, 70, .06);
+}
 
+.admin-root {
   font-family: 'Creo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 300;
   min-height: 100vh;

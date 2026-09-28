@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* Brand pattern layer (components/redesign/BrandPattern.tsx). The brand-book artwork
+     is empty in its top-left corner, so it is anchored toward its dense lower-right part;
+     on wider screens it is also zoomed in slightly so the lines reach both edges. */
+  .brand-pattern {
+    -webkit-mask-size: cover;
+    mask-size: cover;
+    -webkit-mask-position: 70% 75%;
+    mask-position: 70% 75%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    transform-origin: 70% 75%;
+  }
+  @media (min-width: 768px) {
+    .brand-pattern {
+      transform: scale(1.2);
+    }
+  }
+
+  /* Footer "Join us" band. After a cream page section the card follows the section's own
+     bottom padding (pulled up a little); after a navy section it needs a cream gap above. */
+  .join-band {
+    margin-top: -2rem;
+  }
+  @media (min-width: 768px) {
+    .join-band {
+      margin-top: -3rem;
+    }
+  }
+  div:has(> section.bg-navy-900:last-child) + footer .join-band {
+    margin-top: 0;
+    padding-top: 4rem;
+  }
+  @media (min-width: 768px) {
+    div:has(> section.bg-navy-900:last-child) + footer .join-band {
+      padding-top: 5rem;
+    }
+  }
+}

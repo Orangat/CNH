@@ -12,12 +12,12 @@ const ICONS: Record<string, ReactNode> = {
 };
 
 const NAV = [
-  { to: '/v2/admin/leaders', label: 'Leaders', icon: ICONS.leaders },
-  { to: '/v2/admin/sermons', label: 'Sermons', icon: ICONS.sermons },
-  { to: '/v2/admin/ministries', label: 'Ministries', icon: ICONS.ministries },
-  { to: '/v2/admin/prayer', label: 'Prayer requests', icon: ICONS.prayer },
-  { to: '/v2/admin/texts', label: 'Texts', icon: ICONS.texts },
-  { to: '/v2/admin/contact', label: 'Contact info', icon: ICONS.contact },
+  { to: '/admin/leaders', label: 'Leaders', icon: ICONS.leaders },
+  { to: '/admin/sermons', label: 'Sermons', icon: ICONS.sermons },
+  { to: '/admin/ministries', label: 'Ministries', icon: ICONS.ministries },
+  { to: '/admin/prayer', label: 'Prayer requests', icon: ICONS.prayer },
+  { to: '/admin/texts', label: 'Texts', icon: ICONS.texts },
+  { to: '/admin/contact', label: 'Contact info', icon: ICONS.contact },
 ];
 
 const AdminLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -30,7 +30,7 @@ const AdminLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const signOut = async () => {
     await supabase?.auth.signOut();
-    navigate('/v2/admin/login', { replace: true });
+    navigate('/admin/login', { replace: true });
   };
 
   const initials = email ? email.slice(0, 2).toUpperCase() : '·';

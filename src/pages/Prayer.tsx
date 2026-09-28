@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
-import { stockPhotos } from '../data/stockImages';
+import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 
@@ -59,7 +59,7 @@ const Prayer: React.FC = () => {
   return (
     <div className="bg-cream">
       <Hero
-        image={stockPhotos.prayer.src(2000)}
+        image={churchPhotos.prayer.src()}
         eyebrow={t('prayer.hero.eyebrow')}
         title={t('prayer.hero.title')}
         description={t('prayer.hero.description')}

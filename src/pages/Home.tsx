@@ -5,6 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useLeaders } from '../data/useLeaders';
 import { useContactInfo } from '../data/useContactInfo';
 import { stockPhotos } from '../data/stockImages';
+import { churchPhotos } from '../data/churchPhotos';
 import { leaderPhotoUrl } from '../lib/supabase';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
   const { lang } = useParams<{ lang: string }>();
   const { data: leaders } = useLeaders();
   const { data: contact } = useContactInfo();
-  const localized = (path: string) => `/v2/${lang || language}${path}`;
+  const localized = (path: string) => `/${lang || language}${path}`;
 
   // First three published leaders for preview section
   const previewLeaders = leaders.slice(0, 3);
@@ -38,6 +39,8 @@ const Home: React.FC = () => {
         title={t('home.hero.title')}
         description={t('home.hero.description')}
         height="full"
+        overlay="dark"
+        pattern={false}
       >
         <Button to={localized('/visit')} variant="primary" size="lg">
           {t('home.hero.ctaPrimary')} →
@@ -100,8 +103,10 @@ const Home: React.FC = () => {
           >
             <div className="aspect-[4/5] overflow-hidden">
               <img
-                src={stockPhotos.community.src(1200)}
-                alt={stockPhotos.community.alt}
+                src={churchPhotos.congregation.src()}
+                srcSet={churchPhotos.congregation.srcSet}
+                sizes="(min-width: 768px) 45vw, 100vw"
+                alt={churchPhotos.congregation.alt}
                 className="h-full w-full object-cover"
               />
             </div>
@@ -293,7 +298,7 @@ const Home: React.FC = () => {
         <div className="grid gap-12 md:grid-cols-2 md:gap-20 items-center">
           <div className="relative order-2 md:order-1">
             <div className="aspect-[4/3] overflow-hidden">
-              <img src={stockPhotos.fellowship.src(1200)} alt={stockPhotos.fellowship.alt} className="h-full w-full object-cover" />
+              <img src={churchPhotos.smallGroup.src()} srcSet={churchPhotos.smallGroup.srcSet} sizes="(min-width: 768px) 45vw, 100vw" alt={churchPhotos.smallGroup.alt} className="h-full w-full object-cover" />
             </div>
             <div className="absolute -top-6 -left-6 hidden md:block w-32 h-32 border-4 border-tan-500" />
           </div>

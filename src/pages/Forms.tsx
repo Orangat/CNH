@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { stockPhotos } from '../data/stockImages';
+import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 
@@ -100,7 +100,7 @@ const Forms: React.FC = () => {
   return (
     <div className="bg-cream">
       <Hero
-        image={stockPhotos.community.src(2000)}
+        image={churchPhotos.welcomeGreeting.src()}
         eyebrow={t('forms.hero.eyebrow')}
         title={t('forms.hero.title')}
         description={t('forms.hero.description')}

@@ -18,6 +18,8 @@ interface Props {
   height?: 'short' | 'tall' | 'full';
   /** Image overlay strength */
   overlay?: 'light' | 'dark' | 'gradient';
+  /** Brand topographic pattern over the image (off for the video hero) */
+  pattern?: boolean;
   align?: 'left' | 'center';
 }
 
@@ -43,6 +45,7 @@ const Hero: React.FC<Props> = ({
   children,
   height = 'tall',
   overlay = 'gradient',
+  pattern = true,
   align = 'center',
 }) => {
   const alignText = align === 'center' ? 'text-center mx-auto' : 'text-left';
@@ -78,7 +81,7 @@ const Hero: React.FC<Props> = ({
         )
       )}
       <div className={`absolute inset-0 ${overlayClasses[overlay]}`} />
-      <BrandPattern opacity={0.12} />
+      {pattern && <BrandPattern opacity={0.22} />}
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 py-24 md:py-32">
         <div className={`max-w-4xl ${alignText}`}>

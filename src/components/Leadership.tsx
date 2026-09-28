@@ -4,7 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useLeaders } from '../data/useLeaders';
 import { leaderPhotoUrl } from '../lib/supabase';
 import { LeaderRow } from '../data/types';
-import { stockPhotos } from '../data/stockImages';
+import { churchPhotos } from '../data/churchPhotos';
 import Hero from './redesign/Hero';
 import Section from './redesign/Section';
 
@@ -274,7 +274,7 @@ const Leadership: React.FC = () => {
   return (
     <div className="bg-cream">
       <Hero
-        image={stockPhotos.congregation.src(2000)}
+        image={churchPhotos.pastorsPraying.src()}
         eyebrow={t('leadership.hero.eyebrow')}
         title={t('leadership.hero.title')}
         description={t('leadership.hero.description')}

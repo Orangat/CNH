@@ -151,7 +151,7 @@ async function seedContact() {
     service_time_ukrainian: '12:00 PM',
     map_url: 'https://www.google.com/maps/place/Church+of+New+Hope',
     facebook_url: 'https://www.facebook.com/CNHCharlotte',
-    instagram_url: 'https://www.instagram.com/cnhcharlotte',
+    instagram_url: 'https://www.instagram.com/newhope.clt/',
     youtube_url: 'https://www.youtube.com/@ChurchOfNewHopeUA/streams',
   };
   if (data) {

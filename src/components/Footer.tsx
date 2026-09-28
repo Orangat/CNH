@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
   const currentLang = lang || language;
   const { data: contact } = useContactInfo();
   const telHref = `tel:${contact.phone.replace(/[^+\d]/g, '')}`;
-  const localized = (path: string) => `/v2/${currentLang}${path}`;
+  const localized = (path: string) => `/${currentLang}${path}`;
   const isVisitPage = location.pathname === localized('/visit');
 
   const connectLinks = [
@@ -30,29 +30,31 @@ const Footer: React.FC = () => {
 
   return (
     <footer>
-      {/* ════════════════════════════════════════════ TOP BANNER — light cream */}
-      <section className="bg-cream text-navy-900">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 py-14 md:py-16">
-          <div className="grid items-center gap-10 md:grid-cols-12">
-            {/* Left — invitation copy */}
-            <div className="md:col-span-5 text-center md:text-left">
-              <p className="text-xs md:text-sm font-bold uppercase tracking-widest text-tan-500">
+      {/* ════════════════════════════════════════════ JOIN US — card bridging the page and the footer */}
+      {/* A white card on its own cream band, overlapping the navy footer, so it never merges
+          with a page's last section (cream or navy). */}
+      <section className="join-band bg-cream px-6 md:px-10">
+        <div className="relative z-10 mx-auto -mb-24 max-w-6xl border-t-[3px] border-tan-500 bg-white text-navy-900 shadow-[0_32px_64px_-32px_rgba(10,42,70,0.5)] ring-1 ring-navy-900/5 md:-mb-20">
+          <div className="grid md:grid-cols-12">
+            {/* Invitation */}
+            <div className="px-8 py-10 text-center md:col-span-7 md:px-12 md:py-12 md:text-left">
+              <p className="font-script text-3xl leading-none text-tan-500 md:text-4xl">
                 {t('footer.banner.eyebrow')}
               </p>
-              <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold uppercase leading-tight">
+              <h2 className="mt-3 font-display text-3xl font-bold uppercase leading-tight md:text-4xl">
                 {t('footer.banner.title')}
               </h2>
               <a
                 href={contact.map_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 text-sm text-navy-700 hover:text-tan-500 transition-colors"
+                className="mt-4 inline-flex items-start gap-2 text-sm text-navy-700 hover:text-tan-600 transition-colors"
               >
-                <i className="fas fa-map-marker-alt text-tan-500" />
+                <i className="fas fa-map-marker-alt mt-[3px] text-tan-500" />
                 {contact.address}
               </a>
               {!isVisitPage && (
-                <div className="mt-6">
+                <div className="mt-8">
                   <Link
                     to={localized('/visit')}
                     className="group inline-flex items-center gap-3 bg-navy-900 px-8 py-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-tan-500 hover:text-navy-900 transition-colors cursor-pointer"
@@ -64,28 +66,27 @@ const Footer: React.FC = () => {
               )}
             </div>
 
-            {/* Right — service times card */}
-            <div className="md:col-span-7">
-              <div className="grid grid-cols-2 gap-px bg-navy-900/10 border border-navy-900/10">
-                <ServiceCard
-                  language={t('home.english')}
-                  day={t('home.sundays')}
-                  time={contact.service_time_english}
-                />
-                <ServiceCard
-                  language={t('home.ukrainian')}
-                  day={t('home.sundays')}
-                  time={contact.service_time_ukrainian}
-                />
-              </div>
+            {/* Service times */}
+            <div className="grid grid-cols-2 border-t border-navy-900/10 md:col-span-5 md:border-l md:border-t-0">
+              <ServiceCard
+                language={t('home.english')}
+                day={t('home.sundays')}
+                time={contact.service_time_english}
+              />
+              <ServiceCard
+                language={t('home.ukrainian')}
+                day={t('home.sundays')}
+                time={contact.service_time_ukrainian}
+                className="border-l border-navy-900/10"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════ MAIN GRID — navy with pattern */}
-      <section className="relative overflow-hidden bg-navy-900 text-white">
-        <BrandPattern opacity={0.1} />
+      {/* ════════════════════════════════════════════ MAIN GRID — navy with brand pattern */}
+      <section className="relative overflow-hidden bg-navy-900 pt-24 text-white md:pt-20">
+        <BrandPattern opacity={0.3} />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10 py-14 md:py-16">
           <div className="grid gap-12 md:gap-10 md:grid-cols-12">
@@ -169,7 +170,7 @@ const Footer: React.FC = () => {
           <div className="mt-14 flex flex-col md:flex-row md:items-center md:justify-between gap-3 border-t border-white/10 pt-8 text-xs text-white/50">
             <p>{t('footer.copyright')}</p>
             <p className="font-script text-tan-500/70 text-base">{t('footer.tagline')}</p>
-            <Link to="/v2/admin" className="text-white/20 hover:text-white/40 transition-colors">Admin</Link>
+            <Link to="/admin" className="text-white/20 hover:text-white/40 transition-colors">Admin</Link>
           </div>
         </div>
       </section>
@@ -181,14 +182,15 @@ const Footer: React.FC = () => {
 // Subcomponents
 // =============================================================================
 
-const ServiceCard: React.FC<{ language: string; day: string; time: string }> = ({
+const ServiceCard: React.FC<{ language: string; day: string; time: string; className?: string }> = ({
   language,
   day,
   time,
+  className = '',
 }) => (
-  <div className="bg-cream px-6 py-8 text-center">
+  <div className={`flex flex-col items-center justify-center px-4 py-8 text-center md:py-10 ${className}`}>
     <p className="text-xs font-bold uppercase tracking-widest text-tan-500">{day}</p>
-    <p className="mt-3 font-display text-3xl md:text-4xl font-bold text-navy-900">{time}</p>
+    <p className="mt-3 whitespace-nowrap font-display text-2xl font-bold text-navy-900 sm:text-3xl md:text-4xl">{time}</p>
     <p className="mt-1 text-sm uppercase tracking-wider text-navy-700/70">{language}</p>
   </div>
 );

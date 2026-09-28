@@ -15,7 +15,7 @@ update contact_info set
   service_time_ukrainian = '12:00 PM',
   map_url              = 'https://www.google.com/maps/place/Church+of+New+Hope/@35.1386539,-80.6753961,17z',
   facebook_url         = 'https://www.facebook.com/CNHCharlotte',
-  instagram_url        = 'https://www.instagram.com/cnhcharlotte',
+  instagram_url        = 'https://www.instagram.com/newhope.clt/',
   youtube_url          = 'https://www.youtube.com/@ChurchOfNewHopeUA/streams'
 where singleton = true;
 

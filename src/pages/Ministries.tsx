@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useMinistries } from '../data/useMinistries';
 import { ministryPhotoUrl } from '../lib/supabase';
 import { pickLang } from '../utils/pickLang';
-import { stockPhotos } from '../data/stockImages';
+import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 
@@ -35,7 +35,8 @@ interface MinistryItem {
 
 /**
  * Local sample ministries shown when the database has none yet.
- * Used for previews/presentations — images are free Unsplash stock photos.
+ * Used for previews/presentations — images are real church photos (churchPhotos.ts),
+ * but names and descriptions are placeholders. No meeting times until real data is in the DB.
  */
 function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
   const uk = language === 'uk';
@@ -46,8 +47,7 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       description: uk
         ? 'Музиканти й вокалісти, які ведуть громаду в поклонінні на щотижневих богослужіннях.'
         : 'Musicians and vocalists who lead the congregation in worship every Sunday.',
-      meeting: uk ? 'Репетиції — четвер, 19:00' : 'Rehearsals · Thursdays 7:00 PM',
-      image: stockPhotos.worshipHands.src(1200),
+      image: churchPhotos.worshipTeam.src(800),
     },
     {
       id: 'sample-choir',
@@ -55,8 +55,7 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       description: uk
         ? 'Спільний спів, що наповнює служіння хвалою — приєднуйтесь незалежно від досвіду.'
         : 'Voices joined together in praise — all are welcome, no experience needed.',
-      meeting: uk ? 'Репетиції — вівторок, 18:30' : 'Rehearsals · Tuesdays 6:30 PM',
-      image: stockPhotos.worship.src(1200),
+      image: churchPhotos.choir.src(800),
     },
     {
       id: 'sample-children',
@@ -64,8 +63,7 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       description: uk
         ? 'Безпечне й радісне місце, де діти пізнають Ісуса через ігри, історії та творчість.'
         : 'A safe, joyful place where kids learn about Jesus through games, stories, and crafts.',
-      meeting: uk ? 'Неділя, під час богослужінь' : 'Sundays · during services',
-      image: stockPhotos.kids.src(1200),
+      image: churchPhotos.kids.src(800),
     },
     {
       id: 'sample-sunday-school',
@@ -73,8 +71,7 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       description: uk
         ? 'Вивчення Біблії для всіх вікових груп, щоб зростати у вірі та пізнанні Слова.'
         : 'Bible classes for every age to grow in faith and understanding of God’s Word.',
-      meeting: uk ? 'Неділя, 9:00' : 'Sundays · 9:00 AM',
-      image: stockPhotos.openBible.src(1200),
+      image: churchPhotos.sundaySchool.src(800),
     },
     {
       id: 'sample-youth',
@@ -82,8 +79,7 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       description: uk
         ? 'Спільнота для підлітків і молоді: спілкування, прославлення та зростання у Христі.'
         : 'A community for teens and young adults to connect, worship, and grow in Christ.',
-      meeting: uk ? 'П’ятниця, 19:00' : 'Fridays · 7:00 PM',
-      image: stockPhotos.fellowship.src(1200),
+      image: churchPhotos.youth.src(800),
     },
     {
       id: 'sample-groups',
@@ -91,8 +87,7 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       description: uk
         ? 'Невеликі домашні групи для спільної молитви, вивчення Біблії та підтримки одне одного.'
         : 'Home groups gathering for prayer, Bible study, and doing life together.',
-      meeting: uk ? 'Протягом тижня' : 'Throughout the week',
-      image: stockPhotos.community.src(1200),
+      image: churchPhotos.homeGroup.src(800),
     },
     {
       id: 'sample-prayer',
@@ -100,8 +95,7 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       description: uk
         ? 'Команда, що молиться за потреби громади та підтримує кожного, хто потребує молитви.'
         : 'A team devoted to praying over the needs of our church family and community.',
-      meeting: uk ? 'Середа, 19:00' : 'Wednesdays · 7:00 PM',
-      image: stockPhotos.prayer.src(1200),
+      image: churchPhotos.prayingTogether.src(800),
     },
     {
       id: 'sample-hospitality',
@@ -109,8 +103,7 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       description: uk
         ? 'Зустрічаємо гостей з усмішкою, допомагаємо кожному відчути себе вдома у New Hope.'
         : 'Greeting guests with a smile and helping everyone feel at home at New Hope.',
-      meeting: uk ? 'Неділя, перед богослужінням' : 'Sundays · before service',
-      image: stockPhotos.welcome.src(1200),
+      image: churchPhotos.hospitality.src(800),
     },
   ];
 }
@@ -175,7 +168,7 @@ const MinistryCard: React.FC<{
         )}
 
         {item.isFeatured && item.slug ? (
-          <Link to={`/v2/${lang}/ministries/${item.slug}`} className={cardLinkClass}>
+          <Link to={`/${lang}/ministries/${item.slug}`} className={cardLinkClass}>
             {learnMoreLabel} →
           </Link>
         ) : item.ctaUrl ? (
@@ -217,7 +210,7 @@ const Ministries: React.FC = () => {
   return (
     <div className="bg-cream">
       <Hero
-        image={stockPhotos.community.src(2000)}
+        image={churchPhotos.worshipStage.src()}
         eyebrow={t('ministries.hero.eyebrow')}
         scriptAccent={t('ministries.hero.script')}
         title={t('ministries.hero.title')}

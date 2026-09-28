@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useContactInfo } from '../data/useContactInfo';
-import { stockPhotos } from '../data/stockImages';
+import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 import Button from '../components/redesign/Button';
@@ -16,7 +16,7 @@ const Visit: React.FC = () => {
   return (
     <div className="bg-cream">
       <Hero
-        image={stockPhotos.welcome.src(2000)}
+        image={churchPhotos.building.src()}
         eyebrow={t('visit.hero.eyebrow')}
         scriptAccent={t('visit.hero.script')}
         title={t('visit.hero.title')}
