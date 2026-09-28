@@ -43,7 +43,7 @@ const Visit: React.FC = () => {
               <h3 className="mt-3 font-display text-xl font-bold uppercase tracking-wider text-navy-900">
                 {t(`visit.sections.${key}.title`)}
               </h3>
-              <p className="mt-4 text-sm leading-relaxed text-navy-700/85">
+              <p className="mt-4 whitespace-pre-line text-balance text-sm leading-relaxed text-navy-700/85">
                 {t(`visit.sections.${key}.body`)}
               </p>
             </motion.div>
