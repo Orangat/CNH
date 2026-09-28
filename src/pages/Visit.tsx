@@ -63,7 +63,9 @@ const Visit: React.FC = () => {
             </h2>
             <p className="mt-6 text-lg text-white/85">{contact.address}</p>
             <p className="mt-2 text-white/70">
-              {t('home.sundays')} · {contact.service_time_english} ({t('home.english')}) · {contact.service_time_ukrainian} ({t('home.ukrainian')})
+              {t('home.sundays')}: {contact.service_time_english} ({t('home.english')})
+              <br />
+              {t('visit.and')} {contact.service_time_ukrainian} ({t('home.ukrainian')})
             </p>
             <div className="mt-8">
               <Button href={contact.map_url} target="_blank" rel="noopener noreferrer" variant="primary">
