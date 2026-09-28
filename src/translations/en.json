@@ -133,6 +133,7 @@
     }
   },
   "visit": {
+    "and": "and",
     "hero": {
       "eyebrow": "We can't wait to see you",
       "script": "We saved you a seat",
