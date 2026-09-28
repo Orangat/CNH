@@ -77,10 +77,11 @@ const Header: React.FC = () => {
             className="flex items-center transition-opacity hover:opacity-80"
             aria-label="Church of New Hope"
           >
+            {/* Light variant (white "NEW", tan "Hope") for the header, which always sits on navy or a dark hero */}
             <img
-              src="/logo.png"
+              src="/logo-light.png"
               alt="Church of New Hope"
-              className={`transition-all duration-300 ${transparent ? 'h-14 md:h-16' : 'h-12 md:h-14 brightness-0 invert'}`}
+              className={`transition-all duration-300 ${transparent ? 'h-14 md:h-16' : 'h-12 md:h-14'}`}
             />
           </Link>
 
