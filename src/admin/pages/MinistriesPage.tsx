@@ -67,13 +67,13 @@ const MinistriesPage: React.FC = () => {
       {loading ? <div className="admin-empty">Loading…</div> :
        rows.length === 0 ? <div className="admin-empty">No ministries yet. Add your first one.</div> : (
         <div style={{ marginTop: 18 }}>
-        <table className="admin-table">
+        <table className="admin-table stack">
           <thead><tr><th>#</th><th>Photo</th><th>Ministry</th><th>Who it&rsquo;s for</th><th>Language</th><th>Meets</th><th>Status</th><th></th></tr></thead>
           <tbody>
             {rows.map((r) => (
               <tr key={r.id}>
                 <td className="num">{r.sort_order}</td>
-                <td>
+                <td className="cell-photo">
                   {r.photo_path
                     ? <img className="admin-thumb" src={ministryPhotoUrl(r.photo_path)} alt="" />
                     : <span className="admin-thumb icon"><i className={`fas fa-${r.icon || 'users'}`} /></span>}
@@ -82,11 +82,11 @@ const MinistriesPage: React.FC = () => {
                   <div style={{ fontWeight: 700 }}>{r.is_featured && <span className="star">★ </span>}{r.name_en}</div>
                   <div style={{ fontSize: 12, color: 'var(--muted)' }}>/{r.slug}</div>
                 </td>
-                <td>{r.audience_en || <span style={{ color: 'var(--faint)' }}>—</span>}</td>
-                <td><Badge tone="lang">{LANGUAGE_LABEL[r.language] ?? 'Bilingual'}</Badge></td>
-                <td>{r.meeting_info_en || <span style={{ color: 'var(--faint)' }}>—</span>}</td>
-                <td><StatusPill kind={r.is_published ? 'on' : 'off'}>{r.is_published ? 'Active' : 'Hidden'}</StatusPill></td>
-                <td>
+                <td data-label="Who it’s for">{r.audience_en || <span style={{ color: 'var(--faint)' }}>—</span>}</td>
+                <td data-label="Language"><Badge tone="lang">{LANGUAGE_LABEL[r.language] ?? 'Bilingual'}</Badge></td>
+                <td data-label="Meets">{r.meeting_info_en || <span style={{ color: 'var(--faint)' }}>—</span>}</td>
+                <td data-label="Status"><StatusPill kind={r.is_published ? 'on' : 'off'}>{r.is_published ? 'Active' : 'Hidden'}</StatusPill></td>
+                <td className="cell-actions">
                   <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
                     <button className="admin-btn secondary sm" onClick={() => setEditing(r)}>Edit</button>
                     <button className="admin-btn danger sm" onClick={() => remove(r)}>Delete</button>

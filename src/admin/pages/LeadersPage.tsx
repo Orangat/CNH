@@ -6,6 +6,7 @@ import { useToast } from '../components/Toast';
 import { invalidateLeaders } from '../../data/useLeaders';
 import LeaderForm from './LeaderForm';
 import { PageHeader } from '../components/PageHeader';
+import { StatusPill } from '../components/StatusPill';
 
 const LeadersPage: React.FC = () => {
   const { toast } = useToast();
@@ -251,7 +252,9 @@ const LeaderItem: React.FC<LeaderItemProps> = ({ row, index, total, onMoveUp, on
       </span>
       <span className="leader-col-name">{row.name_en}</span>
       <span className="leader-col-title">{row.title_en}</span>
-      <span className="leader-col-pub">{row.is_published ? 'Yes' : 'No'}</span>
+      <span className="leader-col-pub">
+        <StatusPill kind={row.is_published ? 'on' : 'off'}>{row.is_published ? 'Shown' : 'Hidden'}</StatusPill>
+      </span>
       <span className="leader-col-actions">
         <button className="admin-btn secondary" onClick={onMoveUp} disabled={index === 0} title="Move up">↑</button>
         <button className="admin-btn secondary" onClick={onMoveDown} disabled={index === total - 1} title="Move down">↓</button>
