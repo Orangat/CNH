@@ -94,9 +94,9 @@ const Footer: React.FC = () => {
             <div className="md:col-span-4 text-left">
               <Link to={localized('')} className="block w-fit">
                 <img
-                  src="/logo.png"
+                  src="/logo-light.png"
                   alt="Church of New Hope"
-                  className="h-14 w-auto brightness-0 invert"
+                  className="h-14 w-auto"
                 />
               </Link>
               <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
