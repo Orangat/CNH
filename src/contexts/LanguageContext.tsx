@@ -39,10 +39,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const { data: remoteTexts } = useSiteTexts();
 
   useEffect(() => {
-    const pathParts = location.pathname.split('/').filter(Boolean);
-    const isV2 = pathParts[0] === 'v2';
-    const langIndex = isV2 ? 1 : 0;
-    const langFromPath = pathParts[langIndex];
+    const langFromPath = location.pathname.split('/').filter(Boolean)[0];
     if (langFromPath === 'en' || langFromPath === 'uk') {
       setLanguageState(langFromPath);
     } else {
@@ -53,14 +50,11 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     const pathParts = location.pathname.split('/').filter(Boolean);
-    const isV2 = pathParts[0] === 'v2';
-    const langIndex = isV2 ? 1 : 0;
-    if (pathParts[langIndex] === 'en' || pathParts[langIndex] === 'uk') {
-      pathParts.splice(langIndex, 1);
+    if (pathParts[0] === 'en' || pathParts[0] === 'uk') {
+      pathParts.shift();
     }
-    const prefix = isV2 ? '/v2' : '';
-    const rest = pathParts.filter((p) => p !== 'v2').join('/');
-    const newPath = rest.length > 0 ? `${prefix}/${lang}/${rest}` : `${prefix}/${lang}`;
+    const rest = pathParts.join('/');
+    const newPath = rest.length > 0 ? `/${lang}/${rest}` : `/${lang}`;
     navigate(newPath, { replace: true });
   };
 

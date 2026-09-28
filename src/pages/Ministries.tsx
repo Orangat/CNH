@@ -168,7 +168,7 @@ const MinistryCard: React.FC<{
         )}
 
         {item.isFeatured && item.slug ? (
-          <Link to={`/v2/${lang}/ministries/${item.slug}`} className={cardLinkClass}>
+          <Link to={`/${lang}/ministries/${item.slug}`} className={cardLinkClass}>
             {learnMoreLabel} →
           </Link>
         ) : item.ctaUrl ? (

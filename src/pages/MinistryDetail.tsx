@@ -28,7 +28,7 @@ const MinistryDetail: React.FC = () => {
   }
 
   // Detail pages exist only for published flagship ministries.
-  if (!m || !m.is_featured) return <Navigate to={`/v2/${language}/ministries`} replace />;
+  if (!m || !m.is_featured) return <Navigate to={`/${language}/ministries`} replace />;
 
   const name = pickLang(language, m.name_en, m.name_uk);
   const audience = pickLang(language, m.audience_en ?? '', m.audience_uk ?? '');
@@ -56,7 +56,7 @@ const MinistryDetail: React.FC = () => {
       <Section variant="cream" padding="lg">
         <div className="mx-auto max-w-3xl">
           <Link
-            to={`/v2/${language}/ministries`}
+            to={`/${language}/ministries`}
             className="text-xs font-bold uppercase tracking-widest text-tan-600 hover:text-tan-500 transition-colors"
           >
             ← {uk ? 'Усі служіння' : 'All ministries'}
