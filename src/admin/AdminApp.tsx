@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AdminLogin from './AdminLogin';
+import SetPassword from './SetPassword';
 import AdminGuard from './AdminGuard';
 import AdminLayout from './AdminLayout';
 import LeadersPage from './pages/LeadersPage';
@@ -17,6 +18,7 @@ const AdminApp: React.FC = () => {
     <ToastProvider>
       <Routes>
         <Route path="login" element={<AdminLogin />} />
+        <Route path="set-password" element={<SetPassword />} />
         <Route
           path="*"
           element={

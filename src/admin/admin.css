@@ -315,6 +315,9 @@
 .admin-login { background: var(--surface); padding: 32px; border-radius: 16px; width: 100%; max-width: 390px; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); }
 .admin-login h1 { margin: 0 0 6px; font-size: 22px; text-align: center; color: var(--ink); }
 .admin-login .sub { text-align: center; color: var(--muted); font-size: 13px; margin: 0 0 22px; }
+.admin-login .forgot { display: block; margin: 14px auto 0; padding: 4px; background: none; border: 0; color: var(--ink-2); font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; }
+.admin-login .forgot:hover { color: var(--ink); }
+.admin-login .forgot:disabled { opacity: .5; cursor: default; }
 
 /* ---- misc ---- */
 .admin-empty { padding: 40px; text-align: center; color: var(--muted); background: var(--surface); border-radius: var(--radius); border: 1px dashed var(--border-strong); }
