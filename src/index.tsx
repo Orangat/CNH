@@ -1,3 +1,5 @@
+// First: moves invite/password-reset email links to the set-password page before the app reads the URL.
+import './lib/authRedirect';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
