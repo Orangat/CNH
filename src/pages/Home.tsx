@@ -104,6 +104,8 @@ const Home: React.FC = () => {
             <div className="aspect-[4/5] overflow-hidden">
               <img
                 src={churchPhotos.congregation.src()}
+                srcSet={churchPhotos.congregation.srcSet}
+                sizes="(min-width: 768px) 45vw, 100vw"
                 alt={churchPhotos.congregation.alt}
                 className="h-full w-full object-cover"
               />
@@ -296,7 +298,7 @@ const Home: React.FC = () => {
         <div className="grid gap-12 md:grid-cols-2 md:gap-20 items-center">
           <div className="relative order-2 md:order-1">
             <div className="aspect-[4/3] overflow-hidden">
-              <img src={churchPhotos.smallGroup.src()} alt={churchPhotos.smallGroup.alt} className="h-full w-full object-cover" />
+              <img src={churchPhotos.smallGroup.src()} srcSet={churchPhotos.smallGroup.srcSet} sizes="(min-width: 768px) 45vw, 100vw" alt={churchPhotos.smallGroup.alt} className="h-full w-full object-cover" />
             </div>
             <div className="absolute -top-6 -left-6 hidden md:block w-32 h-32 border-4 border-tan-500" />
           </div>

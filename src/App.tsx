@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -19,22 +19,33 @@ import Forms from './pages/Forms';
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
 
+// Only /en/... and /uk/... are pages. Anything else in the language slot is a path that
+// is missing its language (e.g. /visit), so send it to the English version of that path.
+function LanguageGate() {
+	const { lang } = useParams();
+	const { pathname, search, hash } = useLocation();
+	if (lang === 'en' || lang === 'uk') return <Outlet />;
+	return <Navigate to={`/en${pathname}${search}${hash}`} replace />;
+}
+
 function PublicSite() {
 	return (
 		<>
 			<Header />
 			<Routes>
-				<Route path="/:lang" element={<Home />} />
-				<Route path="/:lang/we-believe" element={<WeBelieve />} />
-				<Route path="/:lang/leadership" element={<Leadership />} />
-				<Route path="/:lang/visit" element={<Visit />} />
-				<Route path="/:lang/sermons" element={<Sermons />} />
-				<Route path="/:lang/ministries" element={<Ministries />} />
-				<Route path="/:lang/ministries/:slug" element={<MinistryDetail />} />
-				<Route path="/:lang/prayer" element={<Prayer />} />
-				<Route path="/:lang/give" element={<Give />} />
-				<Route path="/:lang/events" element={<Events />} />
-				<Route path="/:lang/forms" element={<Forms />} />
+				<Route path="/:lang" element={<LanguageGate />}>
+					<Route index element={<Home />} />
+					<Route path="we-believe" element={<WeBelieve />} />
+					<Route path="leadership" element={<Leadership />} />
+					<Route path="visit" element={<Visit />} />
+					<Route path="sermons" element={<Sermons />} />
+					<Route path="ministries" element={<Ministries />} />
+					<Route path="ministries/:slug" element={<MinistryDetail />} />
+					<Route path="prayer" element={<Prayer />} />
+					<Route path="give" element={<Give />} />
+					<Route path="events" element={<Events />} />
+					<Route path="forms" element={<Forms />} />
+				</Route>
 				<Route path="*" element={<Navigate to="/en" replace />} />
 			</Routes>
 			<Footer />

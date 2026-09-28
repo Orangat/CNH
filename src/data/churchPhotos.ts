@@ -5,7 +5,8 @@
  *
  * Each photo is stored in two widths: `{file}.jpg` (up to 1600px, for
  * full-width heroes) and `{file}-800.jpg` (for cards and thumbnails).
- * `src(w)` returns the 800px file when w <= 800.
+ * `src(w)` returns the 800px file when w <= 800; `srcSet` offers both so the browser
+ * picks the right one for images that are smaller than a hero.
  *
  * To swap a photo: overwrite both files in public/images/church/ (same names)
  * or add new files and point the entry at them.
@@ -13,11 +14,13 @@
 
 interface ChurchPhoto {
   src: (w?: number) => string;
+  srcSet: string;
   alt: string;
 }
 
 const make = (file: string, alt: string): ChurchPhoto => ({
   src: (w = 1600) => `/images/church/${file}${w <= 800 ? '-800' : ''}.jpg`,
+  srcSet: `/images/church/${file}-800.jpg 800w, /images/church/${file}.jpg 1600w`,
   alt,
 });
 

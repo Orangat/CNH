@@ -177,7 +177,11 @@
     "watchOn": "Watch on YouTube",
     "speakerLabel": "Speaker",
     "seriesLabel": "Series",
-    "empty": "Sermons coming soon.",
+    "noResults": "No sermons match your search.",
+    "searchPlaceholder": "Search by title, speaker, series…",
+    "allSeries": "All series",
+    "loadMore": "Load more",
+    "loading": "Loading…",
     "youtube": {
       "eyebrow": "Watch online",
       "title": "Sermons on YouTube",

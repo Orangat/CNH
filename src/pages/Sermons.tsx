@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useSermons } from '../data/useSermons';
-import { useContactInfo } from '../data/useContactInfo';
+import { useContactInfo, fallbackContact } from '../data/useContactInfo';
 import { sermonThumbnail } from '../lib/sermonThumbnail';
 import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
@@ -44,6 +44,8 @@ const YouTubeChannel: React.FC<{ url: string }> = ({ url }) => {
       >
         <img
           src={churchPhotos.sermonVideo.src()}
+          srcSet={churchPhotos.sermonVideo.srcSet}
+          sizes="(min-width: 768px) 50vw, 100vw"
           alt={churchPhotos.sermonVideo.alt}
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -139,7 +141,7 @@ const Sermons: React.FC = () => {
   const [seriesFilter, setSeriesFilter] = useState('');
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const dbItems: SermonItem[] = useMemo(
+  const items: SermonItem[] = useMemo(
     () =>
       sermons.map((s) => ({
         id: s.id,
@@ -155,7 +157,6 @@ const Sermons: React.FC = () => {
     [sermons, language],
   );
 
-  const items = dbItems;
 
   const uniqueSeries = useMemo(() => {
     const set = new Set(items.map((s) => s.series).filter(Boolean) as string[]);
@@ -194,16 +195,16 @@ const Sermons: React.FC = () => {
 
       <Section variant="cream" padding="lg">
         {loading ? (
-          <p className="text-center text-navy-700/60">Loading…</p>
+          <p className="text-center text-navy-700/60">{t('sermons.loading')}</p>
         ) : sermons.length === 0 ? (
-          <YouTubeChannel url={contact.youtube_url} />
+          <YouTubeChannel url={contact.youtube_url || fallbackContact.youtube_url} />
         ) : (
           <>
             {/* Filters */}
             <div className="mx-auto mb-12 max-w-xl flex flex-col sm:flex-row gap-3">
               <input
                 type="search"
-                placeholder="Search by title, speaker, series…"
+                placeholder={t('sermons.searchPlaceholder')}
                 value={filter}
                 onChange={(e) => {
                   setFilter(e.target.value);
@@ -222,7 +223,7 @@ const Sermons: React.FC = () => {
                     }}
                     className="w-full appearance-none border border-navy-900/15 bg-white py-4 pl-4 pr-11 text-sm text-navy-700 focus:border-tan-500 focus:outline-none focus:ring-1 focus:ring-tan-500"
                   >
-                    <option value="">All series</option>
+                    <option value="">{t('sermons.allSeries')}</option>
                     {uniqueSeries.map((s) => (
                       <option key={s} value={s}>
                         {s}
@@ -244,7 +245,7 @@ const Sermons: React.FC = () => {
             </div>
 
             {filtered.length === 0 ? (
-              <p className="text-center text-navy-700/60">{t('sermons.empty')}</p>
+              <p className="text-center text-navy-700/60">{t('sermons.noResults')}</p>
             ) : (
               <>
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -259,7 +260,7 @@ const Sermons: React.FC = () => {
                       onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
                       className="bg-navy-900 px-8 py-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-navy-800 transition-colors cursor-pointer"
                     >
-                      Load more
+                      {t('sermons.loadMore')}
                     </button>
                   </div>
                 )}
