@@ -39,6 +39,8 @@ const Home: React.FC = () => {
         title={t('home.hero.title')}
         description={t('home.hero.description')}
         height="full"
+        overlay="dark"
+        pattern={false}
       >
         <Button to={localized('/visit')} variant="primary" size="lg">
           {t('home.hero.ctaPrimary')} →
