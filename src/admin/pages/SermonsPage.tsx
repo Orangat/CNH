@@ -142,11 +142,11 @@ const SermonsPage: React.FC = () => {
        rows.length === 0 ? <div className="admin-empty">No sermons in this view.</div> : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {rows.map((r) => (
-            <div className="admin-card" key={r.id} style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+            <div className="admin-card sermon-card" key={r.id}>
               <img
                 src={sermonThumbnail(r)}
                 alt=""
-                style={{ width: 120, height: 68, objectFit: 'cover', borderRadius: 6, cursor: 'pointer', background: '#0f172a' }}
+                className="sermon-thumb"
                 onClick={() => setPreview(r)}
               />
               <div style={{ flex: 1, minWidth: 0 }}>
@@ -162,7 +162,7 @@ const SermonsPage: React.FC = () => {
                   {r.speaker || '—'} · {r.preached_at || '—'} · {r.is_published ? '✓ Published' : '✗ Hidden'}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
+              <div className="sermon-actions">
                 <button className="admin-btn secondary" onClick={() => togglePublish(r)}>
                   {r.is_published ? 'Hide' : 'Publish'}
                 </button>

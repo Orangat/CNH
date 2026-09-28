@@ -1,5 +1,5 @@
-import React, { useEffect, useState, ReactNode } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState, ReactNode } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
 const ICONS: Record<string, ReactNode> = {
@@ -35,6 +35,13 @@ const AdminLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const initials = email ? email.slice(0, 2).toUpperCase() : '·';
 
+  // On phones the nav is one horizontally scrolling row: keep the current page's link in view.
+  const navRef = useRef<HTMLElement>(null);
+  const { pathname } = useLocation();
+  useEffect(() => {
+    navRef.current?.querySelector('a.active')?.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }, [pathname]);
+
   return (
     <div className="admin-root">
       <div className="admin-shell">
@@ -43,7 +50,7 @@ const AdminLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
             <div className="k">Church of<br />New Hope</div>
             <div className="s">Admin</div>
           </div>
-          <nav className="nav">
+          <nav className="nav" ref={navRef}>
             {NAV.map((n) => (
               <NavLink key={n.to} to={n.to} className={({ isActive }) => (isActive ? 'active' : '')}>
                 {n.icon}
