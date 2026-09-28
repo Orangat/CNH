@@ -204,7 +204,7 @@
     "hero": {
       "eyebrow": "Let us pray for you",
       "script": "You are not alone",
-      "title": "Submit a Prayer Request",
+      "title": "Submit a\nPrayer Request",
       "description": "Fill out the form below to share a prayer request with our pastoral team. All submissions are private and shared only with CNH pastors\nunless otherwise requested"
     },
     "form": {
@@ -239,7 +239,7 @@
     "hero": {
       "eyebrow": "Faithful giving changes lives",
       "script": "Thank you",
-      "title": "Give To Church of New Hope",
+      "title": "Give To\nChurch of New Hope",
       "description": "Every gift helps support the life and mission\nof our church through Sunday services,\nevents, ministries, and missions efforts.\nThank you for your generosity!"
     },
     "subtitle": "Support the ministry of Church of New Hope through your generous giving. Choose any of the options below.",

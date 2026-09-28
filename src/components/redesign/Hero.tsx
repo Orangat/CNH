@@ -102,7 +102,7 @@ const Hero: React.FC<Props> = ({
             transition={{ duration: 0.7, delay: 0.2 }}
             className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] uppercase tracking-tight"
           >
-            {typeof title === 'string' ? <TextLines text={title} balance={false} /> : title}
+            {typeof title === 'string' ? <TextLines text={title} /> : title}
           </motion.h1>
           {description && (
             <motion.p
