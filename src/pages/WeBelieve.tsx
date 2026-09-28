@@ -66,7 +66,7 @@ const WeBelieve: React.FC = () => {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <p className="pb-8 pl-12 text-base md:text-lg leading-relaxed text-navy-700/85 max-w-3xl">
+                      <p className="pb-8 pl-12 text-left text-base md:text-lg leading-relaxed text-navy-700/85 max-w-3xl">
                         {t(`weBelieve.${key}.text`)}
                       </p>
                     </motion.div>

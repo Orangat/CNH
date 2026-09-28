@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import BrandPattern from './BrandPattern';
+import TextLines from './TextLines';
 
 interface Props {
   /** Background image URL (also used as the video poster when `video` is set) */
@@ -101,7 +102,7 @@ const Hero: React.FC<Props> = ({
             transition={{ duration: 0.7, delay: 0.2 }}
             className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] uppercase tracking-tight"
           >
-            {title}
+            {typeof title === 'string' ? <TextLines text={title} balance={false} /> : title}
           </motion.h1>
           {description && (
             <motion.p
@@ -111,7 +112,7 @@ const Hero: React.FC<Props> = ({
               className="mt-6 max-w-2xl text-base md:text-xl leading-relaxed text-white/85"
               style={{ marginInline: align === 'center' ? 'auto' : undefined }}
             >
-              {description}
+              {typeof description === 'string' ? <TextLines text={description} /> : description}
             </motion.p>
           )}
           {children && (

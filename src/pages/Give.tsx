@@ -5,6 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { stockPhotos } from '../data/stockImages';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
+import TextLines from '../components/redesign/TextLines';
 
 const ZELLE_PHONE = '(704) 453-9365';
 const ZELLE_NAME = 'CHURCH OF NEW HOPE Accounts';
@@ -55,7 +56,7 @@ const Give: React.FC = () => {
               {t('give.onlineGiving.title')}
             </h3>
             <p className="mt-4 text-sm text-white/80 leading-relaxed">
-              {t('give.onlineGiving.description')}
+              <TextLines text={t('give.onlineGiving.description')} />
             </p>
             <div className="mt-8 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-tan-500 group-hover:gap-3 transition-all">
               {t('give.onlineGiving.button')} →
@@ -80,7 +81,7 @@ const Give: React.FC = () => {
               {t('give.paypal.title')}
             </h3>
             <p className="mt-4 text-sm text-navy-700/80 leading-relaxed">
-              {t('give.paypal.description')}
+              <TextLines text={t('give.paypal.description')} />
             </p>
             <div className="mt-8 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-700 group-hover:gap-3 group-hover:text-tan-500 transition-all">
               {t('give.paypal.button')} →
@@ -102,7 +103,7 @@ const Give: React.FC = () => {
               {t('give.zelle.title')}
             </h3>
             <p className="mt-4 text-sm text-navy-700/80 leading-relaxed">
-              {t('give.zelle.description')}
+              <TextLines text={t('give.zelle.description')} />
             </p>
             <div className="mt-6 space-y-2 text-xs">
               <div className="flex items-center justify-between">

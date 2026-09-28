@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
           <div className="grid md:grid-cols-12">
             {/* Invitation */}
             <div className="px-8 py-10 text-center md:col-span-7 md:px-12 md:py-12 md:text-left">
-              <p className="font-script text-3xl leading-none text-tan-500 md:text-4xl">
+              <p className="font-script text-[26px] leading-none text-tan-500 md:text-4xl">
                 {t('footer.banner.eyebrow')}
               </p>
               <h2 className="mt-3 font-display text-3xl font-bold uppercase leading-tight md:text-4xl">
@@ -57,10 +57,13 @@ const Footer: React.FC = () => {
                 <div className="mt-8">
                   <Link
                     to={localized('/visit')}
-                    className="group inline-flex items-center gap-3 bg-navy-900 px-8 py-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-tan-500 hover:text-navy-900 transition-colors cursor-pointer"
+                    className="group inline-flex items-center gap-2 bg-navy-900 px-8 py-4 text-xs font-bold uppercase tracking-widest text-white hover:bg-tan-500 hover:text-navy-900 transition-colors cursor-pointer"
                   >
                     {t('nav.planVisit')}
-                    <span className="transition-transform group-hover:translate-x-1">→</span>
+                    {/* SVG, not "→": the text arrow comes from a fallback font on some phones and sits off-centre */}
+                    <svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3 transition-transform group-hover:translate-x-1">
+                      <path d="M2 8h11M9 4l4 4-4 4" />
+                    </svg>
                   </Link>
                 </div>
               )}

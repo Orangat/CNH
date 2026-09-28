@@ -131,7 +131,7 @@ const LeaderCard: React.FC<CardProps> = ({ leader, index, language, onPhotoClick
                   href={`mailto:${email}`}
                   className="inline-flex items-center gap-2 hover:text-tan-500 transition-colors break-all"
                 >
-                  <span className="text-tan-500 text-[11px]">✉</span>
+                  <i className="fas fa-at text-[11px] text-tan-500" aria-hidden="true" />
                   <span>{email}</span>
                 </a>
               </li>

@@ -45,64 +45,64 @@ function getSampleMinistries(language: 'en' | 'uk'): MinistryItem[] {
       id: 'sample-worship',
       name: uk ? 'Група прославлення' : 'Worship & Praise Team',
       description: uk
-        ? 'Музиканти й вокалісти, які ведуть громаду в поклонінні на щотижневих богослужіннях.'
-        : 'Musicians and vocalists who lead the congregation in worship every Sunday.',
+        ? 'Музиканти й вокалісти, які ведуть громаду в поклонінні на щотижневих богослужіннях'
+        : 'Musicians and vocalists who lead the congregation in worship every Sunday',
       image: churchPhotos.worshipTeam.src(800),
     },
     {
       id: 'sample-choir',
       name: uk ? 'Хор' : 'Choir',
       description: uk
-        ? 'Спільний спів, що наповнює служіння хвалою — приєднуйтесь незалежно від досвіду.'
-        : 'Voices joined together in praise — all are welcome, no experience needed.',
+        ? 'Спільний спів, що наповнює служіння хвалою — приєднуйтесь незалежно від досвіду'
+        : 'Voices joined together in praise – all are welcome, no experience needed',
       image: churchPhotos.choir.src(800),
     },
     {
       id: 'sample-children',
       name: uk ? "Дитяче служіння" : "Children's Ministry",
       description: uk
-        ? 'Безпечне й радісне місце, де діти пізнають Ісуса через ігри, історії та творчість.'
-        : 'A safe, joyful place where kids learn about Jesus through games, stories, and crafts.',
+        ? 'Безпечне й радісне місце, де діти пізнають Ісуса через ігри, історії та творчість'
+        : 'A safe, joyful place where kids learn about Jesus through games, stories, and crafts',
       image: churchPhotos.kids.src(800),
     },
     {
       id: 'sample-sunday-school',
       name: uk ? 'Недільна школа' : 'Sunday School',
       description: uk
-        ? 'Вивчення Біблії для всіх вікових груп, щоб зростати у вірі та пізнанні Слова.'
-        : 'Bible classes for every age to grow in faith and understanding of God’s Word.',
+        ? 'Вивчення Біблії для всіх вікових груп, щоб зростати у вірі та пізнанні Слова'
+        : 'Bible classes for every age to grow in faith and understanding of God’s Word',
       image: churchPhotos.sundaySchool.src(800),
     },
     {
       id: 'sample-youth',
       name: uk ? 'Молодіжне служіння' : 'Youth Ministry',
       description: uk
-        ? 'Спільнота для підлітків і молоді: спілкування, прославлення та зростання у Христі.'
-        : 'A community for teens and young adults to connect, worship, and grow in Christ.',
+        ? 'Спільнота для підлітків і молоді: спілкування, прославлення та зростання у Христі'
+        : 'A community for teens and young adults to connect, worship, and grow in Christ',
       image: churchPhotos.youth.src(800),
     },
     {
       id: 'sample-groups',
       name: uk ? 'Малі групи' : 'Small Groups',
       description: uk
-        ? 'Невеликі домашні групи для спільної молитви, вивчення Біблії та підтримки одне одного.'
-        : 'Home groups gathering for prayer, Bible study, and doing life together.',
+        ? 'Невеликі домашні групи для спільної молитви, вивчення Біблії та підтримки одне одного'
+        : 'Home groups gathering for prayer, Bible study, and doing life together',
       image: churchPhotos.homeGroup.src(800),
     },
     {
       id: 'sample-prayer',
       name: uk ? 'Молитовне служіння' : 'Prayer Ministry',
       description: uk
-        ? 'Команда, що молиться за потреби громади та підтримує кожного, хто потребує молитви.'
-        : 'A team devoted to praying over the needs of our church family and community.',
+        ? 'Команда, що молиться за потреби громади та підтримує кожного, хто потребує молитви'
+        : 'A team devoted to praying over the needs of our church family and community',
       image: churchPhotos.prayingTogether.src(800),
     },
     {
       id: 'sample-hospitality',
       name: uk ? 'Служіння гостинності' : 'Hospitality & Welcome',
       description: uk
-        ? 'Зустрічаємо гостей з усмішкою, допомагаємо кожному відчути себе вдома у New Hope.'
-        : 'Greeting guests with a smile and helping everyone feel at home at New Hope.',
+        ? 'Зустрічаємо гостей з усмішкою, допомагаємо кожному відчути себе вдома у New Hope'
+        : 'Greeting guests with a smile and helping everyone feel at home at New Hope',
       image: churchPhotos.hospitality.src(800),
     },
   ];
