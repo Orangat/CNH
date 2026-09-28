@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { stockPhotos } from '../data/stockImages';
+import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 
@@ -11,7 +11,7 @@ const Events: React.FC = () => {
   return (
     <div className="bg-cream">
       <Hero
-        image={stockPhotos.worship.src(2000)}
+        image={churchPhotos.summerPicnic.src()}
         eyebrow={t('events.hero.eyebrow')}
         scriptAccent={t('events.hero.script')}
         title={t('events.hero.title')}

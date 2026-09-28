@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { stockPhotos } from '../data/stockImages';
+import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 
@@ -24,7 +24,7 @@ const WeBelieve: React.FC = () => {
   return (
     <div className="bg-cream">
       <Hero
-        image={stockPhotos.openBible.src(2000)}
+        image={churchPhotos.openBible.src()}
         eyebrow={t('weBelieve.hero.eyebrow')}
         title={t('weBelieve.hero.title')}
         description={t('weBelieve.hero.description')}

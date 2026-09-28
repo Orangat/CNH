@@ -177,7 +177,12 @@
     "watchOn": "Watch on YouTube",
     "speakerLabel": "Speaker",
     "seriesLabel": "Series",
-    "empty": "Sermons coming soon."
+    "empty": "Sermons coming soon.",
+    "youtube": {
+      "eyebrow": "Watch online",
+      "title": "Sermons on YouTube",
+      "body": "Watch our Sunday services and sermons on the church's YouTube channel."
+    }
   },
   "ministries": {
     "hero": {
