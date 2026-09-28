@@ -8,16 +8,18 @@ interface Props {
   opacity?: number;
 }
 
-// Topographic contour lines taken from the brand book
-// ("Church of New Hope_Typography_Color Palette.pdf", Brand Pattern).
-const PATTERN_URL = '/images/brand-pattern.svg';
+// Set inline: CRA would try to bundle a root-relative url() written in CSS.
+const PATTERN_MASK = 'url(/images/brand-pattern.svg)';
 
 /**
- * Brand pattern layer. Renders absolutely-positioned — wrap in a `relative`
- * parent and let the pattern fill behind content.
+ * Brand pattern layer: the topographic contour lines from the brand book
+ * ("Church of New Hope_Typography_Color Palette.pdf", Brand Pattern), stored in
+ * public/images/brand-pattern.svg. Renders absolutely-positioned — wrap in a
+ * `relative overflow-hidden` parent and let the pattern fill behind content.
  *
- * The SVG is used as a CSS mask over a solid color, so `color` and `opacity`
- * stay adjustable while the artwork itself lives in a cached static file.
+ * The SVG is a CSS mask over a solid color, so `color` and `opacity` stay adjustable
+ * while the artwork is a cached static file. Mask size/position live in `.brand-pattern`
+ * (tailwind.css).
  */
 const BrandPattern: React.FC<Props> = ({
   className = '',
@@ -26,19 +28,8 @@ const BrandPattern: React.FC<Props> = ({
 }) => (
   <div
     aria-hidden="true"
-    className={`pointer-events-none absolute inset-0 ${className}`}
-    style={{
-      backgroundColor: color,
-      opacity,
-      WebkitMaskImage: `url(${PATTERN_URL})`,
-      maskImage: `url(${PATTERN_URL})`,
-      WebkitMaskSize: 'cover',
-      maskSize: 'cover',
-      WebkitMaskPosition: 'center',
-      maskPosition: 'center',
-      WebkitMaskRepeat: 'no-repeat',
-      maskRepeat: 'no-repeat',
-    }}
+    className={`brand-pattern pointer-events-none absolute inset-0 ${className}`}
+    style={{ backgroundColor: color, opacity, WebkitMaskImage: PATTERN_MASK, maskImage: PATTERN_MASK }}
   />
 );
 

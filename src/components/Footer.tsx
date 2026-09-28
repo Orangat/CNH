@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
       {/* ════════════════════════════════════════════ JOIN US — card bridging the page and the footer */}
       {/* A white card on its own cream band, overlapping the navy footer, so it never merges
           with a page's last section (cream or navy). */}
-      <section className="bg-cream px-6 pt-16 md:px-10 md:pt-20">
+      <section className="join-band bg-cream px-6 md:px-10">
         <div className="relative z-10 mx-auto -mb-24 max-w-6xl border-t-[3px] border-tan-500 bg-white text-navy-900 shadow-[0_32px_64px_-32px_rgba(10,42,70,0.5)] ring-1 ring-navy-900/5 md:-mb-20">
           <div className="grid md:grid-cols-12">
             {/* Invitation */}

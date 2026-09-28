@@ -22,8 +22,8 @@ const make = (file: string, alt: string): ChurchPhoto => ({
 });
 
 export const churchPhotos = {
-  // Visit hero — the church building on a spring Sunday
-  building: make('church-building', 'Church of New Hope building on a sunny spring day'),
+  // Visit hero — the church building from above (frame from the home-page drone video)
+  building: make('church-aerial', 'Aerial view of the Church of New Hope building and entrance'),
   // Leadership hero — pastors praying over the church
   pastorsPraying: make('pastors-praying', 'Pastors praying with hands extended over the church'),
   // Sermons hero — preaching from the stage
