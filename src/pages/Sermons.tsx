@@ -8,6 +8,7 @@ import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 import Button from '../components/redesign/Button';
+import TextLines from '../components/redesign/TextLines';
 
 const PAGE_SIZE = 12;
 
@@ -62,7 +63,7 @@ const YouTubeChannel: React.FC<{ url: string }> = ({ url }) => {
         <h2 className="mt-4 font-display text-3xl md:text-4xl font-bold uppercase leading-tight text-navy-900">
           {t('sermons.youtube.title')}
         </h2>
-        <p className="mt-6 text-lg leading-relaxed text-navy-700/85">{t('sermons.youtube.body')}</p>
+        <p className="mt-6 text-lg leading-relaxed text-navy-700/85"><TextLines text={t('sermons.youtube.body')} /></p>
         <div className="mt-8">
           <Button href={url} target="_blank" rel="noopener noreferrer" variant="secondary">
             {t('sermons.watchOn')} →

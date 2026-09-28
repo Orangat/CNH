@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
+import TextLines from '../components/redesign/TextLines';
 
 interface FormLink {
   key: string;
@@ -86,7 +87,7 @@ const FormCard: React.FC<{ form: FormLink; index: number; t: (k: string) => stri
       {t(`forms.items.${form.key}.title`)}
     </h3>
     <p className="mt-4 flex-1 text-sm leading-relaxed text-navy-700/85">
-      {t(`forms.items.${form.key}.desc`)}
+      <TextLines text={t(`forms.items.${form.key}.desc`)} />
     </p>
     <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-tan-500 group-hover:gap-3 transition-all">
       {t('forms.openForm')} →
@@ -129,7 +130,7 @@ const Forms: React.FC = () => {
         <div className="text-center max-w-2xl mx-auto">
           <i className="fas fa-circle-question text-tan-500 text-2xl" />
           <p className="mt-4 font-display text-xl md:text-2xl">{t('forms.help.title')}</p>
-          <p className="mt-3 text-sm text-white/70">{t('forms.help.body')}</p>
+          <p className="mt-3 text-sm text-white/70"><TextLines text={t('forms.help.body')} /></p>
         </div>
       </Section>
     </div>

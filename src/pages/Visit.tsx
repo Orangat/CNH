@@ -6,6 +6,7 @@ import { churchPhotos } from '../data/churchPhotos';
 import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 import Button from '../components/redesign/Button';
+import TextLines from '../components/redesign/TextLines';
 
 const sectionKeys = ['what', 'wear', 'kids', 'parking', 'language', 'questions'] as const;
 
@@ -44,7 +45,7 @@ const Visit: React.FC = () => {
                 {t(`visit.sections.${key}.title`)}
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-navy-700/85">
-                {t(`visit.sections.${key}.body`)}
+                <TextLines text={t(`visit.sections.${key}.body`)} />
               </p>
             </motion.div>
           ))}

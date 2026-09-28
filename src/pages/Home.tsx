@@ -11,6 +11,7 @@ import Hero from '../components/redesign/Hero';
 import Section from '../components/redesign/Section';
 import SectionHeading from '../components/redesign/SectionHeading';
 import Button from '../components/redesign/Button';
+import TextLines from '../components/redesign/TextLines';
 
 const Home: React.FC = () => {
   const { t, language } = useLanguage();
@@ -140,7 +141,7 @@ const Home: React.FC = () => {
                   {t(`home.expect.items.${item.key}.title`)}
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-navy-700/80 text-left">
-                  {t(`home.expect.items.${item.key}.body`)}
+                  <TextLines text={t(`home.expect.items.${item.key}.body`)} />
                 </p>
               </motion.div>
             );
@@ -307,7 +308,7 @@ const Home: React.FC = () => {
             <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold uppercase leading-tight text-navy-900">
               {t('home.groupsCta.title')}
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-navy-700/85">{t('home.groupsCta.body')}</p>
+            <p className="mt-6 text-lg leading-relaxed text-navy-700/85"><TextLines text={t('home.groupsCta.body')} /></p>
             <div className="mt-8">
               <Button href="https://churchofnewhope.churchcenter.com/groups" target="_blank" rel="noopener noreferrer">
                 {t('home.groupsCta.button')} →

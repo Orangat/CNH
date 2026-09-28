@@ -21,8 +21,8 @@
     "hero": {
       "eyebrow": "Welcome to Church of New Hope",
       "script": "There is hope",
-      "title": "Love God. Love People.",
-      "description": "We're a church dedicated to helping people know Jesus, grow in faith, and impact Charlotte with the Gospel.",
+      "title": "Love God\nLove People",
+      "description": "We're a church dedicated to helping people\nknow Jesus, grow in faith, and impact Charlotte\nwith the Gospel",
       "ctaPrimary": "Come to church",
       "ctaSecondary": "Watch a sermon"
     },
@@ -37,19 +37,19 @@
       "items": {
         "worship": {
           "title": "Christ-Centered Worship",
-          "body": "Lift your voice and proclaim the name of Jesus in communal worship."
+          "body": "Lift your voice and proclaim the name of Jesus\nin communal worship"
         },
         "teaching": {
           "title": "Bible-rooted teaching",
-          "body": "Hear practical messages rooted in Scripture in both English and Ukrainian."
+          "body": "Hear practical messages rooted in Scripture\nin both English and Ukrainian"
         },
         "kids": {
           "title": "Intentional Kid's Ministry",
-          "body": "Access safe age-appropriate Bible classes. Nursery also available."
+          "body": "Access safe age-appropriate Bible classes. Nursery also available"
         },
         "fellowship": {
           "title": "Real community",
-          "body": "Join us after service for coffee, conversation, and genuine fellowship."
+          "body": "Join us after service for coffee, conversation,\nand genuine fellowship"
         }
       }
     },
@@ -65,8 +65,8 @@
     },
     "mission": {
       "eyebrow": "Our mission",
-      "lineOne": "Love God.",
-      "lineTwo": "Love People.",
+      "lineOne": "Love God",
+      "lineTwo": "Love People",
       "scripture": "Matthew 22:37–39"
     },
     "leadershipPreview": {
@@ -77,7 +77,7 @@
     "groupsCta": {
       "eyebrow": "You belong here",
       "title": "Get connected",
-      "body": "We have over a dozen active Bible studies, prayer groups, and ministry groups meeting across Charlotte, Matthews, and Indian Trail in both English and Ukrainian.",
+      "body": "We have over a dozen active Bible studies, prayer groups, and ministry groups meeting across Charlotte, Matthews, and Indian Trail in both English and Ukrainian",
       "button": "Find a group"
     },
     "giveCta": {
@@ -129,7 +129,7 @@
     "hero": {
       "eyebrow": "Leadership",
       "title": "Our Team",
-      "description": "Meet the pastors, directors, and volunteers who serve our church family."
+      "description": "Meet the pastors, directors, and volunteers\nwho serve our church family"
     }
   },
   "visit": {
@@ -138,16 +138,16 @@
       "eyebrow": "We can't wait to see you",
       "script": "We saved you a seat",
       "title": "Worship With Us",
-      "description": "Here's everything you need to know before walking through our doors."
+      "description": "Here's everything you need to know before walking through our doors"
     },
     "sections": {
       "what": {
         "title": "What to expect",
-        "body": "Services last from 60-90 minutes and include worship, prayer, and a Bible-based message. Make sure to stop by for coffee and fellowship between services. Your cup is free as a first-time guest!"
+        "body": "Services last from 60-90 minutes and include worship, prayer, and a Bible-based message. Make sure to stop by for coffee and fellowship between services. Your cup is free\nas a first-time guest!"
       },
       "wear": {
         "title": "What to wear",
-        "body": "Wear whatever feels comfortable. You'll see jeans, dresses, suits, and everything in between. There's no dress code at New Hope. Come as you are, ready to worship!"
+        "body": "Wear whatever feels comfortable. You'll see jeans, dresses, suits, and everything in between. There's no dress code at New Hope.\nCome as you are, ready to worship!"
       },
       "kids": {
         "title": "For your kids",
@@ -155,7 +155,7 @@
       },
       "parking": {
         "title": "Parking",
-        "body": "There is plenty of parking in our main lot and the gravel lot directly behind the church building. A member of the parking team will guide you when you arrive."
+        "body": "There is plenty of parking in our main lot and the gravel lot directly behind the church building.\nA member of the parking team will guide you when you arrive."
       },
       "language": {
         "title": "Both languages",
@@ -173,7 +173,7 @@
       "eyebrow": "Watch and listen",
       "script": "The Word, alive",
       "title": "Sermons",
-      "description": "Catch up on past messages or share with a friend. New videos posted in English and Ukrainian every week."
+      "description": "Catch up on past messages or share with a friend. New videos posted in English and Ukrainian\nevery week"
     },
     "watchOn": "Watch on YouTube",
     "speakerLabel": "Speaker",
@@ -186,7 +186,7 @@
     "youtube": {
       "eyebrow": "Watch online",
       "title": "Sermons on YouTube",
-      "body": "Watch our Sunday services and sermons on the church's YouTube channel."
+      "body": "Watch our Sunday services and sermons on the church's\nYouTube channel"
     }
   },
   "ministries": {
@@ -194,7 +194,7 @@
       "eyebrow": "Find your fit",
       "script": "Find your place",
       "title": "Our Ministries",
-      "description": "Find community, grow in faith, and serve alongside others through the various ministries of our church, including men's and women's groups, prayer teams, and evangelism efforts."
+      "description": "Find community, grow in faith, and serve alongside others through the various ministries of our church, including men's and women's groups, prayer teams, and evangelism efforts"
     },
     "contact": "Contact",
     "learnMore": "Learn more",
@@ -204,8 +204,8 @@
     "hero": {
       "eyebrow": "Let us pray for you",
       "script": "You are not alone",
-      "title": "Submit a Prayer Request",
-      "description": "Fill out the form below to share a prayer request with our pastoral team. All submissions are private and shared only with CNH pastors unless otherwise requested."
+      "title": "Submit a\nPrayer Request",
+      "description": "Fill out the form below to share a prayer request with our pastoral team. All submissions are private and shared only with CNH pastors\nunless otherwise requested"
     },
     "form": {
       "name": "Your name (optional)",
@@ -230,7 +230,7 @@
       "eyebrow": "Mark your calendar",
       "script": "See you there",
       "title": "Upcoming events",
-      "description": "Join us for worship nights, community gatherings, outreach events and more."
+      "description": "Join us for worship nights, community gatherings, outreach events and more"
     },
     "subtitle": "Join us for our upcoming services, gatherings, and special events. Check our calendar to see what's happening at Church of New Hope."
   },
@@ -239,13 +239,13 @@
     "hero": {
       "eyebrow": "Faithful giving changes lives",
       "script": "Thank you",
-      "title": "Give To Church of New Hope",
-      "description": "Every gift helps support the life and mission of our church through Sunday services, events, ministries, and missions efforts. Thank you for your generosity!"
+      "title": "Give To\nChurch of New Hope",
+      "description": "Every gift helps support the life and mission\nof our church through Sunday services,\nevents, ministries, and missions efforts.\nThank you for your generosity!"
     },
     "subtitle": "Support the ministry of Church of New Hope through your generous giving. Choose any of the options below.",
     "zelle": {
       "title": "Zelle",
-      "description": "Send your gift directly to our Zelle account. Fast, secure, and no fees. Please add a note with your gift.",
+      "description": "Send your gift directly to our Zelle account.\nFast, secure, and no fees.\nPlease add a note with your gift.",
       "phone": "Phone:",
       "note": "Note:",
       "noteValue": "Tithe + Last Name",
@@ -259,7 +259,7 @@
     },
     "onlineGiving": {
       "title": "Online giving",
-      "description": "Use our secure online giving platform powered by Square. Accepts all major credit cards and bank transfers.",
+      "description": "Use our secure online giving platform powered by Square. Accepts all major credit cards\nand bank transfers.",
       "button": "Give online"
     },
     "thankYou": "Thank you for your generous support of our ministry!",
@@ -284,7 +284,7 @@
     "hero": {
       "eyebrow": "Get involved",
       "title": "Forms & Requests",
-      "description": "Everything you need in one place — connect with our church family, join a team, or submit a request to our staff."
+      "description": "Everything you need in one place – connect\nwith our church family, join a team, or\nsubmit a request to our staff"
     },
     "openForm": "Open form",
     "groups": {
@@ -300,11 +300,11 @@
     "items": {
       "connectCard": {
         "title": "Connect Card",
-        "desc": "New here? Fill out our Connect Card so we can get to know you, answer any questions, and help you get connected at New Hope."
+        "desc": "New here? Fill out our Connect Card so we can get to know you, answer any questions, and\nhelp you get connected at New Hope."
       },
       "serveTeam": {
         "title": "Serve Team",
-        "desc": "Interested in serving? Complete this form to learn about volunteer opportunities and join a ministry team that matches your gifts and interests."
+        "desc": "Interested in serving? Complete this form\nto learn about volunteer opportunities\nand join a ministry team that matches\nyour gifts and interests."
       },
       "membership": {
         "title": "Membership Application",
@@ -312,7 +312,7 @@
       },
       "building": {
         "title": "Church Building Request",
-        "desc": "Use this form to request the use of church facilities for meetings, events, classes, or special gatherings."
+        "desc": "Use this form to request the use of church facilities for meetings, events, classes,\nor special gatherings."
       },
       "operator": {
         "title": "Operator Request",
@@ -329,7 +329,7 @@
     },
     "help": {
       "title": "Not sure which form you need?",
-      "body": "Reach out to us any time at info@churchofnewhope.org and we'll point you in the right direction."
+      "body": "Reach out to us any time at info@churchofnewhope.org and we'll point you in the right direction"
     }
   }
 }
