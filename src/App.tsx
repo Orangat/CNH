@@ -16,6 +16,7 @@ import Ministries from './pages/Ministries';
 import MinistryDetail from './pages/MinistryDetail';
 import Prayer from './pages/Prayer';
 import Forms from './pages/Forms';
+import RouteSeo from './seo/RouteSeo';
 
 const AdminApp = lazy(() => import('./admin/AdminApp'));
 
@@ -77,6 +78,7 @@ function App() {
 	return (
 		<div className="App">
 			<ScrollToTop />
+			<RouteSeo />
 			{isOldV2Link ? (
 				<StripV2Prefix />
 			) : isAdmin ? (
