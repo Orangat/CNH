@@ -34,7 +34,7 @@ const Home: React.FC = () => {
     <div className="bg-cream">
       {/* ============================================================ HERO */}
       <Hero
-        image="/videopreview.png"
+        image="/videopreview.jpg"
         video={{ desktop: '/videos/bg_video_desctop.mp4', mobile: '/videos/bg_video.mp4' }}
         eyebrow={t('home.hero.eyebrow')}
         title={t('home.hero.title')}

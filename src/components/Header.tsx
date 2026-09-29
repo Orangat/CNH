@@ -139,7 +139,7 @@ const Header: React.FC = () => {
           >
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-navy-900/10 bg-cream px-6 py-4">
               <Link to={localized('')} onClick={() => setMobileOpen(false)}>
-                <img src="/logo.png" alt="Church of New Hope" className="h-14" />
+                <img src="/logo-dark.png" alt="Church of New Hope" className="h-14" />
               </Link>
               <button
                 type="button"
