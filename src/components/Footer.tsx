@@ -48,9 +48,10 @@ const Footer: React.FC = () => {
                 href={contact.map_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-start gap-2 text-sm text-navy-700 hover:text-tan-600 transition-colors"
+                className="mt-4 inline-block text-balance text-sm text-navy-700 hover:text-tan-600 transition-colors"
               >
-                <i className="fas fa-map-marker-alt mt-[3px] text-tan-500" />
+                {/* inline, not a flex item: when the address wraps, the pin stays next to its first word */}
+                <i className="fas fa-map-marker-alt mr-2 text-tan-500" aria-hidden="true" />
                 {contact.address}
               </a>
               {!isVisitPage && (
