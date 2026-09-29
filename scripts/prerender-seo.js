@@ -24,7 +24,8 @@ const church = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'Church',
+      // Church is a place in schema.org; Organization adds the logo, email and "publisher" role
+      '@type': ['Church', 'Organization'],
       '@id': `${seo.siteUrl}/#church`,
       name: seo.siteName.en,
       alternateName: seo.siteName.uk,
@@ -116,7 +117,11 @@ function fail(message) {
 
 const template = fs.readFileSync(path.join(BUILD, 'index.html'), 'utf8');
 if (!template.includes('</head>')) fail('build/index.html has no </head>');
+if (!/<html lang="[^"]*"/.test(template)) fail('build/index.html has no <html lang="…">');
 const bare = OWNED_TAGS.reduce((html, re) => html.replace(re, ''), template);
+// A tag written in a form the patterns miss would end up twice on every page.
+const leftover = bare.match(/<title|name="description"|(?:property|name)="(?:og|twitter):|rel="(?:canonical|alternate)"/);
+if (leftover) fail(`public/index.html has a "${leftover[0]}" tag this script can't replace`);
 
 const render = (lang, page, options) =>
   bare
@@ -132,9 +137,14 @@ for (const lang of LANGS) {
     rewrites.push(`${pagePath(lang, page).padEnd(20)} ${pageFile(lang, page).padEnd(28)} 200`);
   }
 }
+// A link without the language (/give) goes to the English page on the server, so its
+// preview is that page's and not the home page's.
+for (const page of pages.filter(Boolean)) {
+  rewrites.push(`${`/${page}`.padEnd(20)} ${pagePath('en', page).padEnd(28)} 301`);
+}
 fs.writeFileSync(path.join(BUILD, 'index.html'), render('en', '', { fallback: true }));
 
-// Serve each page's copy in place of the SPA fallback (rules must come before it).
+// Serve each page's copy in place of the SPA fallback (the rules must come before it).
 const redirectsFile = path.join(BUILD, '_redirects');
 const redirects = fs.readFileSync(redirectsFile, 'utf8');
 if (!redirects.includes(REWRITES_MARKER)) fail(`no "${REWRITES_MARKER}" line in public/_redirects`);
@@ -149,4 +159,4 @@ const sitemap = [
 ].join('\n');
 fs.writeFileSync(path.join(BUILD, 'sitemap.xml'), sitemap);
 
-console.log(`prerender-seo: ${rewrites.length} pages, sitemap.xml`);
+console.log(`prerender-seo: ${LANGS.length * pages.length} pages, sitemap.xml`);

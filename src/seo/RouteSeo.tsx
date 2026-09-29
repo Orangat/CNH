@@ -41,6 +41,7 @@ function setLinks(rel: 'canonical' | 'alternate', links: { href: string; hreflan
 
 function applySeo(pathname: string) {
   if (/^\/admin(\/|$)/.test(pathname)) {
+    document.documentElement.lang = 'en';
     document.title = `Admin | ${seo.siteName.en}`;
     setMeta('robots', 'noindex');
     setLinks('canonical', []);
