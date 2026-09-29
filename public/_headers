@@ -1,0 +1,5 @@
+# Keep the admin area out of search results
+/admin
+  X-Robots-Tag: noindex
+/admin/*
+  X-Robots-Tag: noindex

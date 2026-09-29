@@ -1,0 +1,117 @@
+{
+  "siteUrl": "https://churchofnewhope.org",
+  "siteName": { "en": "Church of New Hope", "uk": "Церква Нової Надії" },
+  "locale": { "en": "en_US", "uk": "uk_UA" },
+  "pages": {
+    "": {
+      "image": "/og/home.jpg",
+      "en": {
+        "title": "Church of New Hope | Ukrainian & English Church in Charlotte",
+        "description": "A bilingual Christian church in Matthews, NC, near Charlotte. Sunday services at 10:00 AM in English and 12:00 PM in Ukrainian. Everyone is welcome."
+      },
+      "uk": {
+        "title": "Церква Нової Надії | Українська церква в Шарлотті",
+        "description": "Двомовна християнська церква в Меттьюзі поблизу Шарлотта. Недільні служіння о 10:00 англійською та о 12:00 українською. Ласкаво просимо!"
+      }
+    },
+    "visit": {
+      "image": "/og/visit.jpg",
+      "en": {
+        "title": "Plan Your Visit | Church of New Hope",
+        "description": "Join us this Sunday at 13601 Idlewild Rd, Matthews, NC: 10:00 AM in English, 12:00 PM in Ukrainian. What to expect, parking, kids and more."
+      },
+      "uk": {
+        "title": "Відвідайте нас | Церква Нової Надії",
+        "description": "Чекаємо вас у неділю за адресою 13601 Idlewild Rd, Matthews, NC: о 10:00 англійською та о 12:00 українською. Що на вас чекає, паркування, діти."
+      }
+    },
+    "we-believe": {
+      "image": "/og/we-believe.jpg",
+      "en": {
+        "title": "What We Believe | Church of New Hope",
+        "description": "Our statement of faith: God, the Bible, salvation, the Church and Christian living. The beliefs at the heart of Church of New Hope."
+      },
+      "uk": {
+        "title": "У що ми віримо | Церква Нової Надії",
+        "description": "Наша декларація віри: Бог, Біблія, спасіння, Церква та християнське життя. Основа віри Церкви Нової Надії."
+      }
+    },
+    "leadership": {
+      "image": "/og/leadership.jpg",
+      "en": {
+        "title": "Our Team | Church of New Hope",
+        "description": "Meet the pastors, directors and volunteers who lead and serve the Church of New Hope family in Matthews, NC."
+      },
+      "uk": {
+        "title": "Наша команда | Церква Нової Надії",
+        "description": "Познайомтеся з пасторами, директорами та волонтерами, які служать родині Церкви Нової Надії."
+      }
+    },
+    "sermons": {
+      "image": "/og/sermons.jpg",
+      "en": {
+        "title": "Sermons | Church of New Hope",
+        "description": "Watch Sunday services and sermons from Church of New Hope in English and Ukrainian on our YouTube channel."
+      },
+      "uk": {
+        "title": "Проповіді | Церква Нової Надії",
+        "description": "Дивіться недільні служіння та проповіді Церкви Нової Надії українською та англійською на нашому YouTube-каналі."
+      }
+    },
+    "ministries": {
+      "image": "/og/ministries.jpg",
+      "en": {
+        "title": "Ministries | Church of New Hope",
+        "description": "Worship, choir, children, youth, small groups, prayer and more. Find your place to grow and serve at Church of New Hope."
+      },
+      "uk": {
+        "title": "Служіння | Церква Нової Надії",
+        "description": "Прославлення, хор, діти, молодь, малі групи, молитва та інше. Знайдіть своє місце в Церкві Нової Надії."
+      }
+    },
+    "prayer": {
+      "image": "/og/prayer.jpg",
+      "en": {
+        "title": "Prayer Request | Church of New Hope",
+        "description": "Share a prayer request with our pastoral team. Requests are private and shared only with CNH pastors unless you choose otherwise."
+      },
+      "uk": {
+        "title": "Молитовні прохання | Церква Нової Надії",
+        "description": "Поділіться молитовним проханням з нашими пасторами. Прохання конфіденційні: їх бачать лише пастори, якщо ви не оберете інакше."
+      }
+    },
+    "give": {
+      "image": "/og/give.jpg",
+      "en": {
+        "title": "Give | Church of New Hope",
+        "description": "Support the life and mission of Church of New Hope. Give securely online, with PayPal or with Zelle."
+      },
+      "uk": {
+        "title": "Пожертви | Церква Нової Надії",
+        "description": "Підтримайте життя та служіння Церкви Нової Надії. Пожертвуйте онлайн, через PayPal або Zelle."
+      }
+    },
+    "events": {
+      "image": "/og/events.jpg",
+      "en": {
+        "title": "Events | Church of New Hope",
+        "description": "Worship nights, community gatherings, outreach events and more at Church of New Hope in Matthews, NC."
+      },
+      "uk": {
+        "title": "Події | Церква Нової Надії",
+        "description": "Вечори прославлення, спільні зустрічі, євангелізаційні події та інше в Церкві Нової Надії."
+      }
+    },
+    "forms": {
+      "image": "/og/forms.jpg",
+      "en": {
+        "title": "Forms & Requests | Church of New Hope",
+        "description": "Connect card, serve team, membership application, building and operator requests: every Church of New Hope form in one place."
+      },
+      "uk": {
+        "title": "Форми та запити | Церква Нової Надії",
+        "description": "Картка знайомства, команда служіння, членство, запити на приміщення та технічну підтримку: усі форми Церкви Нової Надії."
+      }
+    }
+  }
+}

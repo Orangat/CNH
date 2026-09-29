@@ -3,8 +3,15 @@ https://cnhcharlotte.com/*    https://churchofnewhope.org/:splat    301!
 https://www.cnhcharlotte.com/*    https://churchofnewhope.org/:splat    301!
 
 # The redesign used to live under /v2 — keep old links and bookmarks working
-/v2      /           301
+/v2      /en         301
 /v2/*    /:splat     301
+
+# The home page is the English one ("!": the rule must win over the index.html file at /)
+/    /en    301!
+
+# Each page's copy of index.html with its own title, description and link-preview tags
+# (the line below is replaced by scripts/prerender-seo.js during the build)
+# @prerendered-pages
 
 # SPA fallback for churchofnewhope.org (site at /:lang/..., admin at /admin)
 /*    /index.html   200
