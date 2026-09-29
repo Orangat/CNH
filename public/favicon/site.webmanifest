@@ -1,6 +1,12 @@
 {
   "name": "Church of New Hope",
-  "short_name": "CNH",
+  "short_name": "New Hope",
+  "description": "Ukrainian & English church in Charlotte, NC",
+  "start_url": "/en",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#0A2A46",
+  "background_color": "#FAFAFA",
   "icons": [
     {
       "src": "/favicon/android-chrome-192x192.png",
@@ -11,9 +17,12 @@
       "src": "/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/favicon/maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  ]
 }
